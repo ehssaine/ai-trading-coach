@@ -1,20 +1,22 @@
 -- CreateTable
 CREATE TABLE "User" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "WeeklyAnalysis" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "weekStart" DATETIME NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
+    "weekStart" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "marketStructure" TEXT NOT NULL,
     "keyLevel" TEXT NOT NULL,
     "trendDescription" TEXT NOT NULL,
@@ -24,16 +26,17 @@ CREATE TABLE "WeeklyAnalysis" (
     "weeklyResistance" TEXT NOT NULL,
     "weeklyPOI" TEXT NOT NULL,
     "notes" TEXT,
-    CONSTRAINT "WeeklyAnalysis_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+
+    CONSTRAINT "WeeklyAnalysis_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "DailyPlan" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "date" DATETIME NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "weeklyAnalysisId" TEXT,
     "dailyBias" TEXT NOT NULL,
     "dailyMarketStructure" TEXT NOT NULL,
@@ -45,39 +48,39 @@ CREATE TABLE "DailyPlan" (
     "dailyResistance" TEXT NOT NULL,
     "dailyPOI" TEXT NOT NULL,
     "maxTrades" INTEGER NOT NULL DEFAULT 3,
-    "riskPerTrade" REAL NOT NULL DEFAULT 1.0,
+    "riskPerTrade" DOUBLE PRECISION NOT NULL DEFAULT 1.0,
     "tradePlan" TEXT NOT NULL,
     "reviewNotes" TEXT,
     "followedPlan" BOOLEAN,
     "emotionalState" TEXT,
     "lessonLearned" TEXT,
-    CONSTRAINT "DailyPlan_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT "DailyPlan_weeklyAnalysisId_fkey" FOREIGN KEY ("weeklyAnalysisId") REFERENCES "WeeklyAnalysis" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+
+    CONSTRAINT "DailyPlan_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Trade" (
-    "id" TEXT NOT NULL PRIMARY KEY,
+    "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
-    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" DATETIME NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "dailyPlanId" TEXT,
     "pair" TEXT NOT NULL,
     "direction" TEXT NOT NULL,
-    "entryPrice" REAL NOT NULL,
-    "stopLoss" REAL NOT NULL,
-    "takeProfit" REAL NOT NULL,
-    "positionSize" REAL NOT NULL,
-    "riskRewardRatio" REAL NOT NULL,
-    "entryTime" DATETIME NOT NULL,
-    "exitTime" DATETIME,
-    "exitPrice" REAL,
+    "entryPrice" DOUBLE PRECISION NOT NULL,
+    "stopLoss" DOUBLE PRECISION NOT NULL,
+    "takeProfit" DOUBLE PRECISION NOT NULL,
+    "positionSize" DOUBLE PRECISION NOT NULL,
+    "riskRewardRatio" DOUBLE PRECISION NOT NULL,
+    "entryTime" TIMESTAMP(3) NOT NULL,
+    "exitTime" TIMESTAMP(3),
+    "exitPrice" DOUBLE PRECISION,
     "status" TEXT NOT NULL DEFAULT 'OPEN',
     "alignedWithHTF" BOOLEAN NOT NULL,
     "alignedWithDaily" BOOLEAN NOT NULL,
     "setupType" TEXT NOT NULL,
-    "pnl" REAL,
-    "pnlPercentage" REAL,
+    "pnl" DOUBLE PRECISION,
+    "pnlPercentage" DOUBLE PRECISION,
     "entryReason" TEXT NOT NULL,
     "exitReason" TEXT,
     "screenshot" TEXT,
@@ -85,9 +88,24 @@ CREATE TABLE "Trade" (
     "lessonsLearned" TEXT,
     "emotionalState" TEXT,
     "rating" INTEGER,
-    CONSTRAINT "Trade_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT "Trade_dailyPlanId_fkey" FOREIGN KEY ("dailyPlanId") REFERENCES "DailyPlan" ("id") ON DELETE SET NULL ON UPDATE CASCADE
+
+    CONSTRAINT "Trade_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
+
+-- AddForeignKey
+ALTER TABLE "WeeklyAnalysis" ADD CONSTRAINT "WeeklyAnalysis_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DailyPlan" ADD CONSTRAINT "DailyPlan_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "DailyPlan" ADD CONSTRAINT "DailyPlan_weeklyAnalysisId_fkey" FOREIGN KEY ("weeklyAnalysisId") REFERENCES "WeeklyAnalysis"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Trade" ADD CONSTRAINT "Trade_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Trade" ADD CONSTRAINT "Trade_dailyPlanId_fkey" FOREIGN KEY ("dailyPlanId") REFERENCES "DailyPlan"("id") ON DELETE SET NULL ON UPDATE CASCADE;
