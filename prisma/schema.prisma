@@ -1,0 +1,133 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  weeklyAnalyses WeeklyAnalysis[]
+  dailyPlans     DailyPlan[]
+  trades         Trade[]
+}
+
+model WeeklyAnalysis {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weekStart DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Market Structure on Weekly
+  marketStructure String // BULLISH, BEARISH, RANGING
+  keyLevel        String // description of key S/R levels
+  trendDescription String
+
+  // HTF Bias
+  htfBias         String // LONG, SHORT, NEUTRAL
+  biasReasoning   String // why this bias
+
+  // Key zones
+  weeklySupport   String
+  weeklyResistance String
+  weeklyPOI       String // points of interest
+
+  // Notes
+  notes           String?
+
+  dailyPlans DailyPlan[]
+}
+
+model DailyPlan {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date      DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  weeklyAnalysisId String?
+  weeklyAnalysis   WeeklyAnalysis? @relation(fields: [weeklyAnalysisId], references: [id])
+
+  // Daily Structure
+  dailyBias          String // LONG, SHORT, NEUTRAL
+  dailyMarketStructure String // BULLISH, BEARISH, RANGING
+  alignedWithHTF     Boolean // is this aligned with weekly bias?
+
+  // Session planning
+  asianSessionNotes  String?
+  londonSessionNotes String?
+  nySessionNotes     String?
+
+  // Key daily levels
+  dailySupport       String
+  dailyResistance    String
+  dailyPOI           String
+
+  // Trade plan
+  maxTrades          Int     @default(3)
+  riskPerTrade       Float   @default(1.0) // percentage
+  tradePlan          String  // detailed plan for the day
+
+  // End of day review
+  reviewNotes        String?
+  followedPlan       Boolean?
+  emotionalState     String? // CALM, ANXIOUS, FOMO, REVENGE, CONFIDENT
+  lessonLearned      String?
+
+  trades Trade[]
+}
+
+model Trade {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dailyPlanId String?
+  dailyPlan   DailyPlan? @relation(fields: [dailyPlanId], references: [id])
+
+  // Trade details
+  pair            String // e.g. EUR/USD, BTC/USD
+  direction       String // LONG, SHORT
+  entryPrice      Float
+  stopLoss        Float
+  takeProfit      Float
+  positionSize    Float
+  riskRewardRatio Float
+
+  // Execution
+  entryTime       DateTime
+  exitTime        DateTime?
+  exitPrice       Float?
+  status          String   @default("OPEN") // OPEN, CLOSED_WIN, CLOSED_LOSS, CLOSED_BE, CANCELLED
+
+  // Alignment check
+  alignedWithHTF     Boolean
+  alignedWithDaily   Boolean
+  setupType          String  // e.g. "BOS_RETEST", "FVG_FILL", "ORDER_BLOCK", "LIQUIDITY_SWEEP"
+
+  // Result
+  pnl             Float?
+  pnlPercentage   Float?
+
+  // Journal
+  entryReason     String
+  exitReason      String?
+  screenshot      String? // URL or path
+  mistakes        String?
+  lessonsLearned  String?
+  emotionalState  String? // CALM, ANXIOUS, FOMO, REVENGE, CONFIDENT
+  rating          Int?    // 1-5 self-rating of trade quality
+}
