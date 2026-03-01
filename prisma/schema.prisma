@@ -15,9 +15,15 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  weeklyAnalyses WeeklyAnalysis[]
-  dailyPlans     DailyPlan[]
-  trades         Trade[]
+  weeklyAnalyses  WeeklyAnalysis[]
+  dailyPlans      DailyPlan[]
+  trades          Trade[]
+  nlpSessions     NlpSession[]
+  habits          Habit[]
+  habitLogs       HabitLog[]
+  badges          UserBadge[]
+  coachMessages   CoachMessage[]
+  gamification    GamificationProfile?
 }
 
 model WeeklyAnalysis {
@@ -130,4 +136,83 @@ model Trade {
   lessonsLearned  String?
   emotionalState  String? // CALM, ANXIOUS, FOMO, REVENGE, CONFIDENT
   rating          Int?    // 1-5 self-rating of trade quality
+}
+
+// ── NLP & Coaching Models ──────────────────────────────────────────
+
+model NlpSession {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  technique   String  // ANCHORING, REFRAMING, SWISH, VISUALIZATION, MODELING, MIRRORING, INCANTATIONS, DIALOGUE
+  duration    Int     // minutes spent
+  notes       String?
+  rating      Int?    // 1-5 effectiveness rating
+  triggerError String? // which trading error triggered this session
+}
+
+model Habit {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  name        String
+  description String?
+  category    String  // PRE_TRADE, POST_TRADE, NLP, MINDSET, RISK_MANAGEMENT
+  frequency   String  @default("DAILY") // DAILY, WEEKLY
+  isActive    Boolean @default(true)
+
+  logs HabitLog[]
+}
+
+model HabitLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  habitId   String
+  habit     Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  date      DateTime
+  completed Boolean  @default(true)
+  notes     String?
+
+  @@unique([habitId, date])
+}
+
+model UserBadge {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  earnedAt  DateTime @default(now())
+
+  badgeType   String // e.g. STREAK_7, STREAK_30, NLP_MASTER, DISCIPLINE_KING, etc.
+  badgeName   String
+  description String
+}
+
+model CoachMessage {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+
+  role    String // USER, COACH
+  content String
+  context String? // optional trading context that informed the response
+}
+
+model GamificationProfile {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  updatedAt DateTime @updatedAt
+
+  totalPoints     Int @default(0)
+  currentStreak   Int @default(0)
+  longestStreak   Int @default(0)
+  level           Int @default(1)
+  nlpSessionsTotal Int @default(0)
+  habitsCompleted Int @default(0)
 }

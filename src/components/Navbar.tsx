@@ -9,6 +9,10 @@ const navLinks = [
   { href: "/weekly-analysis", label: "Weekly Analysis" },
   { href: "/daily-plans", label: "Daily Plans" },
   { href: "/journal", label: "Trade Journal" },
+  { href: "/nlp", label: "NLP Training" },
+  { href: "/habits", label: "Habits" },
+  { href: "/coach", label: "AI Coach" },
+  { href: "/analytics", label: "Analytics" },
 ];
 
 export default function Navbar() {

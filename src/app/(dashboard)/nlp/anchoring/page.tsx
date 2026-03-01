@@ -1,0 +1,324 @@
+"use client";
+
+import { useState, useEffect, useRef, useCallback } from "react";
+import Link from "next/link";
+
+const STATES = ["CALM", "CONFIDENT", "FOCUSED", "PATIENT"] as const;
+
+export default function AnchoringPage() {
+  const [selectedState, setSelectedState] = useState<string>("CALM");
+  const [anchor, setAnchor] = useState("");
+  const [peakMoment, setPeakMoment] = useState("");
+  const [timerActive, setTimerActive] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(60);
+  const [rating, setRating] = useState(0);
+  const [hoverRating, setHoverRating] = useState(0);
+  const [saving, setSaving] = useState(false);
+  const [showToast, setShowToast] = useState(false);
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
+
+  const stopTimer = useCallback(() => {
+    setTimerActive(false);
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+
+  const startTimer = useCallback(() => {
+    setTimeLeft(60);
+    setTimerActive(true);
+  }, []);
+
+  useEffect(() => {
+    if (timerActive && timeLeft > 0) {
+      intervalRef.current = setInterval(() => {
+        setTimeLeft((prev) => {
+          if (prev <= 1) {
+            stopTimer();
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+    }
+    return () => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [timerActive, timeLeft, stopTimer]);
+
+  const handleSave = async () => {
+    setSaving(true);
+    try {
+      await fetch("/api/nlp-sessions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          technique: "anchoring",
+          duration: 60 - timeLeft,
+          notes: JSON.stringify({
+            selectedState,
+            anchor,
+            peakMoment,
+          }),
+          rating,
+          triggerError: "Loss Aversion, Emotional Decision-Making, FOMO",
+        }),
+      });
+      setShowToast(true);
+      setTimeout(() => setShowToast(false), 3000);
+    } catch (err) {
+      console.error("Failed to save session:", err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const timerPercent = ((60 - timeLeft) / 60) * 100;
+
+  return (
+    <div className="space-y-8">
+      {/* Toast */}
+      {showToast && (
+        <div className="fixed top-6 right-6 z-50 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in">
+          <div className="flex items-center gap-2">
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            </svg>
+            Session saved successfully!
+          </div>
+        </div>
+      )}
+
+      {/* Header */}
+      <div className="flex items-center gap-4">
+        <Link
+          href="/nlp"
+          className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
+        >
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+          Back to NLP
+        </Link>
+      </div>
+
+      {/* Title */}
+      <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
+        <div className="flex items-center gap-3 mb-4">
+          <div className="p-2 bg-amber-500/10 rounded-lg">
+            <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 2a3 3 0 00-3 3c0 1.66 1.34 3 3 3s3-1.34 3-3a3 3 0 00-3-3zm0 8v10m0 0l-4-2m4 2l4-2M5 12a7 7 0 0114 0" />
+            </svg>
+          </div>
+          <div>
+            <h1 className="text-3xl font-bold text-white">Anchoring</h1>
+            <p className="text-amber-400 text-sm font-medium">NLP Technique</p>
+          </div>
+        </div>
+      </div>
+
+      {/* What is Anchoring */}
+      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-white mb-3">What is Anchoring?</h2>
+        <p className="text-gray-400 leading-relaxed">
+          Anchoring is a powerful NLP technique that links a specific physical gesture or stimulus
+          to a desired emotional state. By repeatedly pairing a physical action (like pressing
+          your thumb and forefinger together) with a peak emotional state, you create a neural
+          shortcut that can instantly shift your mood and mindset. In trading, this allows you
+          to access states of calm, confidence, and focus on demand -- especially during high-pressure
+          market situations.
+        </p>
+      </div>
+
+      {/* Trading Application */}
+      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-white mb-3">Trading Application</h2>
+        <p className="text-gray-400 leading-relaxed">
+          Use anchoring to access calm, confident states during market stress. When you feel
+          the urge to revenge trade, panic sell, or chase a FOMO entry, fire your anchor to
+          instantly reset your emotional state and return to disciplined decision-making.
+        </p>
+      </div>
+
+      {/* Step-by-Step Interactive Guide */}
+      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-8">
+        <h2 className="text-xl font-bold text-white mb-2">Interactive Anchoring Exercise</h2>
+
+        {/* Step 1: Choose Your State */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">1</span>
+            <h3 className="text-white font-bold">Choose Your State</h3>
+          </div>
+          <p className="text-gray-400 text-sm ml-9">Select the emotional state you want to anchor.</p>
+          <div className="ml-9">
+            <select
+              value={selectedState}
+              onChange={(e) => setSelectedState(e.target.value)}
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+            >
+              {STATES.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Step 2: Create Your Anchor */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">2</span>
+            <h3 className="text-white font-bold">Create Your Anchor</h3>
+          </div>
+          <p className="text-gray-400 text-sm ml-9">Describe the physical gesture you will use as your trigger.</p>
+          <div className="ml-9">
+            <input
+              type="text"
+              value={anchor}
+              onChange={(e) => setAnchor(e.target.value)}
+              placeholder="e.g., Press thumb and forefinger together on left hand"
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500"
+            />
+          </div>
+        </div>
+
+        {/* Step 3: Build the Association */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">3</span>
+            <h3 className="text-white font-bold">Build the Association</h3>
+          </div>
+          <p className="text-gray-400 text-sm ml-9">Describe a peak trading moment where you felt your chosen state intensely.</p>
+          <div className="ml-9">
+            <textarea
+              value={peakMoment}
+              onChange={(e) => setPeakMoment(e.target.value)}
+              rows={4}
+              placeholder="e.g., I remember the trade on EUR/USD where I waited patiently for the perfect setup, entered with full confidence, and let it run to my target without hesitation..."
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500 resize-none"
+            />
+          </div>
+        </div>
+
+        {/* Step 4: Practice Timer */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">4</span>
+            <h3 className="text-white font-bold">Practice Timer</h3>
+          </div>
+          <p className="text-gray-400 text-sm ml-9">
+            Close your eyes, vividly recall your peak moment, perform your anchor gesture, and hold it for 60 seconds.
+          </p>
+          <div className="ml-9 space-y-4">
+            <div className="flex items-center gap-4">
+              <button
+                onClick={timerActive ? stopTimer : startTimer}
+                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                  timerActive
+                    ? "bg-red-600 hover:bg-red-700 text-white"
+                    : "bg-amber-600 hover:bg-amber-700 text-white"
+                }`}
+              >
+                {timerActive ? "Stop" : timeLeft < 60 && timeLeft > 0 ? "Resume" : "Start 60s Practice"}
+              </button>
+              <div className="text-3xl font-mono font-bold text-white">
+                {String(Math.floor(timeLeft / 60)).padStart(1, "0")}:{String(timeLeft % 60).padStart(2, "0")}
+              </div>
+            </div>
+            {/* Progress bar */}
+            <div className="w-full bg-gray-800 rounded-full h-3">
+              <div
+                className="bg-amber-500 h-3 rounded-full transition-all duration-1000"
+                style={{ width: `${timerPercent}%` }}
+              />
+            </div>
+            {timeLeft === 0 && (
+              <p className="text-emerald-400 font-medium">Practice complete! Rate your experience below.</p>
+            )}
+          </div>
+        </div>
+
+        {/* Step 5: Rate Effectiveness */}
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">5</span>
+            <h3 className="text-white font-bold">Rate Effectiveness</h3>
+          </div>
+          <p className="text-gray-400 text-sm ml-9">How effectively did you access your desired state?</p>
+          <div className="ml-9 flex items-center gap-1">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <button
+                key={star}
+                onClick={() => setRating(star)}
+                onMouseEnter={() => setHoverRating(star)}
+                onMouseLeave={() => setHoverRating(0)}
+                className="p-1 transition-transform hover:scale-110"
+              >
+                <svg
+                  className={`w-8 h-8 ${
+                    star <= (hoverRating || rating) ? "text-amber-400" : "text-gray-600"
+                  } transition-colors`}
+                  fill={star <= (hoverRating || rating) ? "currentColor" : "none"}
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
+                  />
+                </svg>
+              </button>
+            ))}
+            {rating > 0 && (
+              <span className="ml-2 text-gray-400 text-sm">{rating}/5</span>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Targeted Errors */}
+      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
+        <h2 className="text-xl font-bold text-white mb-4">Targeted Trading Errors</h2>
+        <div className="flex flex-wrap gap-3">
+          {["Loss Aversion", "Emotional Decision-Making", "FOMO"].map((error) => (
+            <span
+              key={error}
+              className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-sm font-medium"
+            >
+              {error}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      {/* Save Button */}
+      <div className="flex justify-end">
+        <button
+          onClick={handleSave}
+          disabled={saving}
+          className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-8 py-3 rounded-lg transition-colors flex items-center gap-2"
+        >
+          {saving ? (
+            <>
+              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              </svg>
+              Saving...
+            </>
+          ) : (
+            <>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Save Session
+            </>
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
