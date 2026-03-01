@@ -80,9 +80,9 @@ export default function AnchoringPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-lg animate-fade-in">
+        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             Session saved successfully!
@@ -94,9 +94,9 @@ export default function AnchoringPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
+          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
           Back to NLP
@@ -104,24 +104,24 @@ export default function AnchoringPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
+      <div className="bg-[#1c1c1e] rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-amber-500/10 rounded-lg">
-            <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="p-2 bg-white/5 rounded-xl">
+            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 2a3 3 0 00-3 3c0 1.66 1.34 3 3 3s3-1.34 3-3a3 3 0 00-3-3zm0 8v10m0 0l-4-2m4 2l4-2M5 12a7 7 0 0114 0" />
             </svg>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Anchoring</h1>
-            <p className="text-amber-400 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-semibold text-white tracking-tight">Anchoring</h1>
+            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What is Anchoring */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-3">What is Anchoring?</h2>
-        <p className="text-gray-400 leading-relaxed">
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-3">What is Anchoring?</h2>
+        <p className="text-zinc-400 leading-relaxed">
           Anchoring is a powerful NLP technique that links a specific physical gesture or stimulus
           to a desired emotional state. By repeatedly pairing a physical action (like pressing
           your thumb and forefinger together) with a peak emotional state, you create a neural
@@ -132,9 +132,9 @@ export default function AnchoringPage() {
       </div>
 
       {/* Trading Application */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-3">Trading Application</h2>
-        <p className="text-gray-400 leading-relaxed">
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-3">Trading Application</h2>
+        <p className="text-zinc-400 leading-relaxed">
           Use anchoring to access calm, confident states during market stress. When you feel
           the urge to revenge trade, panic sell, or chase a FOMO entry, fire your anchor to
           instantly reset your emotional state and return to disciplined decision-making.
@@ -142,21 +142,21 @@ export default function AnchoringPage() {
       </div>
 
       {/* Step-by-Step Interactive Guide */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-8">
-        <h2 className="text-xl font-bold text-white mb-2">Interactive Anchoring Exercise</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-8">
+        <h2 className="text-lg font-medium text-white mb-2">Interactive Anchoring Exercise</h2>
 
         {/* Step 1: Choose Your State */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">1</span>
-            <h3 className="text-white font-bold">Choose Your State</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">1</span>
+            <h3 className="text-white font-medium">Choose Your State</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">Select the emotional state you want to anchor.</p>
+          <p className="text-zinc-400 text-sm ml-9">Select the emotional state you want to anchor.</p>
           <div className="ml-9">
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
             >
               {STATES.map((s) => (
                 <option key={s} value={s}>{s}</option>
@@ -168,17 +168,17 @@ export default function AnchoringPage() {
         {/* Step 2: Create Your Anchor */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">2</span>
-            <h3 className="text-white font-bold">Create Your Anchor</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">2</span>
+            <h3 className="text-white font-medium">Create Your Anchor</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">Describe the physical gesture you will use as your trigger.</p>
+          <p className="text-zinc-400 text-sm ml-9">Describe the physical gesture you will use as your trigger.</p>
           <div className="ml-9">
             <input
               type="text"
               value={anchor}
               onChange={(e) => setAnchor(e.target.value)}
               placeholder="e.g., Press thumb and forefinger together on left hand"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500"
+              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600"
             />
           </div>
         </div>
@@ -186,17 +186,17 @@ export default function AnchoringPage() {
         {/* Step 3: Build the Association */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">3</span>
-            <h3 className="text-white font-bold">Build the Association</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">3</span>
+            <h3 className="text-white font-medium">Build the Association</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">Describe a peak trading moment where you felt your chosen state intensely.</p>
+          <p className="text-zinc-400 text-sm ml-9">Describe a peak trading moment where you felt your chosen state intensely.</p>
           <div className="ml-9">
             <textarea
               value={peakMoment}
               onChange={(e) => setPeakMoment(e.target.value)}
               rows={4}
               placeholder="e.g., I remember the trade on EUR/USD where I waited patiently for the perfect setup, entered with full confidence, and let it run to my target without hesitation..."
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500 resize-none"
+              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
             />
           </div>
         </div>
@@ -204,20 +204,20 @@ export default function AnchoringPage() {
         {/* Step 4: Practice Timer */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">4</span>
-            <h3 className="text-white font-bold">Practice Timer</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">4</span>
+            <h3 className="text-white font-medium">Practice Timer</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">
+          <p className="text-zinc-400 text-sm ml-9">
             Close your eyes, vividly recall your peak moment, perform your anchor gesture, and hold it for 60 seconds.
           </p>
           <div className="ml-9 space-y-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={timerActive ? stopTimer : startTimer}
-                className={`px-6 py-3 rounded-lg font-medium transition-colors ${
+                className={`px-6 py-2 rounded-full text-[13px] font-medium transition-colors ${
                   timerActive
-                    ? "bg-red-600 hover:bg-red-700 text-white"
-                    : "bg-amber-600 hover:bg-amber-700 text-white"
+                    ? "bg-[#ff453a] hover:bg-[#ff453a]/90 text-white"
+                    : "bg-white text-black hover:bg-white/90"
                 }`}
               >
                 {timerActive ? "Stop" : timeLeft < 60 && timeLeft > 0 ? "Resume" : "Start 60s Practice"}
@@ -227,14 +227,14 @@ export default function AnchoringPage() {
               </div>
             </div>
             {/* Progress bar */}
-            <div className="w-full bg-gray-800 rounded-full h-3">
+            <div className="w-full bg-white/10 rounded-full h-3">
               <div
-                className="bg-amber-500 h-3 rounded-full transition-all duration-1000"
+                className="bg-white h-3 rounded-full transition-all duration-1000"
                 style={{ width: `${timerPercent}%` }}
               />
             </div>
             {timeLeft === 0 && (
-              <p className="text-emerald-400 font-medium">Practice complete! Rate your experience below.</p>
+              <p className="text-[#30d158] font-medium">Practice complete! Rate your experience below.</p>
             )}
           </div>
         </div>
@@ -242,10 +242,10 @@ export default function AnchoringPage() {
         {/* Step 5: Rate Effectiveness */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">5</span>
-            <h3 className="text-white font-bold">Rate Effectiveness</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">5</span>
+            <h3 className="text-white font-medium">Rate Effectiveness</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">How effectively did you access your desired state?</p>
+          <p className="text-zinc-400 text-sm ml-9">How effectively did you access your desired state?</p>
           <div className="ml-9 flex items-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -257,12 +257,12 @@ export default function AnchoringPage() {
               >
                 <svg
                   className={`w-8 h-8 ${
-                    star <= (hoverRating || rating) ? "text-amber-400" : "text-gray-600"
+                    star <= (hoverRating || rating) ? "text-white" : "text-zinc-700"
                   } transition-colors`}
                   fill={star <= (hoverRating || rating) ? "currentColor" : "none"}
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                 >
                   <path
                     strokeLinecap="round"
@@ -273,20 +273,20 @@ export default function AnchoringPage() {
               </button>
             ))}
             {rating > 0 && (
-              <span className="ml-2 text-gray-400 text-sm">{rating}/5</span>
+              <span className="ml-2 text-zinc-400 text-sm">{rating}/5</span>
             )}
           </div>
         </div>
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Targeted Trading Errors</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Loss Aversion", "Emotional Decision-Making", "FOMO"].map((error) => (
             <span
               key={error}
-              className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-sm font-medium"
+              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
             >
               {error}
             </span>
@@ -299,7 +299,7 @@ export default function AnchoringPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-8 py-3 rounded-lg transition-colors flex items-center gap-2"
+          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
         >
           {saving ? (
             <>
@@ -311,7 +311,7 @@ export default function AnchoringPage() {
             </>
           ) : (
             <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               Save Session

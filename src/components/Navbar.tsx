@@ -6,12 +6,12 @@ import { useState } from "react";
 
 const navLinks = [
   { href: "/", label: "Dashboard" },
-  { href: "/weekly-analysis", label: "Weekly Analysis" },
-  { href: "/daily-plans", label: "Daily Plans" },
-  { href: "/journal", label: "Trade Journal" },
-  { href: "/nlp", label: "NLP Training" },
+  { href: "/weekly-analysis", label: "Analysis" },
+  { href: "/daily-plans", label: "Plans" },
+  { href: "/journal", label: "Journal" },
+  { href: "/nlp", label: "NLP" },
   { href: "/habits", label: "Habits" },
-  { href: "/coach", label: "AI Coach" },
+  { href: "/coach", label: "Coach" },
   { href: "/analytics", label: "Analytics" },
 ];
 
@@ -26,22 +26,22 @@ export default function Navbar() {
   }
 
   return (
-    <nav className="bg-gray-900 border-b border-gray-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <nav className="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/[0.06]">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex items-center justify-between h-12">
           <div className="flex items-center gap-8">
-            <Link href="/" className="text-xl font-bold text-white">
-              Trading<span className="text-blue-500">Coach</span>
+            <Link href="/" className="text-[15px] font-semibold text-white tracking-tight">
+              TradingCoach
             </Link>
-            <div className="hidden md:flex items-center gap-1">
+            <div className="hidden md:flex items-center gap-0.5">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-3 py-1.5 rounded-lg text-[13px] transition-colors ${
                     pathname === link.href
-                      ? "bg-gray-800 text-white"
-                      : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                      ? "text-white bg-white/10"
+                      : "text-zinc-400 hover:text-white"
                   }`}
                 >
                   {link.label}
@@ -52,37 +52,37 @@ export default function Navbar() {
           <div className="hidden md:block">
             <button
               onClick={handleLogout}
-              className="text-gray-400 hover:text-white text-sm font-medium transition-colors"
+              className="text-zinc-500 hover:text-white text-[13px] transition-colors"
             >
-              Logout
+              Sign Out
             </button>
           </div>
           <button
-            className="md:hidden text-gray-400 hover:text-white"
+            className="md:hidden text-zinc-400 hover:text-white"
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               {mobileOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M6 18L18 6M6 6l12 12" />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 6h16M4 12h16M4 18h16" />
               )}
             </svg>
           </button>
         </div>
       </div>
       {mobileOpen && (
-        <div className="md:hidden border-t border-gray-800">
-          <div className="px-2 pt-2 pb-3 space-y-1">
+        <div className="md:hidden border-t border-white/[0.06] bg-black/95 backdrop-blur-xl">
+          <div className="px-4 py-3 space-y-0.5">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className={`block px-3 py-2 rounded-md text-sm font-medium ${
+                className={`block px-3 py-2 rounded-lg text-[13px] ${
                   pathname === link.href
-                    ? "bg-gray-800 text-white"
-                    : "text-gray-400 hover:bg-gray-800 hover:text-white"
+                    ? "text-white bg-white/10"
+                    : "text-zinc-400 hover:text-white"
                 }`}
               >
                 {link.label}
@@ -90,9 +90,9 @@ export default function Navbar() {
             ))}
             <button
               onClick={handleLogout}
-              className="block w-full text-left px-3 py-2 rounded-md text-sm font-medium text-gray-400 hover:bg-gray-800 hover:text-white"
+              className="block w-full text-left px-3 py-2 rounded-lg text-[13px] text-zinc-500 hover:text-white"
             >
-              Logout
+              Sign Out
             </button>
           </div>
         </div>

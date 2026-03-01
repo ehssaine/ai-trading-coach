@@ -151,15 +151,15 @@ export default function CoachPage() {
       <div className="flex flex-col lg:flex-row gap-6" style={{ height: "calc(100vh - 12rem)" }}>
         {/* ── Coach Info Sidebar ──────────────────────────────────────────── */}
         <div className="lg:w-72 flex-shrink-0">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-5">
+          <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-5">
             {/* Avatar */}
             <div className="flex flex-col items-center text-center">
-              <div className="w-16 h-16 rounded-full bg-amber-500/20 border-2 border-amber-500 flex items-center justify-center shadow-lg shadow-amber-500/20 mb-3">
-                <span className="text-amber-400 text-xl font-bold">TC</span>
+              <div className="w-16 h-16 rounded-full bg-white/10 border border-white/[0.1] flex items-center justify-center mb-3">
+                <span className="text-white text-xl font-bold">TC</span>
               </div>
-              <h2 className="text-lg font-bold text-white">Your Trading Coach</h2>
-              <p className="text-gray-400 text-xs mt-1">20 Years Experience | Gold &amp; Silver Specialist</p>
-              <p className="text-gray-500 text-xs mt-2 leading-relaxed">
+              <h2 className="text-lg font-medium text-white">Your Trading Coach</h2>
+              <p className="text-zinc-400 text-xs mt-1">20 Years Experience | Gold &amp; Silver Specialist</p>
+              <p className="text-zinc-500 text-xs mt-2 leading-relaxed">
                 Specializing in ICT/SMC concepts, NLP integration, and trading psychology
               </p>
             </div>
@@ -171,7 +171,7 @@ export default function CoachPage() {
                   key={action.label}
                   onClick={() => sendMessage(action.text)}
                   disabled={isTyping}
-                  className="w-full bg-gray-800 hover:bg-gray-700 disabled:opacity-50 text-white text-sm px-4 py-2.5 rounded-lg transition-colors text-left"
+                  className="w-full bg-white/5 hover:bg-white/10 disabled:opacity-50 text-white text-sm px-4 py-2.5 rounded-xl transition-colors text-left"
                 >
                   {action.label}
                 </button>
@@ -181,7 +181,7 @@ export default function CoachPage() {
         </div>
 
         {/* ── Chat Area ──────────────────────────────────────────────────── */}
-        <div className="flex-1 flex flex-col bg-gray-950 border border-gray-800 rounded-xl overflow-hidden min-h-0">
+        <div className="flex-1 flex flex-col bg-black border border-white/[0.06] rounded-2xl overflow-hidden min-h-0">
           {/* Messages container */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((msg) => (
@@ -193,13 +193,13 @@ export default function CoachPage() {
                   <div
                     className={`px-4 py-3 whitespace-pre-wrap text-sm leading-relaxed ${
                       msg.role === "coach"
-                        ? "bg-gray-800 text-gray-100 rounded-2xl rounded-tl-sm"
-                        : "bg-amber-600 text-white rounded-2xl rounded-tr-sm"
+                        ? "bg-[#1c1c1e] text-zinc-100 rounded-2xl rounded-tl-md"
+                        : "bg-[#0a84ff] text-white rounded-2xl rounded-tr-md"
                     }`}
                   >
                     {msg.content}
                   </div>
-                  <p className={`text-gray-500 text-xs mt-1 ${msg.role === "user" ? "text-right" : "text-left"}`}>
+                  <p className={`text-zinc-500 text-xs mt-1 ${msg.role === "user" ? "text-right" : "text-left"}`}>
                     {formatTime(msg.timestamp)}
                   </p>
                 </div>
@@ -209,11 +209,11 @@ export default function CoachPage() {
             {/* Typing indicator */}
             {isTyping && (
               <div className="flex justify-start">
-                <div className="bg-gray-800 rounded-2xl rounded-tl-sm px-4 py-3">
+                <div className="bg-[#1c1c1e] rounded-2xl rounded-tl-md px-4 py-3">
                   <div className="flex items-center gap-1.5">
-                    <div className="bounce-dot w-2 h-2 rounded-full bg-gray-400" />
-                    <div className="bounce-dot w-2 h-2 rounded-full bg-gray-400" />
-                    <div className="bounce-dot w-2 h-2 rounded-full bg-gray-400" />
+                    <div className="bounce-dot w-2 h-2 rounded-full bg-zinc-500" />
+                    <div className="bounce-dot w-2 h-2 rounded-full bg-zinc-500" />
+                    <div className="bounce-dot w-2 h-2 rounded-full bg-zinc-500" />
                   </div>
                 </div>
               </div>
@@ -229,7 +229,7 @@ export default function CoachPage() {
                 key={pill}
                 onClick={() => setInput(pill)}
                 disabled={isTyping}
-                className="bg-gray-800 hover:bg-gray-700 disabled:opacity-50 text-gray-300 text-xs px-3 py-1.5 rounded-full border border-gray-700 transition-colors"
+                className="bg-white/5 hover:bg-white/10 disabled:opacity-50 text-zinc-400 text-xs px-3 py-1.5 rounded-full border border-white/[0.06] transition-colors"
               >
                 {pill}
               </button>
@@ -237,7 +237,7 @@ export default function CoachPage() {
           </div>
 
           {/* ── Input area ───────────────────────────────────────────────── */}
-          <div className="border-t border-gray-800 p-4">
+          <div className="border-t border-white/[0.06] p-4">
             <div className="flex items-end gap-3">
               <textarea
                 ref={textareaRef}
@@ -246,15 +246,15 @@ export default function CoachPage() {
                 onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 rows={1}
-                className="flex-1 bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white placeholder-gray-500 text-sm focus:outline-none focus:border-amber-500 transition-colors resize-none"
+                className="flex-1 bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 text-sm focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors resize-none"
                 style={{ maxHeight: "96px" }}
               />
               <button
                 onClick={() => sendMessage()}
                 disabled={!input.trim() || isTyping}
-                className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed text-white p-3 rounded-xl transition-colors flex-shrink-0"
+                className="bg-white text-black hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed p-3 rounded-xl transition-colors flex-shrink-0"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
                 </svg>
               </button>

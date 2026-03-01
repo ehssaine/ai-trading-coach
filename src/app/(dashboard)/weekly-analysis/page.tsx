@@ -31,30 +31,30 @@ export default function WeeklyAnalysisListPage() {
   }, []);
 
   if (loading) {
-    return <div className="text-gray-400 text-center py-12">Loading...</div>;
+    return <div className="text-zinc-400 text-center py-12">Loading...</div>;
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Weekly Analysis</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="text-2xl font-semibold text-white tracking-tight">Weekly Analysis</h1>
+          <p className="text-zinc-400 text-sm mt-1">
             Define your HTF bias every week before trading
           </p>
         </div>
         <Link
           href="/weekly-analysis/new"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+          className="bg-white hover:bg-white/90 text-black px-5 py-2 rounded-full text-[13px] font-medium transition-colors"
         >
           + New Analysis
         </Link>
       </div>
 
       {analyses.length === 0 && (
-        <div className="text-center py-16 bg-gray-900 border border-gray-800 rounded-xl">
-          <p className="text-gray-500 text-lg">No weekly analyses yet</p>
-          <p className="text-gray-600 text-sm mt-1">
+        <div className="text-center py-16 bg-[#1c1c1e] rounded-2xl">
+          <p className="text-zinc-400 text-lg">No weekly analyses yet</p>
+          <p className="text-zinc-500 text-sm mt-1">
             Start your week right by analyzing the higher timeframe
           </p>
         </div>
@@ -65,7 +65,7 @@ export default function WeeklyAnalysisListPage() {
           <Link
             key={a.id}
             href={`/weekly-analysis/${a.id}`}
-            className="bg-gray-900 border border-gray-800 hover:border-gray-700 rounded-xl p-6 transition-colors block"
+            className="bg-[#1c1c1e] rounded-2xl p-6 hover:bg-white/[0.06] transition-colors block"
           >
             <div className="flex items-start justify-between">
               <div className="space-y-2">
@@ -88,8 +88,8 @@ export default function WeeklyAnalysisListPage() {
                     {a.marketStructure}
                   </span>
                 </div>
-                <p className="text-gray-400 text-sm">{a.biasReasoning}</p>
-                <div className="flex items-center gap-4 text-xs text-gray-500">
+                <p className="text-zinc-400 text-sm">{a.biasReasoning}</p>
+                <div className="flex items-center gap-4 text-xs text-zinc-500">
                   <span>Support: {a.weeklySupport}</span>
                   <span>Resistance: {a.weeklyResistance}</span>
                   <span>{a._count.dailyPlans} daily plans</span>

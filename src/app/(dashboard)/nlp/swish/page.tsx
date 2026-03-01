@@ -72,9 +72,9 @@ export default function SwishPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             Session saved successfully!
@@ -86,9 +86,9 @@ export default function SwishPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
+          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
           Back to NLP
@@ -96,24 +96,24 @@ export default function SwishPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
+      <div className="bg-[#1c1c1e] rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-amber-500/10 rounded-lg">
-            <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="p-2 bg-white/5 rounded-xl">
+            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
             </svg>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Swish Pattern</h1>
-            <p className="text-amber-400 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-semibold text-white tracking-tight">Swish Pattern</h1>
+            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What is the Swish Pattern */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-3">What is the Swish Pattern?</h2>
-        <p className="text-gray-400 leading-relaxed">
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-3">What is the Swish Pattern?</h2>
+        <p className="text-zinc-400 leading-relaxed">
           The Swish Pattern is an NLP technique designed to break unwanted habits by replacing
           a negative mental image with a positive one. You visualize the unwanted behavior as
           a large, vivid picture, then rapidly &quot;swish&quot; it away while simultaneously
@@ -125,21 +125,21 @@ export default function SwishPage() {
       </div>
 
       {/* Interactive Swish Exercise */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-8">
-        <h2 className="text-xl font-bold text-white mb-2">Interactive Swish Exercise</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-8">
+        <h2 className="text-lg font-medium text-white mb-2">Interactive Swish Exercise</h2>
 
         {/* Step 1: Picture the Unwanted Behavior */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">1</span>
-            <h3 className="text-white font-bold">Picture the Unwanted Behavior</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">1</span>
+            <h3 className="text-white font-medium">Picture the Unwanted Behavior</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">Select the destructive trading behavior you want to eliminate.</p>
+          <p className="text-zinc-400 text-sm ml-9">Select the destructive trading behavior you want to eliminate.</p>
           <div className="ml-9">
             <select
               value={selectedError}
               onChange={(e) => setSelectedError(e.target.value)}
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
             >
               {TRADING_ERRORS.map((err) => (
                 <option key={err} value={err}>{err}</option>
@@ -151,17 +151,17 @@ export default function SwishPage() {
         {/* Step 2: Picture Your Ideal Response */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">2</span>
-            <h3 className="text-white font-bold">Picture Your Ideal Response</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">2</span>
+            <h3 className="text-white font-medium">Picture Your Ideal Response</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">Describe what your disciplined, ideal response looks like.</p>
+          <p className="text-zinc-400 text-sm ml-9">Describe what your disciplined, ideal response looks like.</p>
           <div className="ml-9">
             <input
               type="text"
               value={idealResponse}
               onChange={(e) => setIdealResponse(e.target.value)}
               placeholder="e.g., I calmly close the chart and wait for my next A+ setup"
-              className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500"
+              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600"
             />
           </div>
         </div>
@@ -169,16 +169,16 @@ export default function SwishPage() {
         {/* Step 3: Swish! */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">3</span>
-            <h3 className="text-white font-bold">Swish!</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">3</span>
+            <h3 className="text-white font-medium">Swish!</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">
+          <p className="text-zinc-400 text-sm ml-9">
             Click the button to perform the swish. Watch the negative image shrink and the positive one expand.
           </p>
 
           {/* Animation Area */}
           <div className="ml-9">
-            <div className="relative bg-gray-800/50 border border-gray-700 rounded-xl p-8 min-h-[200px] flex items-center justify-center overflow-hidden">
+            <div className="relative bg-white/[0.04] rounded-2xl p-8 min-h-[200px] flex items-center justify-center overflow-hidden">
               {/* Negative Behavior */}
               <div
                 className="absolute inset-0 flex items-center justify-center transition-all duration-700 ease-in-out"
@@ -188,13 +188,13 @@ export default function SwishPage() {
                 }}
               >
                 <div className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-red-500/20 border-2 border-red-500/40 flex items-center justify-center">
-                    <svg className="w-10 h-10 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-[#ff453a]/20 border-2 border-[#ff453a]/40 flex items-center justify-center">
+                    <svg className="w-10 h-10 text-[#ff453a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                     </svg>
                   </div>
-                  <p className="text-red-400 font-bold text-lg">{selectedError}</p>
-                  <p className="text-gray-500 text-sm mt-1">Unwanted behavior</p>
+                  <p className="text-[#ff453a] font-semibold text-lg">{selectedError}</p>
+                  <p className="text-zinc-500 text-sm mt-1">Unwanted behavior</p>
                 </div>
               </div>
 
@@ -207,21 +207,21 @@ export default function SwishPage() {
                 }}
               >
                 <div className="text-center">
-                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-emerald-500/20 border-2 border-emerald-500/40 flex items-center justify-center">
-                    <svg className="w-10 h-10 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <div className="w-20 h-20 mx-auto mb-3 rounded-full bg-[#30d158]/20 border-2 border-[#30d158]/40 flex items-center justify-center">
+                    <svg className="w-10 h-10 text-[#30d158]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
-                  <p className="text-emerald-400 font-bold text-lg">
+                  <p className="text-[#30d158] font-semibold text-lg">
                     {idealResponse || "Disciplined Response"}
                   </p>
-                  <p className="text-gray-500 text-sm mt-1">Your ideal behavior</p>
+                  <p className="text-zinc-500 text-sm mt-1">Your ideal behavior</p>
                 </div>
               </div>
 
               {/* Swish flash effect */}
               {animating && (
-                <div className="absolute inset-0 bg-amber-500/20 animate-pulse" />
+                <div className="absolute inset-0 bg-white/10 animate-pulse" />
               )}
             </div>
 
@@ -229,9 +229,9 @@ export default function SwishPage() {
               <button
                 onClick={handleSwish}
                 disabled={animating}
-                className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 text-white font-bold px-8 py-3 rounded-lg transition-all hover:scale-105 flex items-center gap-2"
+                className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 transition-colors flex items-center gap-2"
               >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
                 SWISH!
@@ -239,7 +239,7 @@ export default function SwishPage() {
               {swishComplete && (
                 <button
                   onClick={resetSwish}
-                  className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-3 rounded-lg text-sm transition-colors"
+                  className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/15 transition-colors"
                 >
                   Reset
                 </button>
@@ -251,32 +251,32 @@ export default function SwishPage() {
         {/* Step 4: Repeat & Anchor */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">4</span>
-            <h3 className="text-white font-bold">Repeat &amp; Anchor</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">4</span>
+            <h3 className="text-white font-medium">Repeat &amp; Anchor</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">
+          <p className="text-zinc-400 text-sm ml-9">
             Repeat the swish at least 5 times for maximum effectiveness. The more repetitions, the stronger the new neural pathway.
           </p>
           <div className="ml-9 flex items-center gap-4">
-            <div className="bg-gray-800/50 border border-gray-700 rounded-lg px-6 py-4">
-              <p className="text-gray-500 text-xs uppercase tracking-wider mb-1">Repetitions</p>
-              <p className="text-3xl font-bold text-amber-400">{repetitions}</p>
+            <div className="bg-white/[0.04] rounded-xl px-6 py-4">
+              <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Repetitions</p>
+              <p className="text-3xl font-semibold text-white">{repetitions}</p>
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-gray-500">Progress</span>
-                <span className="text-amber-400">{Math.min(repetitions, 5)}/5 minimum</span>
+                <span className="text-zinc-500">Progress</span>
+                <span className="text-white">{Math.min(repetitions, 5)}/5 minimum</span>
               </div>
-              <div className="w-full bg-gray-800 rounded-full h-2">
+              <div className="w-full bg-white/10 rounded-full h-2">
                 <div
                   className={`h-2 rounded-full transition-all duration-500 ${
-                    repetitions >= 5 ? "bg-emerald-500" : "bg-amber-500"
+                    repetitions >= 5 ? "bg-[#30d158]" : "bg-white"
                   }`}
                   style={{ width: `${Math.min((repetitions / 5) * 100, 100)}%` }}
                 />
               </div>
               {repetitions >= 5 && (
-                <p className="text-emerald-400 text-xs mt-1">Minimum reached! Keep going for stronger results.</p>
+                <p className="text-[#30d158] text-xs mt-1">Minimum reached! Keep going for stronger results.</p>
               )}
             </div>
           </div>
@@ -285,10 +285,10 @@ export default function SwishPage() {
         {/* Step 5: Rate Effectiveness */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-amber-500 text-white text-sm font-bold">5</span>
-            <h3 className="text-white font-bold">Rate Effectiveness</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">5</span>
+            <h3 className="text-white font-medium">Rate Effectiveness</h3>
           </div>
-          <p className="text-gray-400 text-sm ml-9">How strong was the pattern interruption?</p>
+          <p className="text-zinc-400 text-sm ml-9">How strong was the pattern interruption?</p>
           <div className="ml-9 flex items-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -300,12 +300,12 @@ export default function SwishPage() {
               >
                 <svg
                   className={`w-8 h-8 ${
-                    star <= (hoverRating || rating) ? "text-amber-400" : "text-gray-600"
+                    star <= (hoverRating || rating) ? "text-white" : "text-zinc-700"
                   } transition-colors`}
                   fill={star <= (hoverRating || rating) ? "currentColor" : "none"}
                   viewBox="0 0 24 24"
                   stroke="currentColor"
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                 >
                   <path
                     strokeLinecap="round"
@@ -316,20 +316,20 @@ export default function SwishPage() {
               </button>
             ))}
             {rating > 0 && (
-              <span className="ml-2 text-gray-400 text-sm">{rating}/5</span>
+              <span className="ml-2 text-zinc-400 text-sm">{rating}/5</span>
             )}
           </div>
         </div>
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Targeted Trading Errors</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Overtrading", "Revenge Trading", "Impulsive Exits"].map((error) => (
             <span
               key={error}
-              className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-sm font-medium"
+              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
             >
               {error}
             </span>
@@ -342,7 +342,7 @@ export default function SwishPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-8 py-3 rounded-lg transition-colors flex items-center gap-2"
+          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
         >
           {saving ? (
             <>
@@ -354,7 +354,7 @@ export default function SwishPage() {
             </>
           ) : (
             <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               Save Session

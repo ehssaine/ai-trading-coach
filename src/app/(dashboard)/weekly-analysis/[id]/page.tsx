@@ -47,14 +47,14 @@ export default function WeeklyAnalysisDetailPage() {
     router.push("/weekly-analysis");
   }
 
-  if (loading) return <div className="text-gray-400 text-center py-12">Loading...</div>;
-  if (!analysis) return <div className="text-red-400 text-center py-12">Not found</div>;
+  if (loading) return <div className="text-zinc-400 text-center py-12">Loading...</div>;
+  if (!analysis) return <div className="text-[#ff453a] text-center py-12">Not found</div>;
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">
+          <h1 className="text-2xl font-semibold text-white tracking-tight">
             Week of {formatDate(analysis.weekStart)}
           </h1>
           <div className="flex items-center gap-3 mt-2">
@@ -68,55 +68,55 @@ export default function WeeklyAnalysisDetailPage() {
         </div>
         <button
           onClick={handleDelete}
-          className="text-red-400 hover:text-red-300 text-sm"
+          className="text-[#ff453a] hover:text-[#ff453a]/80 text-[13px]"
         >
           Delete
         </button>
       </div>
 
       <div className="grid gap-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+        <div className="bg-[#1c1c1e] rounded-2xl p-6">
+          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">
             Trend Description
           </h3>
-          <p className="text-gray-300">{analysis.trendDescription}</p>
+          <p className="text-zinc-300">{analysis.trendDescription}</p>
         </div>
 
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+        <div className="bg-[#1c1c1e] rounded-2xl p-6">
+          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">
             Bias Reasoning
           </h3>
-          <p className="text-gray-300">{analysis.biasReasoning}</p>
+          <p className="text-zinc-300">{analysis.biasReasoning}</p>
         </div>
 
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+        <div className="bg-[#1c1c1e] rounded-2xl p-6">
+          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">
             Key Levels
           </h3>
-          <p className="text-gray-300">{analysis.keyLevel}</p>
+          <p className="text-zinc-300">{analysis.keyLevel}</p>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">Support</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Support</p>
             <p className="text-white font-medium mt-1">{analysis.weeklySupport}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">Resistance</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Resistance</p>
             <p className="text-white font-medium mt-1">{analysis.weeklyResistance}</p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">POI</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">POI</p>
             <p className="text-white font-medium mt-1">{analysis.weeklyPOI}</p>
           </div>
         </div>
 
         {analysis.notes && (
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">
+          <div className="bg-[#1c1c1e] rounded-2xl p-6">
+            <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">
               Notes
             </h3>
-            <p className="text-gray-300">{analysis.notes}</p>
+            <p className="text-zinc-300">{analysis.notes}</p>
           </div>
         )}
       </div>
@@ -125,25 +125,25 @@ export default function WeeklyAnalysisDetailPage() {
       <div>
         <h2 className="text-lg font-semibold text-white mb-3">Daily Plans</h2>
         {analysis.dailyPlans.length === 0 ? (
-          <p className="text-gray-500 text-sm">No daily plans linked to this week yet.</p>
+          <p className="text-zinc-500 text-[13px]">No daily plans linked to this week yet.</p>
         ) : (
           <div className="space-y-2">
             {analysis.dailyPlans.map((plan) => (
               <Link
                 key={plan.id}
                 href={`/daily-plans/${plan.id}`}
-                className="flex items-center justify-between bg-gray-900 border border-gray-800 rounded-lg p-4 hover:border-gray-700 transition-colors"
+                className="flex items-center justify-between bg-[#1c1c1e] rounded-2xl p-4 hover:bg-white/[0.08] transition-colors"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-white text-sm">{formatDate(plan.date)}</span>
-                  <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium border ${getBiasBg(plan.dailyBias)}`}>
+                  <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-medium border ${getBiasBg(plan.dailyBias)}`}>
                     {plan.dailyBias}
                   </span>
                   {!plan.alignedWithHTF && (
-                    <span className="text-red-400 text-xs">Counter-HTF</span>
+                    <span className="text-[#ff453a] text-[11px]">Counter-HTF</span>
                   )}
                 </div>
-                <span className="text-gray-500 text-xs">{plan._count.trades} trades</span>
+                <span className="text-zinc-500 text-[11px]">{plan._count.trades} trades</span>
               </Link>
             ))}
           </div>

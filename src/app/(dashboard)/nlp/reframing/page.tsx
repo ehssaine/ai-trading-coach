@@ -89,9 +89,9 @@ export default function ReframingPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             Session saved successfully!
@@ -103,9 +103,9 @@ export default function ReframingPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
+          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
           Back to NLP
@@ -113,24 +113,24 @@ export default function ReframingPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
+      <div className="bg-[#1c1c1e] rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-amber-500/10 rounded-lg">
-            <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="p-2 bg-white/5 rounded-xl">
+            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4h16v16H4V4zm3 3h10v10H7V7z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Reframing</h1>
-            <p className="text-amber-400 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-semibold text-white tracking-tight">Reframing</h1>
+            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What is Reframing */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-3">What is Reframing?</h2>
-        <p className="text-gray-400 leading-relaxed">
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-3">What is Reframing?</h2>
+        <p className="text-zinc-400 leading-relaxed">
           Reframing is an NLP technique that changes the way you perceive an experience by
           shifting its context or meaning. Instead of seeing a trading loss as a failure,
           reframing helps you view it as valuable feedback, tuition, or confirmation that
@@ -141,15 +141,15 @@ export default function ReframingPage() {
       </div>
 
       {/* Interactive Reframing Exercise */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6">
-        <h2 className="text-xl font-bold text-white">Reframing Exercise</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-6">
+        <h2 className="text-lg font-medium text-white">Reframing Exercise</h2>
 
         {/* Negative Experience Input */}
         <div className="space-y-2">
           <label className="text-white font-medium block">
             Describe a negative trading experience
           </label>
-          <p className="text-gray-500 text-sm">
+          <p className="text-zinc-500 text-sm">
             Write about a recent loss, missed trade, or frustrating moment.
           </p>
           <textarea
@@ -157,30 +157,30 @@ export default function ReframingPage() {
             onChange={(e) => setNegativeExperience(e.target.value)}
             rows={4}
             placeholder="e.g., I took a loss on GBP/USD today because I entered too early without waiting for confirmation..."
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500 resize-none"
+            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
           />
         </div>
 
         {/* AI-Generated Reframe Suggestion */}
         <div className="space-y-3">
           <label className="text-white font-medium block">Reframe Suggestion</label>
-          <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-5">
+          <div className="bg-white/[0.04] rounded-2xl p-5">
             <div className="flex items-start gap-3">
-              <div className="p-1.5 bg-amber-500/10 rounded-lg mt-0.5 shrink-0">
-                <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <div className="p-1.5 bg-white/5 rounded-xl mt-0.5 shrink-0">
+                <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <p className="text-amber-200 text-lg italic leading-relaxed">
+              <p className="text-zinc-300 text-lg italic leading-relaxed">
                 &quot;{REFRAME_SUGGESTIONS[currentSuggestionIndex]}&quot;
               </p>
             </div>
           </div>
           <button
             onClick={getNewSuggestion}
-            className="bg-gray-800 hover:bg-gray-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
+            className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/15 transition-colors flex items-center gap-2"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
             </svg>
             Get New Suggestion
@@ -192,7 +192,7 @@ export default function ReframingPage() {
           <label className="text-white font-medium block">
             Write Your Own Reframe
           </label>
-          <p className="text-gray-500 text-sm">
+          <p className="text-zinc-500 text-sm">
             Now write your own positive reframe of the experience above.
           </p>
           <textarea
@@ -200,36 +200,36 @@ export default function ReframingPage() {
             onChange={(e) => setUserReframe(e.target.value)}
             rows={4}
             placeholder="Write your positive reinterpretation of this experience..."
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500 resize-none"
+            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
           />
         </div>
       </div>
 
       {/* Common Trading Reframes Table */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Common Trading Reframes</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-4">Common Trading Reframes</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-gray-800">
-                <th className="text-left text-gray-400 text-sm font-medium py-3 pr-4">Error Type</th>
-                <th className="text-left text-gray-400 text-sm font-medium py-3 pr-4">Negative Thought</th>
-                <th className="text-left text-gray-400 text-sm font-medium py-3">Positive Reframe</th>
+              <tr className="border-b border-white/[0.06]">
+                <th className="text-left text-zinc-500 text-sm font-medium py-3 pr-4">Error Type</th>
+                <th className="text-left text-zinc-500 text-sm font-medium py-3 pr-4">Negative Thought</th>
+                <th className="text-left text-zinc-500 text-sm font-medium py-3">Positive Reframe</th>
               </tr>
             </thead>
             <tbody>
               {COMMON_REFRAMES.map((item, i) => (
-                <tr key={i} className="border-b border-gray-800/50">
+                <tr key={i} className="border-b border-white/[0.06]">
                   <td className="py-4 pr-4">
-                    <span className="px-2 py-1 bg-amber-500/10 border border-amber-500/20 rounded text-amber-400 text-xs font-medium">
+                    <span className="px-3 py-1 bg-white/10 rounded-full text-zinc-400 text-xs font-medium">
                       {item.error}
                     </span>
                   </td>
                   <td className="py-4 pr-4">
-                    <p className="text-red-400/80 text-sm">{item.negative}</p>
+                    <p className="text-[#ff453a]/80 text-sm">{item.negative}</p>
                   </td>
                   <td className="py-4">
-                    <p className="text-emerald-400/80 text-sm">{item.positive}</p>
+                    <p className="text-[#30d158]/80 text-sm">{item.positive}</p>
                   </td>
                 </tr>
               ))}
@@ -239,13 +239,13 @@ export default function ReframingPage() {
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Targeted Trading Errors</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Loss Aversion", "Greed", "Denial/Averaging Down"].map((error) => (
             <span
               key={error}
-              className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-sm font-medium"
+              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
             >
               {error}
             </span>
@@ -258,7 +258,7 @@ export default function ReframingPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-8 py-3 rounded-lg transition-colors flex items-center gap-2"
+          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
         >
           {saving ? (
             <>
@@ -270,7 +270,7 @@ export default function ReframingPage() {
             </>
           ) : (
             <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               Save Session

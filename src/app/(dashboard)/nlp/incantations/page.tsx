@@ -94,9 +94,9 @@ export default function IncantationsPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-emerald-600 text-white px-6 py-3 rounded-lg shadow-lg">
+        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
             </svg>
             Session saved successfully!
@@ -108,9 +108,9 @@ export default function IncantationsPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-gray-400 hover:text-white transition-colors flex items-center gap-1"
+          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
           Back to NLP
@@ -118,24 +118,24 @@ export default function IncantationsPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-8">
+      <div className="bg-[#1c1c1e] rounded-2xl p-8">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-amber-500/10 rounded-lg">
-            <svg className="w-8 h-8 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <div className="p-2 bg-white/5 rounded-xl">
+            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-3xl font-bold text-white">Incantations</h1>
-            <p className="text-amber-400 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-semibold text-white tracking-tight">Incantations</h1>
+            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What are Incantations */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-3">What are Incantations?</h2>
-        <p className="text-gray-400 leading-relaxed">
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-3">What are Incantations?</h2>
+        <p className="text-zinc-400 leading-relaxed">
           Incantations go beyond simple affirmations by engaging your entire physiology. While
           affirmations are statements you say to yourself, incantations combine spoken words
           with physical movement, powerful posture, and intense emotional engagement. You do not
@@ -147,8 +147,8 @@ export default function IncantationsPage() {
       </div>
 
       {/* Pre-built Trading Incantations */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Trading Incantations</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-4">Trading Incantations</h2>
         <div className="space-y-3">
           {PRESET_INCANTATIONS.map((inc, i) => (
             <button
@@ -157,24 +157,24 @@ export default function IncantationsPage() {
                 setSelectedIncantation(inc);
                 setUseCustom(false);
               }}
-              className={`w-full text-left p-4 rounded-lg border transition-all ${
+              className={`w-full text-left p-4 rounded-xl border transition-all ${
                 !useCustom && selectedIncantation === inc
-                  ? "bg-amber-500/10 border-amber-500/40 ring-1 ring-amber-500/20"
-                  : "bg-gray-800/50 border-gray-700 hover:border-gray-600"
+                  ? "bg-white/10 border-white/[0.06]"
+                  : "bg-white/[0.04] border-transparent hover:bg-white/[0.06]"
               }`}
             >
               <div className="flex items-center gap-3">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
                   !useCustom && selectedIncantation === inc
-                    ? "bg-amber-500 text-white"
-                    : "bg-gray-700 text-gray-400"
+                    ? "bg-white text-black"
+                    : "bg-white/10 text-zinc-400"
                 }`}>
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <p className={`font-medium text-lg ${
-                  !useCustom && selectedIncantation === inc ? "text-amber-200" : "text-gray-300"
+                  !useCustom && selectedIncantation === inc ? "text-white" : "text-zinc-300"
                 }`}>
                   &quot;{inc}&quot;
                 </p>
@@ -185,9 +185,9 @@ export default function IncantationsPage() {
       </div>
 
       {/* Custom Incantation Builder */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-3">Custom Incantation Builder</h2>
-        <p className="text-gray-400 text-sm mb-4">
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-3">Custom Incantation Builder</h2>
+        <p className="text-zinc-400 text-sm mb-4">
           Create your own personalized trading incantation. Make it specific, positive, and present-tense.
         </p>
         <textarea
@@ -198,15 +198,15 @@ export default function IncantationsPage() {
           }}
           rows={3}
           placeholder='e.g., "I execute my edge with machine-like precision and emotional detachment"'
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-white focus:ring-2 focus:ring-amber-500 focus:border-transparent placeholder-gray-500 resize-none"
+          className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
         />
         {customIncantation.length > 0 && (
           <button
             onClick={() => setUseCustom(true)}
-            className={`mt-2 text-sm px-3 py-1 rounded transition-colors ${
+            className={`mt-2 text-sm px-3 py-1 rounded-full transition-colors ${
               useCustom
-                ? "bg-amber-500/20 text-amber-400"
-                : "bg-gray-800 text-gray-400 hover:text-white"
+                ? "bg-white/10 text-white"
+                : "bg-white/5 text-zinc-400 hover:text-white"
             }`}
           >
             {useCustom ? "Using custom incantation" : "Use this incantation"}
@@ -215,25 +215,25 @@ export default function IncantationsPage() {
       </div>
 
       {/* Practice Mode */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6 space-y-6">
-        <h2 className="text-xl font-bold text-white">Practice Mode</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-6">
+        <h2 className="text-lg font-medium text-white">Practice Mode</h2>
 
         {/* Selected Incantation Display */}
-        <div className="bg-amber-500/5 border border-amber-500/20 rounded-lg p-6 text-center">
-          <p className="text-gray-500 text-xs uppercase tracking-wider mb-2">Current Incantation</p>
-          <p className="text-amber-200 text-xl font-medium italic">
+        <div className="bg-white/[0.04] rounded-2xl p-6 text-center">
+          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Current Incantation</p>
+          <p className="text-zinc-300 text-xl font-medium italic">
             &quot;{activeIncantation || "Select or write an incantation above"}&quot;
           </p>
         </div>
 
         {/* Instruction */}
-        <div className="bg-gray-800/50 border border-gray-700/50 rounded-lg p-4">
+        <div className="bg-white/[0.04] rounded-xl p-4">
           <div className="flex items-start gap-3">
-            <svg className="w-6 h-6 text-amber-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-6 h-6 text-zinc-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
-            <p className="text-gray-300 text-sm leading-relaxed">
-              <span className="font-bold text-white">Stand tall, speak with conviction, feel the certainty.</span>{" "}
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              <span className="font-medium text-white">Stand tall, speak with conviction, feel the certainty.</span>{" "}
               Rise from your chair. Plant your feet firmly. Breathe deeply. Now speak your incantation
               out loud with full intensity. Move your body. Pump your fist. Feel the words as absolute truth.
               This is not passive reading -- this is a full-body declaration.
@@ -253,10 +253,10 @@ export default function IncantationsPage() {
                   setTimeLeft(option.value);
                 }}
                 disabled={timerActive}
-                className={`px-6 py-2 rounded-lg font-medium transition-colors ${
+                className={`px-6 py-2 rounded-full text-[13px] font-medium transition-colors ${
                   timerDuration === option.value
-                    ? "bg-amber-600 text-white"
-                    : "bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700"
+                    ? "bg-white text-black"
+                    : "bg-white/10 text-zinc-400 hover:text-white hover:bg-white/15"
                 } disabled:opacity-50`}
               >
                 {option.label}
@@ -268,18 +268,18 @@ export default function IncantationsPage() {
         {/* Intensity */}
         <div className="space-y-2">
           <label className="text-white font-medium block">
-            Intensity Level: <span className="text-amber-400">{intensity}/10</span>
+            Intensity Level: <span className="text-white">{intensity}/10</span>
           </label>
-          <p className="text-gray-500 text-sm">How much energy and conviction are you bringing?</p>
+          <p className="text-zinc-500 text-sm">How much energy and conviction are you bringing?</p>
           <input
             type="range"
             min="1"
             max="10"
             value={intensity}
             onChange={(e) => setIntensity(parseInt(e.target.value))}
-            className="w-full h-2 bg-gray-800 rounded-lg appearance-none cursor-pointer accent-amber-500"
+            className="w-full h-2 bg-white/10 rounded-full appearance-none cursor-pointer accent-white"
           />
-          <div className="flex justify-between text-xs text-gray-600">
+          <div className="flex justify-between text-xs text-zinc-600">
             <span>Whisper</span>
             <span>Moderate</span>
             <span>Full Power</span>
@@ -291,10 +291,10 @@ export default function IncantationsPage() {
           <div className="flex items-center gap-4">
             <button
               onClick={timerActive ? stopTimer : startTimer}
-              className={`px-8 py-3 rounded-lg font-bold transition-colors flex items-center gap-2 ${
+              className={`rounded-full text-[13px] font-medium px-5 py-2 transition-colors flex items-center gap-2 ${
                 timerActive
-                  ? "bg-red-600 hover:bg-red-700 text-white"
-                  : "bg-amber-600 hover:bg-amber-700 text-white"
+                  ? "bg-[#ff453a] hover:bg-[#ff453a]/90 text-white"
+                  : "bg-white text-black hover:bg-white/90"
               }`}
             >
               {timerActive ? (
@@ -318,30 +318,30 @@ export default function IncantationsPage() {
             </div>
           </div>
 
-          <div className="w-full bg-gray-800 rounded-full h-3">
+          <div className="w-full bg-white/10 rounded-full h-3">
             <div
-              className="bg-amber-500 h-3 rounded-full transition-all duration-1000"
+              className="bg-white h-3 rounded-full transition-all duration-1000"
               style={{ width: `${timerPercent}%` }}
             />
           </div>
 
           {timeLeft === 0 && (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-4 text-center">
-              <p className="text-emerald-400 font-medium">Practice complete! How do you feel?</p>
-              <p className="text-gray-400 text-sm mt-1">Save your session to track your progress.</p>
+            <div className="bg-[#30d158]/10 text-[#30d158] rounded-2xl p-4 text-center">
+              <p className="font-medium">Practice complete! How do you feel?</p>
+              <p className="text-zinc-400 text-sm mt-1">Save your session to track your progress.</p>
             </div>
           )}
         </div>
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-        <h2 className="text-xl font-bold text-white mb-4">Targeted Trading Errors</h2>
+      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Confirmation Bias", "Overconfidence", "Greed"].map((error) => (
             <span
               key={error}
-              className="px-4 py-2 bg-amber-500/10 border border-amber-500/20 rounded-full text-amber-400 text-sm font-medium"
+              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
             >
               {error}
             </span>
@@ -354,7 +354,7 @@ export default function IncantationsPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-amber-600 hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed text-white font-medium px-8 py-3 rounded-lg transition-colors flex items-center gap-2"
+          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
         >
           {saving ? (
             <>
@@ -366,7 +366,7 @@ export default function IncantationsPage() {
             </>
           ) : (
             <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               Save Session

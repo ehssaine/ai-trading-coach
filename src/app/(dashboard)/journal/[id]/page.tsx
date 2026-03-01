@@ -111,43 +111,43 @@ export default function TradeDetailPage() {
     router.push("/journal");
   }
 
-  if (loading) return <div className="text-gray-400 text-center py-12">Loading...</div>;
-  if (!trade) return <div className="text-red-400 text-center py-12">Not found</div>;
+  if (loading) return <div className="text-zinc-400 text-center py-12">Loading...</div>;
+  if (!trade) return <div className="text-[#ff453a] text-center py-12">Not found</div>;
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">{trade.pair}</h1>
+          <h1 className="text-2xl font-semibold text-white tracking-tight">{trade.pair}</h1>
           <div className="flex items-center gap-3 mt-2">
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${getBiasBg(trade.direction === "LONG" ? "BULLISH" : "BEARISH")}`}>
               {trade.direction}
             </span>
             <span className={`text-sm px-3 py-1 rounded-full ${
-              trade.status === "CLOSED_WIN" ? "bg-emerald-500/20 text-emerald-400" :
-              trade.status === "CLOSED_LOSS" ? "bg-red-500/20 text-red-400" :
-              trade.status === "OPEN" ? "bg-blue-500/20 text-blue-400" :
-              "bg-gray-500/20 text-gray-400"
+              trade.status === "CLOSED_WIN" ? "bg-[#30d158]/10 text-[#30d158]" :
+              trade.status === "CLOSED_LOSS" ? "bg-[#ff453a]/10 text-[#ff453a]" :
+              trade.status === "OPEN" ? "bg-[#0a84ff]/10 text-[#0a84ff]" :
+              "bg-white/5 text-zinc-400"
             }`}>
               {trade.status === "OPEN" ? "OPEN" : trade.status.replace("CLOSED_", "")}
             </span>
             {!trade.alignedWithHTF && (
-              <span className="text-red-400 text-sm font-medium bg-red-500/10 px-2 py-1 rounded">
+              <span className="text-[#ff453a] text-sm font-medium bg-[#ff453a]/10 px-2 py-1 rounded-xl">
                 Counter-HTF Trade
               </span>
             )}
-            <span className="text-gray-500 text-sm">{trade.setupType.replace(/_/g, " ")}</span>
+            <span className="text-zinc-500 text-sm">{trade.setupType.replace(/_/g, " ")}</span>
           </div>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => setEditing(!editing)}
-            className="text-blue-400 hover:text-blue-300 text-sm"
+            className="text-[#0a84ff] hover:text-[#0a84ff]/80 text-[13px]"
           >
             {editing ? "Cancel" : "Edit"}
           </button>
-          <button onClick={handleDelete} className="text-red-400 hover:text-red-300 text-sm">
+          <button onClick={handleDelete} className="text-[#ff453a] hover:text-[#ff453a]/80 text-[13px]">
             Delete
           </button>
         </div>
@@ -155,65 +155,65 @@ export default function TradeDetailPage() {
 
       {/* Trade Numbers */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Entry</p>
-          <p className="text-white font-bold text-lg">{trade.entryPrice}</p>
-          <p className="text-gray-500 text-xs">{formatDateTime(trade.entryTime)}</p>
+        <div className="bg-[#1c1c1e] rounded-2xl p-4">
+          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Entry</p>
+          <p className="text-white font-semibold text-lg mt-1">{trade.entryPrice}</p>
+          <p className="text-zinc-500 text-[11px]">{formatDateTime(trade.entryTime)}</p>
         </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Stop Loss</p>
-          <p className="text-red-400 font-bold text-lg">{trade.stopLoss}</p>
+        <div className="bg-[#1c1c1e] rounded-2xl p-4">
+          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Stop Loss</p>
+          <p className="text-[#ff453a] font-semibold text-lg mt-1">{trade.stopLoss}</p>
         </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Take Profit</p>
-          <p className="text-emerald-400 font-bold text-lg">{trade.takeProfit}</p>
+        <div className="bg-[#1c1c1e] rounded-2xl p-4">
+          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Take Profit</p>
+          <p className="text-[#30d158] font-semibold text-lg mt-1">{trade.takeProfit}</p>
         </div>
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-          <p className="text-xs text-gray-500">Risk:Reward</p>
-          <p className="text-white font-bold text-lg">1:{trade.riskRewardRatio}</p>
+        <div className="bg-[#1c1c1e] rounded-2xl p-4">
+          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Risk:Reward</p>
+          <p className="text-white font-semibold text-lg mt-1">1:{trade.riskRewardRatio}</p>
         </div>
       </div>
 
       {trade.exitPrice && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">Exit Price</p>
-            <p className="text-white font-bold text-lg">{trade.exitPrice}</p>
-            {trade.exitTime && <p className="text-gray-500 text-xs">{formatDateTime(trade.exitTime)}</p>}
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Exit Price</p>
+            <p className="text-white font-semibold text-lg mt-1">{trade.exitPrice}</p>
+            {trade.exitTime && <p className="text-zinc-500 text-[11px]">{formatDateTime(trade.exitTime)}</p>}
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">P&L</p>
-            <p className={`font-bold text-lg ${(trade.pnl || 0) >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">P&L</p>
+            <p className={`font-semibold text-lg mt-1 ${(trade.pnl || 0) >= 0 ? "text-[#30d158]" : "text-[#ff453a]"}`}>
               {(trade.pnl || 0) >= 0 ? "+" : ""}{trade.pnl || 0}
             </p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">P&L %</p>
-            <p className={`font-bold text-lg ${(trade.pnlPercentage || 0) >= 0 ? "text-emerald-400" : "text-red-400"}`}>
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">P&L %</p>
+            <p className={`font-semibold text-lg mt-1 ${(trade.pnlPercentage || 0) >= 0 ? "text-[#30d158]" : "text-[#ff453a]"}`}>
               {(trade.pnlPercentage || 0) >= 0 ? "+" : ""}{trade.pnlPercentage || 0}%
             </p>
           </div>
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-4">
-            <p className="text-xs text-gray-500">Position Size</p>
-            <p className="text-white font-bold text-lg">{trade.positionSize}</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-4">
+            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Position Size</p>
+            <p className="text-white font-semibold text-lg mt-1">{trade.positionSize}</p>
           </div>
         </div>
       )}
 
       {/* Alignment Info */}
       {trade.dailyPlan && (
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-3">Alignment Check</h3>
+        <div className="bg-[#1c1c1e] rounded-2xl p-6">
+          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-3">Alignment Check</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-xs text-gray-500">Daily Bias</p>
+              <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Daily Bias</p>
               <p className={`font-medium ${getBiasBg(trade.dailyPlan.dailyBias).split(" ")[1]}`}>
                 {trade.dailyPlan.dailyBias}
               </p>
             </div>
             {trade.dailyPlan.weeklyAnalysis && (
               <div>
-                <p className="text-xs text-gray-500">Weekly HTF Bias</p>
+                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Weekly HTF Bias</p>
                 <p className={`font-medium ${getBiasBg(trade.dailyPlan.weeklyAnalysis.htfBias).split(" ")[1]}`}>
                   {trade.dailyPlan.weeklyAnalysis.htfBias}
                 </p>
@@ -225,43 +225,43 @@ export default function TradeDetailPage() {
 
       {/* Journal Entries */}
       <div className="space-y-4">
-        <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-          <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Entry Reason</h3>
-          <p className="text-gray-300 whitespace-pre-wrap">{trade.entryReason}</p>
+        <div className="bg-[#1c1c1e] rounded-2xl p-6">
+          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Entry Reason</h3>
+          <p className="text-zinc-300 whitespace-pre-wrap">{trade.entryReason}</p>
         </div>
 
         {trade.exitReason && (
-          <div className="bg-gray-900 border border-gray-800 rounded-xl p-6">
-            <h3 className="text-sm font-medium text-gray-500 uppercase tracking-wider mb-2">Exit Reason</h3>
-            <p className="text-gray-300 whitespace-pre-wrap">{trade.exitReason}</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-6">
+            <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Exit Reason</h3>
+            <p className="text-zinc-300 whitespace-pre-wrap">{trade.exitReason}</p>
           </div>
         )}
 
         {trade.mistakes && (
-          <div className="bg-gray-900 border border-red-500/20 rounded-xl p-6">
-            <h3 className="text-sm font-medium text-red-400 uppercase tracking-wider mb-2">Mistakes</h3>
-            <p className="text-gray-300 whitespace-pre-wrap">{trade.mistakes}</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-6">
+            <h3 className="text-[11px] font-medium text-[#ff453a] uppercase tracking-wider mb-2">Mistakes</h3>
+            <p className="text-zinc-300 whitespace-pre-wrap">{trade.mistakes}</p>
           </div>
         )}
 
         {trade.lessonsLearned && (
-          <div className="bg-gray-900 border border-blue-500/20 rounded-xl p-6">
-            <h3 className="text-sm font-medium text-blue-400 uppercase tracking-wider mb-2">Lessons Learned</h3>
-            <p className="text-gray-300 whitespace-pre-wrap">{trade.lessonsLearned}</p>
+          <div className="bg-[#1c1c1e] rounded-2xl p-6">
+            <h3 className="text-[11px] font-medium text-[#0a84ff] uppercase tracking-wider mb-2">Lessons Learned</h3>
+            <p className="text-zinc-300 whitespace-pre-wrap">{trade.lessonsLearned}</p>
           </div>
         )}
 
         {(trade.emotionalState || trade.rating) && (
           <div className="flex gap-4">
             {trade.emotionalState && (
-              <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex-1">
-                <p className="text-xs text-gray-500">Emotional State</p>
+              <div className="bg-[#1c1c1e] rounded-2xl p-4 flex-1">
+                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Emotional State</p>
                 <p className="text-white font-medium mt-1">{trade.emotionalState}</p>
               </div>
             )}
             {trade.rating && (
-              <div className="bg-gray-900 border border-gray-800 rounded-xl p-4 flex-1">
-                <p className="text-xs text-gray-500">Quality Rating</p>
+              <div className="bg-[#1c1c1e] rounded-2xl p-4 flex-1">
+                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Quality Rating</p>
                 <p className="text-white font-medium mt-1">{trade.rating}/5</p>
               </div>
             )}
@@ -271,16 +271,16 @@ export default function TradeDetailPage() {
 
       {/* Edit Form */}
       {editing && (
-        <div className="bg-gray-900 border border-blue-500/30 rounded-xl p-6">
+        <div className="bg-[#1c1c1e] border border-white/[0.06] rounded-2xl p-6">
           <h3 className="text-lg font-semibold text-white mb-4">Update Trade</h3>
           <form onSubmit={handleUpdate} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Status</label>
+                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Status</label>
                 <select
                   value={editForm.status}
                   onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
                 >
                   {TRADE_STATUS.map((s) => (
                     <option key={s} value={s}>{s.replace("CLOSED_", "").replace("_", " ")}</option>
@@ -288,42 +288,42 @@ export default function TradeDetailPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Exit Price</label>
+                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Price</label>
                 <input
                   type="number"
                   step="any"
                   value={editForm.exitPrice}
                   onChange={(e) => setEditForm({ ...editForm, exitPrice: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
                 />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Exit Time</label>
+                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Time</label>
                 <input
                   type="datetime-local"
                   value={editForm.exitTime}
                   onChange={(e) => setEditForm({ ...editForm, exitTime: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">P&L ($)</label>
+                <label className="block text-[13px] font-medium text-zinc-400 mb-2">P&L ($)</label>
                 <input
                   type="number"
                   step="any"
                   value={editForm.pnl}
                   onChange={(e) => setEditForm({ ...editForm, pnl: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-300 mb-1">Emotional State</label>
+                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Emotional State</label>
                 <select
                   value={editForm.emotionalState}
                   onChange={(e) => setEditForm({ ...editForm, emotionalState: e.target.value })}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
                 >
                   {EMOTIONAL_STATES.map((s) => (
                     <option key={s} value={s}>{s}</option>
@@ -332,44 +332,44 @@ export default function TradeDetailPage() {
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Exit Reason</label>
+              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Reason</label>
               <textarea
                 value={editForm.exitReason}
                 onChange={(e) => setEditForm({ ...editForm, exitReason: e.target.value })}
                 rows={2}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Mistakes</label>
+              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Mistakes</label>
               <textarea
                 value={editForm.mistakes}
                 onChange={(e) => setEditForm({ ...editForm, mistakes: e.target.value })}
                 rows={2}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Lessons Learned</label>
+              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Lessons Learned</label>
               <textarea
                 value={editForm.lessonsLearned}
                 onChange={(e) => setEditForm({ ...editForm, lessonsLearned: e.target.value })}
                 rows={2}
-                className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-300 mb-1">Rating (1-5)</label>
+              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Rating (1-5)</label>
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((r) => (
                   <button
                     key={r}
                     type="button"
                     onClick={() => setEditForm({ ...editForm, rating: String(r) })}
-                    className={`w-10 h-10 rounded-lg font-bold transition-colors ${
+                    className={`w-10 h-10 rounded-xl font-medium transition-colors ${
                       editForm.rating === String(r)
-                        ? "bg-blue-600 text-white"
-                        : "bg-gray-800 text-gray-400 hover:bg-gray-700"
+                        ? "bg-white text-black"
+                        : "bg-white/5 text-zinc-400 hover:bg-white/10"
                     }`}
                   >
                     {r}
@@ -381,7 +381,7 @@ export default function TradeDetailPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-medium px-6 py-2.5 rounded-lg transition-colors"
+                className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/90 disabled:opacity-50 transition-colors"
               >
                 {saving ? "Saving..." : "Update Trade"}
               </button>
