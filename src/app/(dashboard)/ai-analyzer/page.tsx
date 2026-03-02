@@ -142,23 +142,37 @@ export default function AIAnalyzerPage() {
   const [reportPreview, setReportPreview] = useState<string | null>(null);
   const [sendingReport, setSendingReport] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     loadData();
   }, []);
 
   async function loadData() {
+    setError(null);
     try {
-      const [analyzerRes, settingsRes] = await Promise.all([
-        fetch("/api/ai-analyzer"),
-        fetch("/api/whatsapp/settings"),
-      ]);
-      const analyzerData = await analyzerRes.json();
-      const settingsData = await settingsRes.json();
-      if (analyzerData.report) setReport(analyzerData.report);
-      if (settingsData.settings) setWhatsappSettings(settingsData.settings);
-    } catch (error) {
-      console.error("Failed to load AI analyzer:", error);
+      // Load analyzer and settings independently — one failing shouldn't block the other
+      const analyzerRes = await fetch("/api/ai-analyzer");
+      if (analyzerRes.ok) {
+        const analyzerData = await analyzerRes.json();
+        if (analyzerData.report) setReport(analyzerData.report);
+      } else {
+        const errData = await analyzerRes.json().catch(() => ({}));
+        setError(errData.error || "Failed to load analysis. Please try refreshing.");
+      }
+
+      try {
+        const settingsRes = await fetch("/api/whatsapp/settings");
+        if (settingsRes.ok) {
+          const settingsData = await settingsRes.json();
+          if (settingsData.settings) setWhatsappSettings(settingsData.settings);
+        }
+      } catch {
+        // WhatsApp settings failing is non-critical
+      }
+    } catch (err) {
+      console.error("Failed to load AI analyzer:", err);
+      setError("Failed to connect to the server. Please check your connection.");
     } finally {
       setLoading(false);
     }
@@ -166,12 +180,19 @@ export default function AIAnalyzerPage() {
 
   async function refreshAnalysis() {
     setRefreshing(true);
+    setError(null);
     try {
       const res = await fetch("/api/ai-analyzer");
-      const data = await res.json();
-      if (data.report) setReport(data.report);
-    } catch (error) {
-      console.error("Refresh failed:", error);
+      if (res.ok) {
+        const data = await res.json();
+        if (data.report) setReport(data.report);
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        setError(errData.error || "Failed to refresh analysis.");
+      }
+    } catch (err) {
+      console.error("Refresh failed:", err);
+      setError("Failed to connect to the server.");
     } finally {
       setRefreshing(false);
     }
@@ -269,6 +290,26 @@ export default function AIAnalyzerPage() {
 
   return (
     <div className="space-y-8">
+      {/* Error Banner */}
+      {error && (
+        <div
+          className="rounded-xl p-4 flex items-center gap-3"
+          style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.3)' }}
+        >
+          <svg className="w-5 h-5 flex-shrink-0" fill="none" stroke="#EF4444" viewBox="0 0 24 24" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+          </svg>
+          <span className="font-body text-sm" style={{ color: '#EF4444' }}>{error}</span>
+          <button
+            onClick={refreshAnalysis}
+            className="ml-auto font-body text-xs font-semibold px-3 py-1.5 rounded-lg transition-all"
+            style={{ border: '1px solid rgba(239,68,68,0.3)', color: '#EF4444' }}
+          >
+            Retry
+          </button>
+        </div>
+      )}
+
       {/* Header */}
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>

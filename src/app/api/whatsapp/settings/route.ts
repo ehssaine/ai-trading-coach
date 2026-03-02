@@ -9,22 +9,28 @@ export async function GET() {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const settings = await prisma.notificationSettings.findUnique({
-      where: { userId: session.userId },
-    });
+    const defaults = {
+      whatsappEnabled: false,
+      whatsappNumber: null,
+      reportTime: "07:00",
+      timezone: "UTC",
+      includeTradeStats: true,
+      includeDailyPlan: true,
+      includeHabitReminder: true,
+      includeAiInsights: true,
+    };
 
-    return NextResponse.json({
-      settings: settings || {
-        whatsappEnabled: false,
-        whatsappNumber: null,
-        reportTime: "07:00",
-        timezone: "UTC",
-        includeTradeStats: true,
-        includeDailyPlan: true,
-        includeHabitReminder: true,
-        includeAiInsights: true,
-      },
-    });
+    let settings;
+    try {
+      settings = await prisma.notificationSettings.findUnique({
+        where: { userId: session.userId },
+      });
+    } catch {
+      // Table may not exist yet if migration hasn't run
+      settings = null;
+    }
+
+    return NextResponse.json({ settings: settings || defaults });
   } catch (error) {
     console.error("Get notification settings error:", error);
     return NextResponse.json(
