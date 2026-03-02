@@ -115,7 +115,7 @@ export default function AnchoringPage() {
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight font-display" style={{ color: '#E8ECF1' }}>Anchoring</h1>
+            <h1 className="text-2xl font-bold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Anchoring</h1>
             <p className="text-sm font-medium" style={{ color: '#7A8BA7' }}>NLP Technique</p>
           </div>
         </div>
@@ -123,8 +123,8 @@ export default function AnchoringPage() {
 
       {/* What is Anchoring */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>What is Anchoring?</h2>
-        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>What is Anchoring?</h2>
+        <p className="leading-relaxed font-body" style={{ color: '#7A8BA7' }}>
           Anchoring is a powerful NLP technique that links a specific physical gesture or stimulus
           to a desired emotional state. By repeatedly pairing a physical action (like pressing
           your thumb and forefinger together) with a peak emotional state, you create a neural
@@ -136,8 +136,8 @@ export default function AnchoringPage() {
 
       {/* Trading Application */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Trading Application</h2>
-        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Trading Application</h2>
+        <p className="leading-relaxed font-body" style={{ color: '#7A8BA7' }}>
           Use anchoring to access calm, confident states during market stress. When you feel
           the urge to revenge trade, panic sell, or chase a FOMO entry, fire your anchor to
           instantly reset your emotional state and return to disciplined decision-making.
@@ -146,7 +146,7 @@ export default function AnchoringPage() {
 
       {/* Step-by-Step Interactive Guide */}
       <div className="rounded-xl p-6 space-y-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-2 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Interactive Anchoring Exercise</h2>
+        <h2 className="text-lg font-semibold mb-2 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Interactive Anchoring Exercise</h2>
 
         {/* Step 1: Choose Your State */}
         <div className="space-y-3">
@@ -280,7 +280,7 @@ export default function AnchoringPage() {
               </button>
             ))}
             {rating > 0 && (
-              <span className="ml-2 text-sm" style={{ color: '#7A8BA7' }}>{rating}/5</span>
+              <span className="ml-2 text-sm font-mono" style={{ color: '#7A8BA7' }}>{rating}/5</span>
             )}
           </div>
         </div>
@@ -288,7 +288,7 @@ export default function AnchoringPage() {
 
       {/* Targeted Errors */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Targeted Trading Errors</h2>
+        <h2 className="text-lg font-semibold mb-4 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Loss Aversion", "Emotional Decision-Making", "FOMO"].map((error) => (
             <span

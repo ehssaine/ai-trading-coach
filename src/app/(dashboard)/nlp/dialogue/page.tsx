@@ -231,7 +231,7 @@ export default function DialoguePage() {
       {/* Daily Affirmation */}
       <div className="rounded-xl p-6 text-center" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <p className="text-[11px] font-medium uppercase tracking-wider mb-2" style={{ color: '#7A8BA7' }}>Daily Affirmation</p>
-        <p className="text-xl font-medium italic" style={{ color: '#E8ECF1' }}>&quot;{dailyAffirmation}&quot;</p>
+        <p className="text-xl font-medium italic font-body" style={{ color: '#E8ECF1' }}>&quot;{dailyAffirmation}&quot;</p>
       </div>
 
       {/* Title */}
@@ -251,8 +251,8 @@ export default function DialoguePage() {
 
       {/* Master Your Inner Voice */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Master Your Inner Voice</h2>
-        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Master Your Inner Voice</h2>
+        <p className="leading-relaxed font-body" style={{ color: '#7A8BA7' }}>
           Your internal dialogue -- the constant stream of thoughts running through your mind --
           has a profound impact on your trading performance. Negative self-talk creates anxiety,
           impulsiveness, and poor decision-making. By becoming aware of your internal dialogue
@@ -263,14 +263,14 @@ export default function DialoguePage() {
 
       {/* Journal Analysis Tool */}
       <div className="rounded-xl p-6 space-y-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold font-display tracking-tight" style={{ color: '#E8ECF1' }}>Thought Journal Analysis</h2>
-        <p className="text-sm" style={{ color: '#7A8BA7' }}>
+        <h2 className="text-lg font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Thought Journal Analysis</h2>
+        <p className="text-sm font-body" style={{ color: '#7A8BA7' }}>
           Write your current trading thoughts, and we will analyze them for negative patterns.
         </p>
 
         {/* Input */}
         <div className="space-y-2">
-          <label className="font-medium block" style={{ color: '#E8ECF1' }}>Write your current trading thoughts</label>
+          <label className="font-medium block font-body" style={{ color: '#E8ECF1' }}>Write your current trading thoughts</label>
           <textarea
             value={journalText}
             onChange={(e) => {
@@ -279,7 +279,7 @@ export default function DialoguePage() {
             }}
             rows={6}
             placeholder="e.g., I always seem to lose on Mondays. I should have taken that EUR/USD trade yesterday. I can't believe I missed another setup. The market is terrible today and I feel stupid for not seeing the reversal..."
-            className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none"
+            className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none font-body"
             style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
           />
         </div>
@@ -302,12 +302,12 @@ export default function DialoguePage() {
             {/* Counts */}
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-xl p-4 text-center" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
-                <p className="text-3xl font-semibold text-[#EF4444]">{analysis.negativeCount}</p>
-                <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Negative Phrases</p>
+                <p className="text-3xl font-semibold font-mono text-[#EF4444]">{analysis.negativeCount}</p>
+                <p className="text-sm mt-1 font-body" style={{ color: '#7A8BA7' }}>Negative Phrases</p>
               </div>
               <div className="rounded-xl p-4 text-center" style={{ background: 'rgba(0,212,170,0.1)', border: '1px solid rgba(0,212,170,0.2)' }}>
-                <p className="text-3xl font-semibold text-[#00D4AA]">{analysis.positiveCount}</p>
-                <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Positive Phrases</p>
+                <p className="text-3xl font-semibold font-mono text-[#00D4AA]">{analysis.positiveCount}</p>
+                <p className="text-sm mt-1 font-body" style={{ color: '#7A8BA7' }}>Positive Phrases</p>
               </div>
             </div>
 
@@ -337,9 +337,9 @@ export default function DialoguePage() {
 
             {/* Highlighted Text */}
             <div className="space-y-2">
-              <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Your text with highlighted patterns:</h3>
+              <h3 className="font-medium font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Your text with highlighted patterns:</h3>
               <div className="rounded-xl p-4" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
-                <p className="leading-relaxed">
+                <p className="leading-relaxed font-body">
                   {analysis.segments.map((seg, i) =>
                     seg.isNegative ? (
                       <span key={i} className="px-0.5 rounded" style={{ background: 'rgba(239,68,68,0.3)', color: '#EF4444' }}>
@@ -356,7 +356,7 @@ export default function DialoguePage() {
             {/* Suggested Rephrases */}
             {analysis.suggestions.length > 0 && (
               <div className="space-y-3">
-                <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Suggested Replacements:</h3>
+                <h3 className="font-medium font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Suggested Replacements:</h3>
                 <div className="space-y-2">
                   {analysis.suggestions.map((sug, i) => (
                     <div key={i} className="flex items-center gap-3 rounded-xl p-3" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
@@ -377,7 +377,7 @@ export default function DialoguePage() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <p className="font-medium" style={{ color: '#00D4AA' }}>Great job! No negative self-talk patterns detected.</p>
-                <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Keep maintaining this positive internal dialogue.</p>
+                <p className="text-sm mt-1 font-body" style={{ color: '#7A8BA7' }}>Keep maintaining this positive internal dialogue.</p>
               </div>
             )}
           </div>
@@ -386,8 +386,8 @@ export default function DialoguePage() {
 
       {/* Dialogue Replacement Exercise */}
       <div className="rounded-xl p-6 space-y-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold font-display tracking-tight" style={{ color: '#E8ECF1' }}>Dialogue Replacement Exercise</h2>
-        <p className="text-sm" style={{ color: '#7A8BA7' }}>
+        <h2 className="text-lg font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Dialogue Replacement Exercise</h2>
+        <p className="text-sm font-body" style={{ color: '#7A8BA7' }}>
           Practice replacing negative self-talk with empowering alternatives. Review the examples and add your own.
         </p>
 
@@ -408,7 +408,7 @@ export default function DialoguePage() {
                       <svg className="w-4 h-4 text-[#EF4444] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
-                      <p className="text-sm" style={{ color: 'rgba(239,68,68,0.8)' }}>&quot;{item.negative}&quot;</p>
+                      <p className="text-sm font-body" style={{ color: 'rgba(239,68,68,0.8)' }}>&quot;{item.negative}&quot;</p>
                     </div>
                   </td>
                   <td className="py-4 pl-4">
@@ -416,7 +416,7 @@ export default function DialoguePage() {
                       <svg className="w-4 h-4 text-[#00D4AA] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      <p className="text-sm" style={{ color: 'rgba(0,212,170,0.8)' }}>&quot;{item.positive}&quot;</p>
+                      <p className="text-sm font-body" style={{ color: 'rgba(0,212,170,0.8)' }}>&quot;{item.positive}&quot;</p>
                     </div>
                   </td>
                 </tr>
@@ -427,7 +427,7 @@ export default function DialoguePage() {
 
         {/* Add Custom Entry */}
         <div className="rounded-xl p-4 space-y-3" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
-          <h3 className="font-medium text-sm" style={{ color: '#E8ECF1' }}>Add Your Own</h3>
+          <h3 className="font-medium text-sm font-display" style={{ color: '#E8ECF1' }}>Add Your Own</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
               <label className="text-xs block mb-1" style={{ color: '#7A8BA7' }}>Negative Self-Talk</label>
@@ -468,7 +468,7 @@ export default function DialoguePage() {
 
       {/* Targeted Errors */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Targeted Trading Errors</h2>
+        <h2 className="text-lg font-semibold mb-4 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           <span className="px-5 py-2 rounded-full text-[13px] font-medium" style={{ background: 'rgba(255,255,255,0.06)', color: '#7A8BA7' }}>
             All psychological trading errors

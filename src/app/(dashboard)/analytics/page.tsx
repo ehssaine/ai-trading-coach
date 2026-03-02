@@ -62,11 +62,11 @@ const ERROR_KEYWORDS = [
 ];
 
 const EMOTIONAL_STATES = [
-  { key: "CALM", label: "Calm", color: "#10b981" },
-  { key: "ANXIOUS", label: "Anxious", color: "#ef4444" },
-  { key: "FOMO", label: "FOMO", color: "#f59e0b" },
-  { key: "REVENGE", label: "Revenge", color: "#8b5cf6" },
-  { key: "CONFIDENT", label: "Confident", color: "#3b82f6" },
+  { key: "CALM", label: "Calm", color: "#00D4AA" },
+  { key: "ANXIOUS", label: "Anxious", color: "#EF4444" },
+  { key: "FOMO", label: "FOMO", color: "#F59E0B" },
+  { key: "REVENGE", label: "Revenge", color: "#8B5CF6" },
+  { key: "CONFIDENT", label: "Confident", color: "#3B82F6" },
 ];
 
 const DATE_RANGES = [
@@ -194,7 +194,7 @@ export default function AnalyticsPage() {
   });
   const conicGradient = conicSegments.length > 0
     ? `conic-gradient(${conicSegments.join(", ")})`
-    : "conic-gradient(#1f2937 0deg 360deg)";
+    : "conic-gradient(#1A1F2E 0deg 360deg)";
 
   // ── Weekly Performance Timeline (last 8 weeks) ─────────────────────────
   const weeklyData: { label: string; pnl: number }[] = [];
@@ -249,7 +249,7 @@ export default function AnalyticsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div style={{ color: '#7A8BA7' }}>Loading analytics...</div>
+        <div style={{ color: '#4A5568' }}>Loading analytics...</div>
       </div>
     );
   }
@@ -259,8 +259,8 @@ export default function AnalyticsPage() {
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold font-display tracking-tight" style={{ color: '#E8ECF1' }}>Trading Analytics</h1>
-          <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>
+          <h1 className="text-2xl font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Trading Analytics</h1>
+          <p className="text-sm mt-1 font-body" style={{ color: '#7A8BA7' }}>
             Deep insights into your trading performance and psychology
           </p>
         </div>
@@ -269,11 +269,11 @@ export default function AnalyticsPage() {
             <button
               key={dr.days}
               onClick={() => setDateRange(dr.days)}
-              className="px-5 py-2 rounded-full text-[13px] font-medium transition-colors"
+              className="px-5 py-2 rounded-full text-[13px] font-medium transition-all duration-200 font-body"
               style={
                 dateRange === dr.days
                   ? { background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#FFFFFF' }
-                  : { background: '#1A1F2E', color: '#7A8BA7' }
+                  : { border: '1px solid rgba(0,212,170,0.3)', color: '#00D4AA', background: 'transparent' }
               }
             >
               {dr.label}
@@ -285,12 +285,12 @@ export default function AnalyticsPage() {
       {/* ── Performance Overview (4 cards) ──────────────────────────────── */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Win Rate */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <p className="text-[11px] font-medium uppercase tracking-wider mb-2" style={{ color: '#4A5568' }}>Win Rate</p>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-medium uppercase tracking-wider mb-2 font-body" style={{ color: '#4A5568' }}>Win Rate</p>
           <div className="flex items-end gap-2">
             <span className="text-3xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{currentWinRate}%</span>
             {winRateTrend !== 0 && (
-              <span className={`text-sm font-medium font-mono flex items-center ${winRateTrend > 0 ? "text-[#00D4AA]" : "text-[#EF4444]"}`}>
+              <span className="text-sm font-medium font-mono flex items-center" style={{ color: winRateTrend > 0 ? '#00D4AA' : '#EF4444' }}>
                 <svg xmlns="http://www.w3.org/2000/svg" className={`w-4 h-4 ${winRateTrend < 0 ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                 </svg>
@@ -298,50 +298,50 @@ export default function AnalyticsPage() {
               </span>
             )}
           </div>
-          <p className="text-xs mt-1" style={{ color: '#4A5568' }}>
+          <p className="text-xs mt-1 font-mono" style={{ color: '#4A5568' }}>
             {filteredTrades.filter((t) => t.result === "WIN").length}W / {filteredTrades.filter((t) => t.result === "LOSS").length}L
           </p>
         </div>
 
         {/* Total P&L */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <p className="text-[11px] font-medium uppercase tracking-wider mb-2" style={{ color: '#4A5568' }}>Total P&amp;L</p>
-          <span className={`text-3xl font-bold font-mono ${periodPnl >= 0 ? "text-[#00D4AA]" : "text-[#EF4444]"}`}>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-medium uppercase tracking-wider mb-2 font-body" style={{ color: '#4A5568' }}>Total P&amp;L</p>
+          <span className="text-3xl font-bold font-mono" style={{ color: periodPnl >= 0 ? '#00D4AA' : '#EF4444' }}>
             {periodPnl >= 0 ? "+" : ""}{Math.round(periodPnl * 100) / 100}
           </span>
-          <p className="text-xs mt-1" style={{ color: '#4A5568' }}>{filteredTrades.length} trades</p>
+          <p className="text-xs mt-1 font-mono" style={{ color: '#4A5568' }}>{filteredTrades.length} trades</p>
         </div>
 
         {/* Avg R:R */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <p className="text-[11px] font-medium uppercase tracking-wider mb-2" style={{ color: '#4A5568' }}>Avg Risk:Reward</p>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-medium uppercase tracking-wider mb-2 font-body" style={{ color: '#4A5568' }}>Avg Risk:Reward</p>
           <span className="text-3xl font-bold font-mono" style={{ color: '#E8ECF1' }}>1:{avgRR}</span>
-          <p className="text-xs mt-1" style={{ color: '#4A5568' }}>target ratio</p>
+          <p className="text-xs mt-1 font-body" style={{ color: '#4A5568' }}>target ratio</p>
         </div>
 
         {/* Discipline Score */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <p className="text-[11px] font-medium uppercase tracking-wider mb-2" style={{ color: '#4A5568' }}>Discipline Score</p>
-          <span className={`text-3xl font-bold font-mono ${
-            disciplineScore >= 80 ? "text-[#00D4AA]" : disciplineScore >= 60 ? "text-[#F59E0B]" : "text-[#EF4444]"
-          }`}>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-medium uppercase tracking-wider mb-2 font-body" style={{ color: '#4A5568' }}>Discipline Score</p>
+          <span className="text-3xl font-bold font-mono" style={{
+            color: disciplineScore >= 80 ? '#00D4AA' : disciplineScore >= 60 ? '#F59E0B' : '#EF4444'
+          }}>
             {disciplineScore}%
           </span>
-          <p className="text-xs mt-1" style={{ color: '#4A5568' }}>HTF alignment</p>
+          <p className="text-xs mt-1 font-body" style={{ color: '#4A5568' }}>HTF alignment</p>
         </div>
       </div>
 
       {/* ── Error Frequency Chart ───────────────────────────────────────── */}
-      <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-        <h2 className="text-xl font-semibold font-display tracking-tight mb-6" style={{ color: '#E8ECF1' }}>Error Frequency</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Error Frequency</h2>
         <div className="space-y-3">
           {ERROR_KEYWORDS.map((kw) => {
             const count = errorCounts[kw];
             const pct = (count / maxErrorCount) * 100;
             return (
               <div key={kw} className="flex items-center gap-3">
-                <span className="text-sm w-40 flex-shrink-0 text-right" style={{ color: '#7A8BA7' }}>{kw}</span>
-                <div className="flex-1 rounded-full h-6 overflow-hidden" style={{ background: '#1A1F2E' }}>
+                <span className="text-sm w-40 flex-shrink-0 text-right font-body" style={{ color: '#7A8BA7' }}>{kw}</span>
+                <div className="flex-1 rounded-full h-6 overflow-hidden bg-[#1A1F2E]">
                   <div
                     className="h-full rounded-full flex items-center justify-end pr-2 transition-all duration-500"
                     style={{ width: `${Math.max(pct, count > 0 ? 8 : 0)}%`, background: 'rgba(239,68,68,0.6)' }}
@@ -361,8 +361,8 @@ export default function AnalyticsPage() {
       {/* ── Emotional State Distribution & Weekly Timeline ──────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Emotional State Pie */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <h2 className="text-xl font-semibold font-display tracking-tight mb-6" style={{ color: '#E8ECF1' }}>Emotional State Distribution</h2>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h2 className="text-xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Emotional State Distribution</h2>
           <div className="flex flex-col items-center gap-6">
             <div
               className="w-48 h-48 rounded-full"
@@ -375,7 +375,7 @@ export default function AnalyticsPage() {
                 return (
                   <div key={es.key} className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: es.color }} />
-                    <span className="text-sm" style={{ color: '#7A8BA7' }}>{es.label}</span>
+                    <span className="text-sm font-body" style={{ color: '#7A8BA7' }}>{es.label}</span>
                     <span className="text-sm font-mono" style={{ color: '#4A5568' }}>({pct}%)</span>
                   </div>
                 );
@@ -385,8 +385,8 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Weekly Performance Timeline */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <h2 className="text-xl font-semibold font-display tracking-tight mb-6" style={{ color: '#E8ECF1' }}>Weekly Performance</h2>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h2 className="text-xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Weekly Performance</h2>
           <div className="flex items-end gap-2 h-48">
             {weeklyData.map((week, i) => {
               const barHeight = maxWeeklyPnl > 0 ? (Math.abs(week.pnl) / maxWeeklyPnl) * 100 : 0;
@@ -398,23 +398,24 @@ export default function AnalyticsPage() {
                       className="w-full max-w-8 rounded-t-md transition-all duration-500"
                       style={{
                         height: `${Math.max(barHeight, week.pnl !== 0 ? 4 : 1)}%`,
-                        background: isPositive ? 'rgba(0,212,170,0.8)' : 'rgba(239,68,68,0.8)',
+                        background: isPositive ? '#00D4AA' : '#EF4444',
+                        opacity: 0.8,
                       }}
                       title={`${week.label}: ${week.pnl >= 0 ? "+" : ""}${week.pnl}`}
                     />
                   </div>
-                  <span className="text-[10px] mt-2 truncate w-full text-center" style={{ color: '#4A5568' }}>{week.label}</span>
+                  <span className="text-[10px] mt-2 truncate w-full text-center font-mono" style={{ color: '#4A5568' }}>{week.label}</span>
                 </div>
               );
             })}
           </div>
-          <div className="flex items-center justify-center gap-4 mt-4 text-xs" style={{ color: '#4A5568' }}>
+          <div className="flex items-center justify-center gap-4 mt-4 text-xs font-body" style={{ color: '#4A5568' }}>
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-sm" style={{ background: 'rgba(0,212,170,0.8)' }} />
+              <div className="w-3 h-3 rounded-sm" style={{ background: '#00D4AA', opacity: 0.8 }} />
               <span>Positive</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <div className="w-3 h-3 rounded-sm" style={{ background: 'rgba(239,68,68,0.8)' }} />
+              <div className="w-3 h-3 rounded-sm" style={{ background: '#EF4444', opacity: 0.8 }} />
               <span>Negative</span>
             </div>
           </div>
@@ -424,10 +425,10 @@ export default function AnalyticsPage() {
       {/* ── NLP & Habit Progress ────────────────────────────────────────── */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* NLP Sessions per Technique */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <h2 className="text-xl font-semibold font-display tracking-tight mb-6" style={{ color: '#E8ECF1' }}>NLP Sessions by Technique</h2>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h2 className="text-xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>NLP Sessions by Technique</h2>
           {Object.keys(nlpTechniqueCounts).length === 0 ? (
-            <p className="text-sm" style={{ color: '#4A5568' }}>No NLP sessions recorded yet.</p>
+            <p className="text-sm font-body" style={{ color: '#4A5568' }}>No NLP sessions recorded yet.</p>
           ) : (
             <div className="space-y-3">
               {Object.entries(nlpTechniqueCounts)
@@ -436,11 +437,11 @@ export default function AnalyticsPage() {
                   const pct = (count / maxNlpCount) * 100;
                   return (
                     <div key={technique} className="flex items-center gap-3">
-                      <span className="text-sm w-28 flex-shrink-0 text-right capitalize" style={{ color: '#7A8BA7' }}>{technique}</span>
-                      <div className="flex-1 rounded-full h-5 overflow-hidden" style={{ background: '#1A1F2E' }}>
+                      <span className="text-sm w-28 flex-shrink-0 text-right capitalize font-body" style={{ color: '#7A8BA7' }}>{technique}</span>
+                      <div className="flex-1 rounded-full h-5 overflow-hidden bg-[#1A1F2E]">
                         <div
                           className="h-full rounded-full flex items-center justify-end pr-2 transition-all duration-500"
-                          style={{ width: `${Math.max(pct, 8)}%`, background: 'rgba(139,92,246,0.6)' }}
+                          style={{ width: `${Math.max(pct, 8)}%`, background: 'rgba(139,92,246,0.5)' }}
                         >
                           <span className="text-xs font-medium font-mono" style={{ color: '#E8ECF1' }}>{count}</span>
                         </div>
@@ -453,18 +454,18 @@ export default function AnalyticsPage() {
         </div>
 
         {/* Habit & Streak Progress */}
-        <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-          <h2 className="text-xl font-semibold font-display tracking-tight mb-6" style={{ color: '#E8ECF1' }}>Habit &amp; Streak Progress</h2>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h2 className="text-xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Habit &amp; Streak Progress</h2>
           <div className="space-y-6">
             {/* Habit completion rate */}
             <div>
               <div className="flex items-center justify-between text-sm mb-2">
-                <span style={{ color: '#7A8BA7' }}>Habit Completion Rate (30 days)</span>
+                <span className="font-body" style={{ color: '#7A8BA7' }}>Habit Completion Rate (30 days)</span>
                 <span className="font-medium font-mono" style={{ color: '#F59E0B' }}>
                   {gamification?.habitCompletionRate != null ? `${gamification.habitCompletionRate}%` : "N/A"}
                 </span>
               </div>
-              <div className="w-full rounded-full h-3" style={{ background: '#1A1F2E' }}>
+              <div className="w-full rounded-full h-3 bg-[#1A1F2E]">
                 <div
                   className="h-3 rounded-full transition-all duration-500"
                   style={{ width: `${gamification?.habitCompletionRate || 0}%`, background: '#F59E0B' }}
@@ -475,48 +476,48 @@ export default function AnalyticsPage() {
             {/* Stats */}
             <div className="grid grid-cols-2 gap-4">
               <div className="rounded-xl p-4 text-center" style={{ background: '#1A1F2E' }}>
-                <div className="text-[#F59E0B] mb-1">
+                <div className="mb-1" style={{ color: '#F59E0B' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                   </svg>
                 </div>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{gamification?.profile?.currentStreak || 0}</p>
-                <p className="text-xs" style={{ color: '#4A5568' }}>Current Streak</p>
+                <p className="text-xs font-body" style={{ color: '#4A5568' }}>Current Streak</p>
               </div>
               <div className="rounded-xl p-4 text-center" style={{ background: '#1A1F2E' }}>
-                <div className="text-[#F59E0B] mb-1">
+                <div className="mb-1" style={{ color: '#F59E0B' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                   </svg>
                 </div>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{gamification?.profile?.longestStreak || 0}</p>
-                <p className="text-xs" style={{ color: '#4A5568' }}>Longest Streak</p>
+                <p className="text-xs font-body" style={{ color: '#4A5568' }}>Longest Streak</p>
               </div>
               <div className="rounded-xl p-4 text-center" style={{ background: '#1A1F2E' }}>
-                <div className="text-[#F59E0B] mb-1">
+                <div className="mb-1" style={{ color: '#F59E0B' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{gamification?.profile?.totalPoints || 0}</p>
-                <p className="text-xs" style={{ color: '#4A5568' }}>Total Points</p>
+                <p className="text-xs font-body" style={{ color: '#4A5568' }}>Total Points</p>
               </div>
               <div className="rounded-xl p-4 text-center" style={{ background: '#1A1F2E' }}>
-                <div className="text-[#F59E0B] mb-1">
+                <div className="mb-1" style={{ color: '#F59E0B' }}>
                   <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                   </svg>
                 </div>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#E8ECF1' }}>Lv.{gamification?.profile?.level || 1}</p>
-                <p className="text-xs" style={{ color: '#4A5568' }}>Current Level</p>
+                <p className="text-xs font-body" style={{ color: '#4A5568' }}>Current Level</p>
               </div>
             </div>
 
             {/* NLP total */}
             <div className="rounded-xl p-4" style={{ background: '#1A1F2E' }}>
               <div className="flex items-center justify-between">
-                <span className="text-sm" style={{ color: '#7A8BA7' }}>Total NLP Sessions</span>
-                <span className="font-bold text-lg font-mono" style={{ color: '#F59E0B' }}>{nlpSessions.length}</span>
+                <span className="text-sm font-body" style={{ color: '#7A8BA7' }}>Total NLP Sessions</span>
+                <span className="font-bold text-lg font-mono" style={{ color: '#8B5CF6' }}>{nlpSessions.length}</span>
               </div>
             </div>
           </div>
@@ -524,29 +525,29 @@ export default function AnalyticsPage() {
       </div>
 
       {/* ── Alignment Analysis ──────────────────────────────────────────── */}
-      <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-        <h2 className="text-xl font-semibold font-display tracking-tight mb-6" style={{ color: '#E8ECF1' }}>Alignment Analysis</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Alignment Analysis</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Aligned */}
-          <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="rounded-xl p-6" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
             <div className="flex items-center gap-2 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#00D4AA]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" style={{ color: '#00D4AA' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
               </svg>
               <h3 className="text-lg font-semibold font-display" style={{ color: '#00D4AA' }}>Aligned with HTF</h3>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Trades</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Trades</p>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{alignedTrades.length}</p>
               </div>
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Win Rate</p>
-                <p className="text-2xl font-bold font-mono text-[#00D4AA]">{alignedWR}%</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Win Rate</p>
+                <p className="text-2xl font-bold font-mono" style={{ color: '#00D4AA' }}>{alignedWR}%</p>
               </div>
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>P&amp;L</p>
-                <p className={`text-2xl font-bold font-mono ${alignedPnl >= 0 ? "text-[#00D4AA]" : "text-[#EF4444]"}`}>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>P&amp;L</p>
+                <p className="text-2xl font-bold font-mono" style={{ color: alignedPnl >= 0 ? '#00D4AA' : '#EF4444' }}>
                   {alignedPnl >= 0 ? "+" : ""}{Math.round(alignedPnl * 100) / 100}
                 </p>
               </div>
@@ -554,25 +555,25 @@ export default function AnalyticsPage() {
           </div>
 
           {/* Counter */}
-          <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="rounded-xl p-6" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
             <div className="flex items-center gap-2 mb-4">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#EF4444]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" style={{ color: '#EF4444' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
               <h3 className="text-lg font-semibold font-display" style={{ color: '#EF4444' }}>Counter HTF</h3>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Trades</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Trades</p>
                 <p className="text-2xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{counterTrades.length}</p>
               </div>
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Win Rate</p>
-                <p className="text-2xl font-bold font-mono text-[#EF4444]">{counterWR}%</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Win Rate</p>
+                <p className="text-2xl font-bold font-mono" style={{ color: '#EF4444' }}>{counterWR}%</p>
               </div>
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>P&amp;L</p>
-                <p className={`text-2xl font-bold font-mono ${counterPnl >= 0 ? "text-[#00D4AA]" : "text-[#EF4444]"}`}>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>P&amp;L</p>
+                <p className="text-2xl font-bold font-mono" style={{ color: counterPnl >= 0 ? '#00D4AA' : '#EF4444' }}>
                   {counterPnl >= 0 ? "+" : ""}{Math.round(counterPnl * 100) / 100}
                 </p>
               </div>
@@ -582,35 +583,37 @@ export default function AnalyticsPage() {
       </div>
 
       {/* ── Error Reduction Timeline ───────────────────────────────────── */}
-      <div className="rounded-xl p-6" style={{ background: '#111621' }}>
-        <h2 className="text-xl font-semibold font-display tracking-tight mb-4" style={{ color: '#E8ECF1' }}>Error Reduction Timeline</h2>
-        <p className="text-sm mb-6" style={{ color: '#7A8BA7' }}>Comparing trading errors this month vs. last month</p>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-xl font-semibold font-display mb-4" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Error Reduction Timeline</h2>
+        <p className="text-sm mb-6 font-body" style={{ color: '#7A8BA7' }}>Comparing trading errors this month vs. last month</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div className="rounded-xl p-5 text-center" style={{ background: '#1A1F2E' }}>
-            <p className="text-[11px] font-medium uppercase tracking-wider mb-1" style={{ color: '#4A5568' }}>This Month</p>
+            <p className="text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>This Month</p>
             <p className="text-3xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{thisMonthErrors}</p>
-            <p className="text-xs" style={{ color: '#4A5568' }}>trades with errors</p>
+            <p className="text-xs font-body" style={{ color: '#4A5568' }}>trades with errors</p>
           </div>
           <div className="rounded-xl p-5 text-center" style={{ background: '#1A1F2E' }}>
-            <p className="text-[11px] font-medium uppercase tracking-wider mb-1" style={{ color: '#4A5568' }}>Last Month</p>
+            <p className="text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>Last Month</p>
             <p className="text-3xl font-bold font-mono" style={{ color: '#E8ECF1' }}>{lastMonthErrors}</p>
-            <p className="text-xs" style={{ color: '#4A5568' }}>trades with errors</p>
+            <p className="text-xs font-body" style={{ color: '#4A5568' }}>trades with errors</p>
           </div>
           <div className="rounded-xl p-5 text-center" style={{ background: '#1A1F2E' }}>
-            <p className="text-[11px] font-medium uppercase tracking-wider mb-1" style={{ color: '#4A5568' }}>Change</p>
+            <p className="text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>Change</p>
             <div className="flex items-center justify-center gap-2">
               {errorChange !== 0 && (
-                <svg xmlns="http://www.w3.org/2000/svg" className={`w-5 h-5 ${errorChange < 0 ? "text-[#00D4AA]" : "text-[#EF4444] rotate-180"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <svg xmlns="http://www.w3.org/2000/svg" className={`w-5 h-5 ${errorChange > 0 ? "rotate-180" : ""}`} style={{ color: errorChange < 0 ? '#00D4AA' : '#EF4444' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 15l7-7 7 7" />
                 </svg>
               )}
-              <span className={`text-3xl font-bold font-mono ${
-                errorChange < 0 ? "text-[#00D4AA]" : errorChange > 0 ? "text-[#EF4444]" : ""
-              }`} style={errorChange === 0 ? { color: '#7A8BA7' } : undefined}>
+              <span className="text-3xl font-bold font-mono" style={{
+                color: errorChange < 0 ? '#00D4AA' : errorChange > 0 ? '#EF4444' : '#7A8BA7'
+              }}>
                 {errorChange === 0 ? "0" : `${Math.abs(errorChange)}%`}
               </span>
             </div>
-            <p className={`text-xs mt-1 ${errorChange < 0 ? "text-[#00D4AA]" : errorChange > 0 ? "text-[#EF4444]" : ""}`} style={errorChange === 0 ? { color: '#4A5568' } : undefined}>
+            <p className="text-xs mt-1 font-body" style={{
+              color: errorChange < 0 ? '#00D4AA' : errorChange > 0 ? '#EF4444' : '#4A5568'
+            }}>
               {errorChange < 0 ? "Improving!" : errorChange > 0 ? "Needs attention" : "No change"}
             </p>
           </div>

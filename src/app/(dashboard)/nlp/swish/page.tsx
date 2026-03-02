@@ -107,7 +107,7 @@ export default function SwishPage() {
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-bold tracking-tight font-display" style={{ color: '#E8ECF1' }}>Swish Pattern</h1>
+            <h1 className="text-2xl font-bold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Swish Pattern</h1>
             <p className="text-sm font-medium" style={{ color: '#7A8BA7' }}>NLP Technique</p>
           </div>
         </div>
@@ -115,8 +115,8 @@ export default function SwishPage() {
 
       {/* What is the Swish Pattern */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>What is the Swish Pattern?</h2>
-        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>What is the Swish Pattern?</h2>
+        <p className="leading-relaxed font-body" style={{ color: '#7A8BA7' }}>
           The Swish Pattern is an NLP technique designed to break unwanted habits by replacing
           a negative mental image with a positive one. You visualize the unwanted behavior as
           a large, vivid picture, then rapidly &quot;swish&quot; it away while simultaneously
@@ -129,7 +129,7 @@ export default function SwishPage() {
 
       {/* Interactive Swish Exercise */}
       <div className="rounded-xl p-6 space-y-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-2 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Interactive Swish Exercise</h2>
+        <h2 className="text-lg font-semibold mb-2 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Interactive Swish Exercise</h2>
 
         {/* Step 1: Picture the Unwanted Behavior */}
         <div className="space-y-3">
@@ -267,7 +267,7 @@ export default function SwishPage() {
           <div className="ml-9 flex items-center gap-4">
             <div className="rounded-xl px-6 py-4" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
               <p className="text-[11px] font-medium uppercase tracking-wider mb-1" style={{ color: '#7A8BA7' }}>Repetitions</p>
-              <p className="text-3xl font-semibold" style={{ color: '#E8ECF1' }}>{repetitions}</p>
+              <p className="text-3xl font-semibold font-mono" style={{ color: '#E8ECF1' }}>{repetitions}</p>
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between text-xs mb-1">
@@ -324,7 +324,7 @@ export default function SwishPage() {
               </button>
             ))}
             {rating > 0 && (
-              <span className="ml-2 text-sm" style={{ color: '#7A8BA7' }}>{rating}/5</span>
+              <span className="ml-2 text-sm font-mono" style={{ color: '#7A8BA7' }}>{rating}/5</span>
             )}
           </div>
         </div>
@@ -332,7 +332,7 @@ export default function SwishPage() {
 
       {/* Targeted Errors */}
       <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
-        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Targeted Trading Errors</h2>
+        <h2 className="text-lg font-semibold mb-4 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Overtrading", "Revenge Trading", "Impulsive Exits"].map((error) => (
             <span
