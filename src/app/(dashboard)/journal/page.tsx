@@ -35,20 +35,21 @@ export default function JournalPage() {
       .finally(() => setLoading(false));
   }, [filter]);
 
-  if (loading) return <div className="text-zinc-400 text-center py-12">Loading...</div>;
+  if (loading) return <div style={{ color: '#4A5568' }} className="font-body text-center py-12">Loading...</div>;
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white tracking-tight">Trade Journal</h1>
-          <p className="text-zinc-400 text-sm mt-1">
+          <h1 className="text-2xl font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Trade Journal</h1>
+          <p className="text-sm font-body mt-1" style={{ color: '#7A8BA7' }}>
             Every trade tells a story. Learn from each one.
           </p>
         </div>
         <Link
           href="/journal/new"
-          className="bg-white hover:bg-white/90 text-black px-5 py-2 rounded-full text-[13px] font-medium transition-colors"
+          className="text-white font-semibold font-body rounded-lg px-5 py-2 text-[13px] transition-all duration-200 hover:opacity-90"
+          style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
         >
           + Log Trade
         </Link>
@@ -60,11 +61,16 @@ export default function JournalPage() {
           <button
             key={f}
             onClick={() => { setLoading(true); setFilter(f); }}
-            className={`px-4 py-1.5 rounded-full text-[12px] font-medium transition-colors ${
+            className={`px-4 py-1.5 rounded-lg text-[12px] font-medium font-body transition-all duration-200 ${
               filter === f
-                ? "bg-white text-black"
-                : "bg-white/10 text-zinc-400 hover:bg-white/15"
+                ? "text-white font-semibold"
+                : "hover:opacity-80"
             }`}
+            style={
+              filter === f
+                ? { background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }
+                : { background: '#1A1F2E', color: '#7A8BA7' }
+            }
           >
             {f === "ALL" ? "All" : f.replace("CLOSED_", "")}
           </button>
@@ -72,9 +78,9 @@ export default function JournalPage() {
       </div>
 
       {trades.length === 0 && (
-        <div className="text-center py-16 bg-[#1c1c1e] rounded-2xl">
-          <p className="text-zinc-400 text-lg">No trades found</p>
-          <p className="text-zinc-500 text-sm mt-1">
+        <div className="text-center py-16 rounded-xl" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-lg font-display" style={{ color: '#7A8BA7', letterSpacing: '-0.02em' }}>No trades found</p>
+          <p className="text-sm font-body mt-1" style={{ color: '#4A5568' }}>
             Start logging your trades to build your journal
           </p>
         </div>
@@ -85,11 +91,12 @@ export default function JournalPage() {
           <Link
             key={trade.id}
             href={`/journal/${trade.id}`}
-            className="bg-[#1c1c1e] rounded-2xl p-5 hover:bg-white/[0.06] transition-colors block"
+            className="rounded-xl p-5 transition-all duration-200 block hover:border-[#00D4AA]/30"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <span className="text-white font-bold">{trade.pair}</span>
+                <span className="font-bold font-display" style={{ color: '#E8ECF1' }}>{trade.pair}</span>
                 <span
                   className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold border ${getBiasBg(
                     trade.direction === "LONG" ? "BULLISH" : "BEARISH"
@@ -98,21 +105,23 @@ export default function JournalPage() {
                   {trade.direction}
                 </span>
                 <span
-                  className={`text-xs px-2.5 py-0.5 rounded-full font-medium ${
-                    trade.status === "CLOSED_WIN"
-                      ? "bg-white/10 text-[#30d158]"
+                  className="text-xs font-body px-2.5 py-0.5 rounded-full font-medium"
+                  style={{
+                    background: '#1A1F2E',
+                    color: trade.status === "CLOSED_WIN"
+                      ? '#00D4AA'
                       : trade.status === "CLOSED_LOSS"
-                      ? "bg-white/10 text-[#ff453a]"
+                      ? '#EF4444'
                       : trade.status === "OPEN"
-                      ? "bg-white/10 text-[#0a84ff]"
-                      : "bg-white/10 text-zinc-400"
-                  }`}
+                      ? '#3B82F6'
+                      : '#7A8BA7'
+                  }}
                 >
                   {trade.status === "OPEN" ? "OPEN" : trade.status.replace("CLOSED_", "")}
                 </span>
-                <span className="text-zinc-500 text-xs">{trade.setupType.replace("_", " ")}</span>
+                <span className="text-xs font-body" style={{ color: '#4A5568' }}>{trade.setupType.replace("_", " ")}</span>
                 {!trade.alignedWithHTF && (
-                  <span className="text-[#ff453a] text-xs font-medium bg-white/10 px-2.5 py-0.5 rounded-full">
+                  <span className="text-xs font-medium font-body px-2.5 py-0.5 rounded-full" style={{ color: '#EF4444', background: '#1A1F2E' }}>
                     Counter-HTF
                   </span>
                 )}
@@ -120,20 +129,19 @@ export default function JournalPage() {
               <div className="text-right">
                 {trade.pnl !== null && (
                   <span
-                    className={`font-bold ${
-                      trade.pnl >= 0 ? "text-[#30d158]" : "text-[#ff453a]"
-                    }`}
+                    className="font-bold font-mono"
+                    style={{ color: trade.pnl >= 0 ? '#00D4AA' : '#EF4444' }}
                   >
                     {trade.pnl >= 0 ? "+" : ""}
                     {trade.pnl}
                   </span>
                 )}
-                <p className="text-zinc-500 text-xs mt-0.5">
+                <p className="text-xs font-body mt-0.5" style={{ color: '#4A5568' }}>
                   {formatDateTime(trade.entryTime)}
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4 mt-2 text-xs text-zinc-500">
+            <div className="flex items-center gap-4 mt-2 text-xs font-mono" style={{ color: '#4A5568' }}>
               <span>Entry: {trade.entryPrice}</span>
               {trade.exitPrice && <span>Exit: {trade.exitPrice}</span>}
               <span>RR: 1:{trade.riskRewardRatio}</span>

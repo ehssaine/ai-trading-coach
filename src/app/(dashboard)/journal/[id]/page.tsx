@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Link from "next/link";
 import { formatDateTime, getBiasBg, EMOTIONAL_STATES, TRADE_STATUS } from "@/lib/utils";
 
 interface Trade {
@@ -111,43 +112,59 @@ export default function TradeDetailPage() {
     router.push("/journal");
   }
 
-  if (loading) return <div className="text-zinc-400 text-center py-12">Loading...</div>;
-  if (!trade) return <div className="text-[#ff453a] text-center py-12">Not found</div>;
+  if (loading) return <div style={{ color: '#4A5568' }} className="font-body text-center py-12">Loading...</div>;
+  if (!trade) return <div style={{ color: '#EF4444' }} className="font-body text-center py-12">Not found</div>;
+
+  const inputClass = "w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/30 transition-all duration-200";
+  const inputStyle = { background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' };
+  const labelClass = "font-body block text-xs font-medium uppercase tracking-wider mb-1.5";
+  const labelStyle = { color: '#7A8BA7' };
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
+      {/* Back Link */}
+      <Link href="/journal" className="text-[#3B82F6] text-sm font-body hover:opacity-80 transition-all duration-200">
+        &larr; Back to Journal
+      </Link>
+
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white tracking-tight">{trade.pair}</h1>
+          <h1 className="text-2xl font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>{trade.pair}</h1>
           <div className="flex items-center gap-3 mt-2">
             <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${getBiasBg(trade.direction === "LONG" ? "BULLISH" : "BEARISH")}`}>
               {trade.direction}
             </span>
-            <span className={`text-sm px-3 py-1 rounded-full ${
-              trade.status === "CLOSED_WIN" ? "bg-[#30d158]/10 text-[#30d158]" :
-              trade.status === "CLOSED_LOSS" ? "bg-[#ff453a]/10 text-[#ff453a]" :
-              trade.status === "OPEN" ? "bg-[#0a84ff]/10 text-[#0a84ff]" :
-              "bg-white/5 text-zinc-400"
-            }`}>
+            <span className="text-sm font-body px-3 py-1 rounded-full" style={{
+              background: '#1A1F2E',
+              color: trade.status === "CLOSED_WIN" ? '#00D4AA' :
+              trade.status === "CLOSED_LOSS" ? '#EF4444' :
+              trade.status === "OPEN" ? '#3B82F6' :
+              '#7A8BA7'
+            }}>
               {trade.status === "OPEN" ? "OPEN" : trade.status.replace("CLOSED_", "")}
             </span>
             {!trade.alignedWithHTF && (
-              <span className="text-[#ff453a] text-sm font-medium bg-[#ff453a]/10 px-2 py-1 rounded-xl">
+              <span className="text-sm font-medium font-body px-2 py-1 rounded-lg" style={{ color: '#EF4444', background: 'rgba(239,68,68,0.1)' }}>
                 Counter-HTF Trade
               </span>
             )}
-            <span className="text-zinc-500 text-sm">{trade.setupType.replace(/_/g, " ")}</span>
+            <span className="text-sm font-body" style={{ color: '#4A5568' }}>{trade.setupType.replace(/_/g, " ")}</span>
           </div>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <button
             onClick={() => setEditing(!editing)}
-            className="text-[#0a84ff] hover:text-[#0a84ff]/80 text-[13px]"
+            className="text-[13px] font-body font-medium transition-all duration-200 hover:opacity-80"
+            style={{ color: '#3B82F6' }}
           >
             {editing ? "Cancel" : "Edit"}
           </button>
-          <button onClick={handleDelete} className="text-[#ff453a] hover:text-[#ff453a]/80 text-[13px]">
+          <button
+            onClick={handleDelete}
+            className="text-[13px] font-body font-medium transition-all duration-200 hover:opacity-80"
+            style={{ color: '#EF4444' }}
+          >
             Delete
           </button>
         </div>
@@ -155,66 +172,66 @@ export default function TradeDetailPage() {
 
       {/* Trade Numbers */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#1c1c1e] rounded-2xl p-4">
-          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Entry</p>
-          <p className="text-white font-semibold text-lg mt-1">{trade.entryPrice}</p>
-          <p className="text-zinc-500 text-[11px]">{formatDateTime(trade.entryTime)}</p>
+        <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Entry</p>
+          <p className="font-semibold font-mono text-lg mt-1" style={{ color: '#E8ECF1' }}>{trade.entryPrice}</p>
+          <p className="text-[11px] font-body" style={{ color: '#4A5568' }}>{formatDateTime(trade.entryTime)}</p>
         </div>
-        <div className="bg-[#1c1c1e] rounded-2xl p-4">
-          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Stop Loss</p>
-          <p className="text-[#ff453a] font-semibold text-lg mt-1">{trade.stopLoss}</p>
+        <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Stop Loss</p>
+          <p className="font-semibold font-mono text-lg mt-1" style={{ color: '#EF4444' }}>{trade.stopLoss}</p>
         </div>
-        <div className="bg-[#1c1c1e] rounded-2xl p-4">
-          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Take Profit</p>
-          <p className="text-[#30d158] font-semibold text-lg mt-1">{trade.takeProfit}</p>
+        <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Take Profit</p>
+          <p className="font-semibold font-mono text-lg mt-1" style={{ color: '#00D4AA' }}>{trade.takeProfit}</p>
         </div>
-        <div className="bg-[#1c1c1e] rounded-2xl p-4">
-          <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Risk:Reward</p>
-          <p className="text-white font-semibold text-lg mt-1">1:{trade.riskRewardRatio}</p>
+        <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Risk:Reward</p>
+          <p className="font-semibold font-mono text-lg mt-1" style={{ color: '#E8ECF1' }}>1:{trade.riskRewardRatio}</p>
         </div>
       </div>
 
       {trade.exitPrice && (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Exit Price</p>
-            <p className="text-white font-semibold text-lg mt-1">{trade.exitPrice}</p>
-            {trade.exitTime && <p className="text-zinc-500 text-[11px]">{formatDateTime(trade.exitTime)}</p>}
+          <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Exit Price</p>
+            <p className="font-semibold font-mono text-lg mt-1" style={{ color: '#E8ECF1' }}>{trade.exitPrice}</p>
+            {trade.exitTime && <p className="text-[11px] font-body" style={{ color: '#4A5568' }}>{formatDateTime(trade.exitTime)}</p>}
           </div>
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">P&L</p>
-            <p className={`font-semibold text-lg mt-1 ${(trade.pnl || 0) >= 0 ? "text-[#30d158]" : "text-[#ff453a]"}`}>
+          <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>P&L</p>
+            <p className="font-semibold font-mono text-lg mt-1" style={{ color: (trade.pnl || 0) >= 0 ? '#00D4AA' : '#EF4444' }}>
               {(trade.pnl || 0) >= 0 ? "+" : ""}{trade.pnl || 0}
             </p>
           </div>
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">P&L %</p>
-            <p className={`font-semibold text-lg mt-1 ${(trade.pnlPercentage || 0) >= 0 ? "text-[#30d158]" : "text-[#ff453a]"}`}>
+          <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>P&L %</p>
+            <p className="font-semibold font-mono text-lg mt-1" style={{ color: (trade.pnlPercentage || 0) >= 0 ? '#00D4AA' : '#EF4444' }}>
               {(trade.pnlPercentage || 0) >= 0 ? "+" : ""}{trade.pnlPercentage || 0}%
             </p>
           </div>
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Position Size</p>
-            <p className="text-white font-semibold text-lg mt-1">{trade.positionSize}</p>
+          <div className="rounded-xl p-4" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Position Size</p>
+            <p className="font-semibold font-mono text-lg mt-1" style={{ color: '#E8ECF1' }}>{trade.positionSize}</p>
           </div>
         </div>
       )}
 
       {/* Alignment Info */}
       {trade.dailyPlan && (
-        <div className="bg-[#1c1c1e] rounded-2xl p-6">
-          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-3">Alignment Check</h3>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h3 className="text-[11px] font-body font-medium uppercase tracking-wider mb-3" style={{ color: '#4A5568' }}>Alignment Check</h3>
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Daily Bias</p>
-              <p className={`font-medium ${getBiasBg(trade.dailyPlan.dailyBias).split(" ")[1]}`}>
+              <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Daily Bias</p>
+              <p className={`font-medium font-body ${getBiasBg(trade.dailyPlan.dailyBias).split(" ")[1]}`}>
                 {trade.dailyPlan.dailyBias}
               </p>
             </div>
             {trade.dailyPlan.weeklyAnalysis && (
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Weekly HTF Bias</p>
-                <p className={`font-medium ${getBiasBg(trade.dailyPlan.weeklyAnalysis.htfBias).split(" ")[1]}`}>
+                <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Weekly HTF Bias</p>
+                <p className={`font-medium font-body ${getBiasBg(trade.dailyPlan.weeklyAnalysis.htfBias).split(" ")[1]}`}>
                   {trade.dailyPlan.weeklyAnalysis.htfBias}
                 </p>
               </div>
@@ -225,44 +242,44 @@ export default function TradeDetailPage() {
 
       {/* Journal Entries */}
       <div className="space-y-4">
-        <div className="bg-[#1c1c1e] rounded-2xl p-6">
-          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Entry Reason</h3>
-          <p className="text-zinc-300 whitespace-pre-wrap">{trade.entryReason}</p>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h3 className="text-[11px] font-body font-medium uppercase tracking-wider mb-2" style={{ color: '#4A5568' }}>Entry Reason</h3>
+          <p className="font-body whitespace-pre-wrap" style={{ color: '#7A8BA7' }}>{trade.entryReason}</p>
         </div>
 
         {trade.exitReason && (
-          <div className="bg-[#1c1c1e] rounded-2xl p-6">
-            <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Exit Reason</h3>
-            <p className="text-zinc-300 whitespace-pre-wrap">{trade.exitReason}</p>
+          <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <h3 className="text-[11px] font-body font-medium uppercase tracking-wider mb-2" style={{ color: '#4A5568' }}>Exit Reason</h3>
+            <p className="font-body whitespace-pre-wrap" style={{ color: '#7A8BA7' }}>{trade.exitReason}</p>
           </div>
         )}
 
         {trade.mistakes && (
-          <div className="bg-[#1c1c1e] rounded-2xl p-6">
-            <h3 className="text-[11px] font-medium text-[#ff453a] uppercase tracking-wider mb-2">Mistakes</h3>
-            <p className="text-zinc-300 whitespace-pre-wrap">{trade.mistakes}</p>
+          <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <h3 className="text-[11px] font-body font-medium uppercase tracking-wider mb-2" style={{ color: '#EF4444' }}>Mistakes</h3>
+            <p className="font-body whitespace-pre-wrap" style={{ color: '#7A8BA7' }}>{trade.mistakes}</p>
           </div>
         )}
 
         {trade.lessonsLearned && (
-          <div className="bg-[#1c1c1e] rounded-2xl p-6">
-            <h3 className="text-[11px] font-medium text-[#0a84ff] uppercase tracking-wider mb-2">Lessons Learned</h3>
-            <p className="text-zinc-300 whitespace-pre-wrap">{trade.lessonsLearned}</p>
+          <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <h3 className="text-[11px] font-body font-medium uppercase tracking-wider mb-2" style={{ color: '#3B82F6' }}>Lessons Learned</h3>
+            <p className="font-body whitespace-pre-wrap" style={{ color: '#7A8BA7' }}>{trade.lessonsLearned}</p>
           </div>
         )}
 
         {(trade.emotionalState || trade.rating) && (
           <div className="flex gap-4">
             {trade.emotionalState && (
-              <div className="bg-[#1c1c1e] rounded-2xl p-4 flex-1">
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Emotional State</p>
-                <p className="text-white font-medium mt-1">{trade.emotionalState}</p>
+              <div className="rounded-xl p-4 flex-1" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Emotional State</p>
+                <p className="font-medium font-body mt-1" style={{ color: '#E8ECF1' }}>{trade.emotionalState}</p>
               </div>
             )}
             {trade.rating && (
-              <div className="bg-[#1c1c1e] rounded-2xl p-4 flex-1">
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Quality Rating</p>
-                <p className="text-white font-medium mt-1">{trade.rating}/5</p>
+              <div className="rounded-xl p-4 flex-1" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+                <p className="text-[11px] font-body font-medium uppercase tracking-wider" style={{ color: '#4A5568' }}>Quality Rating</p>
+                <p className="font-medium font-mono mt-1" style={{ color: '#E8ECF1' }}>{trade.rating}/5</p>
               </div>
             )}
           </div>
@@ -271,16 +288,17 @@ export default function TradeDetailPage() {
 
       {/* Edit Form */}
       {editing && (
-        <div className="bg-[#1c1c1e] border border-white/[0.06] rounded-2xl p-6">
-          <h3 className="text-lg font-semibold text-white mb-4">Update Trade</h3>
+        <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h3 className="text-lg font-semibold font-display mb-4" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Update Trade</h3>
           <form onSubmit={handleUpdate} className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Status</label>
+                <label className={labelClass} style={labelStyle}>Status</label>
                 <select
                   value={editForm.status}
                   onChange={(e) => setEditForm({ ...editForm, status: e.target.value })}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                  className={inputClass}
+                  style={inputStyle}
                 >
                   {TRADE_STATUS.map((s) => (
                     <option key={s} value={s}>{s.replace("CLOSED_", "").replace("_", " ")}</option>
@@ -288,42 +306,46 @@ export default function TradeDetailPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Price</label>
+                <label className={labelClass} style={labelStyle}>Exit Price</label>
                 <input
                   type="number"
                   step="any"
                   value={editForm.exitPrice}
                   onChange={(e) => setEditForm({ ...editForm, exitPrice: e.target.value })}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                  className={`${inputClass} font-mono`}
+                  style={inputStyle}
                 />
               </div>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div>
-                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Time</label>
+                <label className={labelClass} style={labelStyle}>Exit Time</label>
                 <input
                   type="datetime-local"
                   value={editForm.exitTime}
                   onChange={(e) => setEditForm({ ...editForm, exitTime: e.target.value })}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                  className={inputClass}
+                  style={inputStyle}
                 />
               </div>
               <div>
-                <label className="block text-[13px] font-medium text-zinc-400 mb-2">P&L ($)</label>
+                <label className={labelClass} style={labelStyle}>P&L ($)</label>
                 <input
                   type="number"
                   step="any"
                   value={editForm.pnl}
                   onChange={(e) => setEditForm({ ...editForm, pnl: e.target.value })}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                  className={`${inputClass} font-mono`}
+                  style={inputStyle}
                 />
               </div>
               <div>
-                <label className="block text-[13px] font-medium text-zinc-400 mb-2">Emotional State</label>
+                <label className={labelClass} style={labelStyle}>Emotional State</label>
                 <select
                   value={editForm.emotionalState}
                   onChange={(e) => setEditForm({ ...editForm, emotionalState: e.target.value })}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                  className={inputClass}
+                  style={inputStyle}
                 >
                   {EMOTIONAL_STATES.map((s) => (
                     <option key={s} value={s}>{s}</option>
@@ -332,56 +354,69 @@ export default function TradeDetailPage() {
               </div>
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Reason</label>
+              <label className={labelClass} style={labelStyle}>Exit Reason</label>
               <textarea
                 value={editForm.exitReason}
                 onChange={(e) => setEditForm({ ...editForm, exitReason: e.target.value })}
                 rows={2}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+                className={`${inputClass} resize-none`}
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Mistakes</label>
+              <label className={labelClass} style={labelStyle}>Mistakes</label>
               <textarea
                 value={editForm.mistakes}
                 onChange={(e) => setEditForm({ ...editForm, mistakes: e.target.value })}
                 rows={2}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+                className={`${inputClass} resize-none`}
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Lessons Learned</label>
+              <label className={labelClass} style={labelStyle}>Lessons Learned</label>
               <textarea
                 value={editForm.lessonsLearned}
                 onChange={(e) => setEditForm({ ...editForm, lessonsLearned: e.target.value })}
                 rows={2}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+                className={`${inputClass} resize-none`}
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Rating (1-5)</label>
+              <label className={labelClass} style={labelStyle}>Rating (1-5)</label>
               <div className="flex gap-2">
                 {[1, 2, 3, 4, 5].map((r) => (
                   <button
                     key={r}
                     type="button"
                     onClick={() => setEditForm({ ...editForm, rating: String(r) })}
-                    className={`w-10 h-10 rounded-xl font-medium transition-colors ${
+                    className="w-10 h-10 rounded-xl font-medium font-mono transition-all duration-200"
+                    style={
                       editForm.rating === String(r)
-                        ? "bg-white text-black"
-                        : "bg-white/5 text-zinc-400 hover:bg-white/10"
-                    }`}
+                        ? { background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#FFFFFF' }
+                        : { background: '#1A1F2E', color: '#7A8BA7', border: '1px solid rgba(255,255,255,0.06)' }
+                    }
                   >
                     {r}
                   </button>
                 ))}
               </div>
             </div>
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                className="rounded-lg text-[13px] font-medium font-body px-5 py-2.5 transition-all duration-200 hover:opacity-80"
+                style={{ border: '1px solid rgba(0,212,170,0.3)', color: '#00D4AA' }}
+              >
+                Cancel
+              </button>
               <button
                 type="submit"
                 disabled={saving}
-                className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/90 disabled:opacity-50 transition-colors"
+                className="text-white font-semibold font-body rounded-lg text-[13px] px-5 py-2.5 hover:opacity-90 disabled:opacity-50 transition-all duration-200"
+                style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
               >
                 {saving ? "Saving..." : "Update Trade"}
               </button>

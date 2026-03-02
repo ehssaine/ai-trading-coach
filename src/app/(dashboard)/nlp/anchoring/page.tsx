@@ -80,7 +80,7 @@ export default function AnchoringPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
+        <div className="fixed top-6 right-6 z-50 px-6 py-3 rounded-xl" style={{ background: 'rgba(0,212,170,0.1)', color: '#00D4AA' }}>
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -94,7 +94,10 @@ export default function AnchoringPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+          className="transition-colors flex items-center gap-1 hover:opacity-80"
+          style={{ color: '#7A8BA7' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#E8ECF1'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#7A8BA7'; }}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -104,24 +107,24 @@ export default function AnchoringPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-8">
+      <div className="rounded-xl p-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-white/5 rounded-xl">
-            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="p-2 rounded-xl" style={{ background: '#1A1F2E' }}>
+            <svg className="w-8 h-8" style={{ color: '#7A8BA7' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 2a3 3 0 00-3 3c0 1.66 1.34 3 3 3s3-1.34 3-3a3 3 0 00-3-3zm0 8v10m0 0l-4-2m4 2l4-2M5 12a7 7 0 0114 0" />
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white tracking-tight">Anchoring</h1>
-            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-bold tracking-tight font-display" style={{ color: '#E8ECF1' }}>Anchoring</h1>
+            <p className="text-sm font-medium" style={{ color: '#7A8BA7' }}>NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What is Anchoring */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-3">What is Anchoring?</h2>
-        <p className="text-zinc-400 leading-relaxed">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>What is Anchoring?</h2>
+        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
           Anchoring is a powerful NLP technique that links a specific physical gesture or stimulus
           to a desired emotional state. By repeatedly pairing a physical action (like pressing
           your thumb and forefinger together) with a peak emotional state, you create a neural
@@ -132,9 +135,9 @@ export default function AnchoringPage() {
       </div>
 
       {/* Trading Application */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-3">Trading Application</h2>
-        <p className="text-zinc-400 leading-relaxed">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Trading Application</h2>
+        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
           Use anchoring to access calm, confident states during market stress. When you feel
           the urge to revenge trade, panic sell, or chase a FOMO entry, fire your anchor to
           instantly reset your emotional state and return to disciplined decision-making.
@@ -142,21 +145,22 @@ export default function AnchoringPage() {
       </div>
 
       {/* Step-by-Step Interactive Guide */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-8">
-        <h2 className="text-lg font-medium text-white mb-2">Interactive Anchoring Exercise</h2>
+      <div className="rounded-xl p-6 space-y-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-2 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Interactive Anchoring Exercise</h2>
 
         {/* Step 1: Choose Your State */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">1</span>
-            <h3 className="text-white font-medium">Choose Your State</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold" style={{ background: '#00D4AA', color: '#0B0E14' }}>1</span>
+            <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Choose Your State</h3>
           </div>
-          <p className="text-zinc-400 text-sm ml-9">Select the emotional state you want to anchor.</p>
+          <p className="text-sm ml-9" style={{ color: '#7A8BA7' }}>Select the emotional state you want to anchor.</p>
           <div className="ml-9">
             <select
               value={selectedState}
               onChange={(e) => setSelectedState(e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1"
+              style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
             >
               {STATES.map((s) => (
                 <option key={s} value={s}>{s}</option>
@@ -168,17 +172,18 @@ export default function AnchoringPage() {
         {/* Step 2: Create Your Anchor */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">2</span>
-            <h3 className="text-white font-medium">Create Your Anchor</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold" style={{ background: '#00D4AA', color: '#0B0E14' }}>2</span>
+            <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Create Your Anchor</h3>
           </div>
-          <p className="text-zinc-400 text-sm ml-9">Describe the physical gesture you will use as your trigger.</p>
+          <p className="text-sm ml-9" style={{ color: '#7A8BA7' }}>Describe the physical gesture you will use as your trigger.</p>
           <div className="ml-9">
             <input
               type="text"
               value={anchor}
               onChange={(e) => setAnchor(e.target.value)}
               placeholder="e.g., Press thumb and forefinger together on left hand"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600"
+              className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568]"
+              style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
             />
           </div>
         </div>
@@ -186,17 +191,18 @@ export default function AnchoringPage() {
         {/* Step 3: Build the Association */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">3</span>
-            <h3 className="text-white font-medium">Build the Association</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold" style={{ background: '#00D4AA', color: '#0B0E14' }}>3</span>
+            <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Build the Association</h3>
           </div>
-          <p className="text-zinc-400 text-sm ml-9">Describe a peak trading moment where you felt your chosen state intensely.</p>
+          <p className="text-sm ml-9" style={{ color: '#7A8BA7' }}>Describe a peak trading moment where you felt your chosen state intensely.</p>
           <div className="ml-9">
             <textarea
               value={peakMoment}
               onChange={(e) => setPeakMoment(e.target.value)}
               rows={4}
               placeholder="e.g., I remember the trade on EUR/USD where I waited patiently for the perfect setup, entered with full confidence, and let it run to my target without hesitation..."
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
+              className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none"
+              style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
             />
           </div>
         </div>
@@ -204,37 +210,38 @@ export default function AnchoringPage() {
         {/* Step 4: Practice Timer */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">4</span>
-            <h3 className="text-white font-medium">Practice Timer</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold" style={{ background: '#00D4AA', color: '#0B0E14' }}>4</span>
+            <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Practice Timer</h3>
           </div>
-          <p className="text-zinc-400 text-sm ml-9">
+          <p className="text-sm ml-9" style={{ color: '#7A8BA7' }}>
             Close your eyes, vividly recall your peak moment, perform your anchor gesture, and hold it for 60 seconds.
           </p>
           <div className="ml-9 space-y-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={timerActive ? stopTimer : startTimer}
-                className={`px-6 py-2 rounded-full text-[13px] font-medium transition-colors ${
+                className="px-6 py-2 rounded-full text-[13px] font-medium transition-colors"
+                style={
                   timerActive
-                    ? "bg-[#ff453a] hover:bg-[#ff453a]/90 text-white"
-                    : "bg-white text-black hover:bg-white/90"
-                }`}
+                    ? { background: '#EF4444', color: '#FFFFFF' }
+                    : { background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }
+                }
               >
                 {timerActive ? "Stop" : timeLeft < 60 && timeLeft > 0 ? "Resume" : "Start 60s Practice"}
               </button>
-              <div className="text-3xl font-mono font-bold text-white">
+              <div className="text-3xl font-mono font-bold" style={{ color: '#E8ECF1' }}>
                 {String(Math.floor(timeLeft / 60)).padStart(1, "0")}:{String(timeLeft % 60).padStart(2, "0")}
               </div>
             </div>
             {/* Progress bar */}
-            <div className="w-full bg-white/10 rounded-full h-3">
+            <div className="w-full rounded-full h-3" style={{ background: '#1A1F2E' }}>
               <div
-                className="bg-white h-3 rounded-full transition-all duration-1000"
-                style={{ width: `${timerPercent}%` }}
+                className="h-3 rounded-full transition-all duration-1000"
+                style={{ width: `${timerPercent}%`, background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
               />
             </div>
             {timeLeft === 0 && (
-              <p className="text-[#30d158] font-medium">Practice complete! Rate your experience below.</p>
+              <p className="text-[#00D4AA] font-medium">Practice complete! Rate your experience below.</p>
             )}
           </div>
         </div>
@@ -242,10 +249,10 @@ export default function AnchoringPage() {
         {/* Step 5: Rate Effectiveness */}
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <span className="flex items-center justify-center w-7 h-7 rounded-full bg-white text-black text-sm font-bold">5</span>
-            <h3 className="text-white font-medium">Rate Effectiveness</h3>
+            <span className="flex items-center justify-center w-7 h-7 rounded-full text-sm font-bold" style={{ background: '#00D4AA', color: '#0B0E14' }}>5</span>
+            <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Rate Effectiveness</h3>
           </div>
-          <p className="text-zinc-400 text-sm ml-9">How effectively did you access your desired state?</p>
+          <p className="text-sm ml-9" style={{ color: '#7A8BA7' }}>How effectively did you access your desired state?</p>
           <div className="ml-9 flex items-center gap-1">
             {[1, 2, 3, 4, 5].map((star) => (
               <button
@@ -257,7 +264,7 @@ export default function AnchoringPage() {
               >
                 <svg
                   className={`w-8 h-8 ${
-                    star <= (hoverRating || rating) ? "text-white" : "text-zinc-700"
+                    star <= (hoverRating || rating) ? "text-[#F59E0B]" : "text-[#4A5568]"
                   } transition-colors`}
                   fill={star <= (hoverRating || rating) ? "currentColor" : "none"}
                   viewBox="0 0 24 24"
@@ -273,20 +280,21 @@ export default function AnchoringPage() {
               </button>
             ))}
             {rating > 0 && (
-              <span className="ml-2 text-zinc-400 text-sm">{rating}/5</span>
+              <span className="ml-2 text-sm" style={{ color: '#7A8BA7' }}>{rating}/5</span>
             )}
           </div>
         </div>
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Loss Aversion", "Emotional Decision-Making", "FOMO"].map((error) => (
             <span
               key={error}
-              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
+              className="px-5 py-2 rounded-full text-[13px] font-medium"
+              style={{ background: 'rgba(255,255,255,0.06)', color: '#7A8BA7' }}
             >
               {error}
             </span>
@@ -299,7 +307,8 @@ export default function AnchoringPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }}
         >
           {saving ? (
             <>

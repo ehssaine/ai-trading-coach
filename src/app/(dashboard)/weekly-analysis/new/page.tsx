@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import {
   BIAS_OPTIONS,
   MARKET_STRUCTURE_OPTIONS,
@@ -56,18 +57,39 @@ export default function NewWeeklyAnalysisPage() {
     }
   }
 
+  const inputStyle = {
+    background: '#1A1F2E',
+    border: '1px solid rgba(255,255,255,0.06)',
+    color: '#E8ECF1',
+  };
+
+  const placeholderClass = "placeholder-[#4A5568]";
+
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-semibold text-white tracking-tight mb-2">
+      <Link
+        href="/weekly-analysis"
+        className="font-body inline-flex items-center gap-1 text-sm mb-6 text-[#3B82F6] hover:underline"
+      >
+        &larr; Back to Weekly Analysis
+      </Link>
+
+      <h1
+        className="font-display text-2xl font-semibold mb-2"
+        style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+      >
         New Weekly Analysis
       </h1>
-      <p className="text-zinc-400 text-[13px] mb-8">
+      <p className="font-body text-[13px] mb-8" style={{ color: '#7A8BA7' }}>
         Analyze the weekly chart to define your HTF bias. This will guide all
         your trades this week.
       </p>
 
       {error && (
-        <div className="bg-[#ff453a]/10 text-[#ff453a] rounded-xl p-3 text-[13px] mb-6">
+        <div
+          className="rounded-xl p-3 text-[13px] font-body mb-6"
+          style={{ background: 'rgba(239,68,68,0.1)', color: '#EF4444' }}
+        >
           {error}
         </div>
       )}
@@ -75,27 +97,35 @@ export default function NewWeeklyAnalysisPage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Week Start */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label
+            className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+            style={{ color: '#7A8BA7' }}
+          >
             Week Starting
           </label>
           <input
             type="date"
             value={form.weekStart}
             onChange={(e) => updateForm("weekStart", e.target.value)}
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+            className={`w-full rounded-xl px-4 py-3 font-mono focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 ${placeholderClass}`}
+            style={inputStyle}
           />
         </div>
 
         {/* Market Structure & HTF Bias */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Weekly Market Structure
             </label>
             <select
               value={form.marketStructure}
               onChange={(e) => updateForm("marketStructure", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className="w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40"
+              style={inputStyle}
             >
               {MARKET_STRUCTURE_OPTIONS.map((opt) => (
                 <option key={opt} value={opt}>
@@ -105,13 +135,17 @@ export default function NewWeeklyAnalysisPage() {
             </select>
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               HTF Bias (Trade Direction)
             </label>
             <select
               value={form.htfBias}
               onChange={(e) => updateForm("htfBias", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className="w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40"
+              style={inputStyle}
             >
               {BIAS_OPTIONS.map((opt) => (
                 <option key={opt} value={opt}>
@@ -124,7 +158,10 @@ export default function NewWeeklyAnalysisPage() {
 
         {/* Trend Description */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label
+            className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+            style={{ color: '#7A8BA7' }}
+          >
             Trend Description
           </label>
           <textarea
@@ -133,13 +170,17 @@ export default function NewWeeklyAnalysisPage() {
             rows={3}
             required
             placeholder="Describe the current weekly trend. Is price making HH/HL? LL/LH? Where is price in relation to key structure?"
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+            className={`w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 resize-none ${placeholderClass}`}
+            style={inputStyle}
           />
         </div>
 
         {/* Bias Reasoning */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label
+            className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+            style={{ color: '#7A8BA7' }}
+          >
             Bias Reasoning
           </label>
           <textarea
@@ -148,13 +189,17 @@ export default function NewWeeklyAnalysisPage() {
             rows={3}
             required
             placeholder="Why are you bullish/bearish/neutral this week? What confluence supports this direction?"
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+            className={`w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 resize-none ${placeholderClass}`}
+            style={inputStyle}
           />
         </div>
 
         {/* Key Levels */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label
+            className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+            style={{ color: '#7A8BA7' }}
+          >
             Key Levels
           </label>
           <textarea
@@ -163,14 +208,18 @@ export default function NewWeeklyAnalysisPage() {
             rows={2}
             required
             placeholder="List the major support/resistance levels, order blocks, FVGs on the weekly chart"
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+            className={`w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 resize-none ${placeholderClass}`}
+            style={inputStyle}
           />
         </div>
 
         {/* Support / Resistance / POI */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Weekly Support
             </label>
             <input
@@ -179,11 +228,15 @@ export default function NewWeeklyAnalysisPage() {
               onChange={(e) => updateForm("weeklySupport", e.target.value)}
               required
               placeholder="e.g. 1.0850, 1.0780"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`w-full rounded-xl px-4 py-3 font-mono focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 ${placeholderClass}`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Weekly Resistance
             </label>
             <input
@@ -192,11 +245,15 @@ export default function NewWeeklyAnalysisPage() {
               onChange={(e) => updateForm("weeklyResistance", e.target.value)}
               required
               placeholder="e.g. 1.1020, 1.1100"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`w-full rounded-xl px-4 py-3 font-mono focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 ${placeholderClass}`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Points of Interest
             </label>
             <input
@@ -205,14 +262,18 @@ export default function NewWeeklyAnalysisPage() {
               onChange={(e) => updateForm("weeklyPOI", e.target.value)}
               required
               placeholder="e.g. OB at 1.0900, FVG 1.0950"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`w-full rounded-xl px-4 py-3 font-mono focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 ${placeholderClass}`}
+              style={inputStyle}
             />
           </div>
         </div>
 
         {/* Notes */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label
+            className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+            style={{ color: '#7A8BA7' }}
+          >
             Additional Notes
           </label>
           <textarea
@@ -220,13 +281,17 @@ export default function NewWeeklyAnalysisPage() {
             onChange={(e) => updateForm("notes", e.target.value)}
             rows={2}
             placeholder="Any news events, correlations, or other factors to consider this week"
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+            className={`w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 resize-none ${placeholderClass}`}
+            style={inputStyle}
           />
         </div>
 
         {/* Reminder Box */}
-        <div className="bg-[#0a84ff]/10 rounded-xl p-4">
-          <p className="text-[#0a84ff] text-[13px] font-medium">
+        <div
+          className="rounded-xl p-4"
+          style={{ background: 'rgba(59,130,246,0.1)', border: '1px solid rgba(59,130,246,0.2)' }}
+        >
+          <p className="font-body text-[13px] font-medium" style={{ color: '#3B82F6' }}>
             Remember: Once you set your weekly bias, ONLY take trades in this
             direction unless there is a clear structural break on the daily
             timeframe.
@@ -238,14 +303,19 @@ export default function NewWeeklyAnalysisPage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/15 transition-colors"
+            className="font-body rounded-lg text-[13px] font-medium px-5 py-2.5 transition-all duration-200"
+            style={{ border: '1px solid rgba(0,212,170,0.3)', color: '#00D4AA' }}
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/90 disabled:opacity-50 transition-colors"
+            className="font-body rounded-lg text-[13px] font-medium px-5 py-2.5 disabled:opacity-50 transition-all duration-200"
+            style={{
+              background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)',
+              color: '#FFFFFF',
+            }}
           >
             {loading ? "Saving..." : "Save Weekly Analysis"}
           </button>

@@ -118,10 +118,10 @@ export default function NlpHubPage() {
   return (
     <div className="space-y-10">
       {/* Hero Section */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-10 text-center">
-        <p className="text-zinc-400 text-sm font-medium mb-3">NLP for Traders</p>
-        <h1 className="text-2xl font-semibold text-white tracking-tight mb-3">Rewire Your Trading Mind</h1>
-        <p className="text-zinc-400 max-w-2xl mx-auto text-lg">
+      <div className="rounded-xl p-10 text-center" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <p className="text-sm font-medium mb-3" style={{ color: '#7A8BA7' }}>NLP for Traders</p>
+        <h1 className="text-2xl font-bold tracking-tight mb-3 font-display" style={{ color: '#E8ECF1' }}>Rewire Your Trading Mind</h1>
+        <p className="max-w-2xl mx-auto text-lg" style={{ color: '#7A8BA7' }}>
           Neuro-Linguistic Programming techniques specifically adapted for trading psychology.
           Break destructive patterns, build unshakeable discipline, and develop the mental edge
           that separates consistent winners from the rest.
@@ -130,28 +130,31 @@ export default function NlpHubPage() {
 
       {/* Technique Cards Grid */}
       <div>
-        <h2 className="text-lg font-medium text-white mb-6">Choose a Technique</h2>
+        <h2 className="text-lg font-semibold mb-6 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Choose a Technique</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {techniques.map((t) => (
             <Link
               key={t.slug}
               href={`/nlp/${t.slug}`}
-              className="group bg-[#1c1c1e] rounded-2xl p-6 transition-all duration-200 hover:bg-white/[0.08]"
+              className="group rounded-xl p-6 transition-all duration-200"
+              style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.background = '#1A1F2E'; e.currentTarget.style.borderColor = 'rgba(0,212,170,0.3)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.background = '#111621'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)'; }}
             >
-              <div className="text-zinc-400 mb-4 transition-colors">
+              <div className="mb-4 transition-colors" style={{ color: '#7A8BA7' }}>
                 {t.icon}
               </div>
-              <h3 className="text-white font-semibold text-lg mb-1">{t.title}</h3>
-              <p className="text-zinc-400 text-sm mb-4 leading-relaxed">{t.description}</p>
+              <h3 className="font-semibold text-lg mb-1" style={{ color: '#E8ECF1' }}>{t.title}</h3>
+              <p className="text-sm mb-4 leading-relaxed" style={{ color: '#7A8BA7' }}>{t.description}</p>
               <div className="space-y-1.5">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-zinc-500">Mastery</span>
-                  <span className="text-white font-medium">{t.mastery}%</span>
+                  <span style={{ color: '#7A8BA7' }}>Mastery</span>
+                  <span className="font-medium" style={{ color: '#E8ECF1' }}>{t.mastery}%</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-1.5">
+                <div className="w-full rounded-full h-1.5" style={{ background: '#1A1F2E' }}>
                   <div
-                    className="bg-white h-1.5 rounded-full transition-all duration-500"
-                    style={{ width: `${t.mastery}%` }}
+                    className="h-1.5 rounded-full transition-all duration-500"
+                    style={{ width: `${t.mastery}%`, background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
                   />
                 </div>
               </div>
@@ -161,36 +164,36 @@ export default function NlpHubPage() {
       </div>
 
       {/* Your NLP Progress */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-6">Your NLP Progress</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-6 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Your NLP Progress</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white/5 rounded-xl p-5 text-center">
-            <div className="text-zinc-400 mb-2">
+          <div className="rounded-xl p-5 text-center" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="mb-2" style={{ color: '#7A8BA7' }}>
               <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
-            <p className="text-3xl font-semibold text-white">{totalSessions}</p>
-            <p className="text-zinc-500 text-sm mt-1">Total Sessions</p>
+            <p className="text-3xl font-semibold" style={{ color: '#E8ECF1' }}>{totalSessions}</p>
+            <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Total Sessions</p>
           </div>
-          <div className="bg-white/5 rounded-xl p-5 text-center">
-            <div className="text-zinc-400 mb-2">
+          <div className="rounded-xl p-5 text-center" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="mb-2" style={{ color: '#7A8BA7' }}>
               <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
               </svg>
             </div>
-            <p className="text-3xl font-semibold text-white">{favoriteTechnique}</p>
-            <p className="text-zinc-500 text-sm mt-1">Favorite Technique</p>
+            <p className="text-3xl font-semibold" style={{ color: '#E8ECF1' }}>{favoriteTechnique}</p>
+            <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Favorite Technique</p>
           </div>
-          <div className="bg-white/5 rounded-xl p-5 text-center">
-            <div className="text-zinc-400 mb-2">
+          <div className="rounded-xl p-5 text-center" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
+            <div className="mb-2" style={{ color: '#7A8BA7' }}>
               <svg xmlns="http://www.w3.org/2000/svg" className="w-8 h-8 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z" />
               </svg>
             </div>
-            <p className="text-3xl font-semibold text-white">{streak} days</p>
-            <p className="text-zinc-500 text-sm mt-1">Current Streak</p>
+            <p className="text-3xl font-semibold" style={{ color: '#E8ECF1' }}>{streak} days</p>
+            <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Current Streak</p>
           </div>
         </div>
       </div>

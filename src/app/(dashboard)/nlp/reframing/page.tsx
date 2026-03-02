@@ -89,7 +89,7 @@ export default function ReframingPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
+        <div className="fixed top-6 right-6 z-50 px-6 py-3 rounded-xl" style={{ background: 'rgba(0,212,170,0.1)', color: '#00D4AA' }}>
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -103,7 +103,10 @@ export default function ReframingPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+          className="transition-colors flex items-center gap-1 hover:opacity-80"
+          style={{ color: '#7A8BA7' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#E8ECF1'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#7A8BA7'; }}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -113,24 +116,24 @@ export default function ReframingPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-8">
+      <div className="rounded-xl p-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-white/5 rounded-xl">
-            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="p-2 rounded-xl" style={{ background: '#1A1F2E' }}>
+            <svg className="w-8 h-8" style={{ color: '#7A8BA7' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4h16v16H4V4zm3 3h10v10H7V7z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white tracking-tight">Reframing</h1>
-            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-bold tracking-tight font-display" style={{ color: '#E8ECF1' }}>Reframing</h1>
+            <p className="text-sm font-medium" style={{ color: '#7A8BA7' }}>NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What is Reframing */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-3">What is Reframing?</h2>
-        <p className="text-zinc-400 leading-relaxed">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>What is Reframing?</h2>
+        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
           Reframing is an NLP technique that changes the way you perceive an experience by
           shifting its context or meaning. Instead of seeing a trading loss as a failure,
           reframing helps you view it as valuable feedback, tuition, or confirmation that
@@ -141,15 +144,15 @@ export default function ReframingPage() {
       </div>
 
       {/* Interactive Reframing Exercise */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-6">
-        <h2 className="text-lg font-medium text-white">Reframing Exercise</h2>
+      <div className="rounded-xl p-6 space-y-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold font-display tracking-tight" style={{ color: '#E8ECF1' }}>Reframing Exercise</h2>
 
         {/* Negative Experience Input */}
         <div className="space-y-2">
-          <label className="text-white font-medium block">
+          <label className="font-medium block" style={{ color: '#E8ECF1' }}>
             Describe a negative trading experience
           </label>
-          <p className="text-zinc-500 text-sm">
+          <p className="text-sm" style={{ color: '#7A8BA7' }}>
             Write about a recent loss, missed trade, or frustrating moment.
           </p>
           <textarea
@@ -157,28 +160,30 @@ export default function ReframingPage() {
             onChange={(e) => setNegativeExperience(e.target.value)}
             rows={4}
             placeholder="e.g., I took a loss on GBP/USD today because I entered too early without waiting for confirmation..."
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
+            className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none"
+            style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
           />
         </div>
 
         {/* AI-Generated Reframe Suggestion */}
         <div className="space-y-3">
-          <label className="text-white font-medium block">Reframe Suggestion</label>
-          <div className="bg-white/[0.04] rounded-2xl p-5">
+          <label className="font-medium block" style={{ color: '#E8ECF1' }}>Reframe Suggestion</label>
+          <div className="rounded-xl p-5" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
             <div className="flex items-start gap-3">
-              <div className="p-1.5 bg-white/5 rounded-xl mt-0.5 shrink-0">
-                <svg className="w-5 h-5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="p-1.5 rounded-xl mt-0.5 shrink-0" style={{ background: 'rgba(139,92,246,0.15)' }}>
+                <svg className="w-5 h-5" style={{ color: '#8B5CF6' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                 </svg>
               </div>
-              <p className="text-zinc-300 text-lg italic leading-relaxed">
+              <p className="text-lg italic leading-relaxed" style={{ color: '#E8ECF1' }}>
                 &quot;{REFRAME_SUGGESTIONS[currentSuggestionIndex]}&quot;
               </p>
             </div>
           </div>
           <button
             onClick={getNewSuggestion}
-            className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/15 transition-colors flex items-center gap-2"
+            className="rounded-full text-[13px] font-medium px-5 py-2 transition-colors flex items-center gap-2"
+            style={{ background: 'rgba(255,255,255,0.06)', color: '#E8ECF1' }}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
@@ -189,10 +194,10 @@ export default function ReframingPage() {
 
         {/* User Writes Own Reframe */}
         <div className="space-y-2">
-          <label className="text-white font-medium block">
+          <label className="font-medium block" style={{ color: '#E8ECF1' }}>
             Write Your Own Reframe
           </label>
-          <p className="text-zinc-500 text-sm">
+          <p className="text-sm" style={{ color: '#7A8BA7' }}>
             Now write your own positive reframe of the experience above.
           </p>
           <textarea
@@ -200,36 +205,37 @@ export default function ReframingPage() {
             onChange={(e) => setUserReframe(e.target.value)}
             rows={4}
             placeholder="Write your positive reinterpretation of this experience..."
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
+            className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none"
+            style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
           />
         </div>
       </div>
 
       {/* Common Trading Reframes Table */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Common Trading Reframes</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Common Trading Reframes</h2>
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-white/[0.06]">
-                <th className="text-left text-zinc-500 text-sm font-medium py-3 pr-4">Error Type</th>
-                <th className="text-left text-zinc-500 text-sm font-medium py-3 pr-4">Negative Thought</th>
-                <th className="text-left text-zinc-500 text-sm font-medium py-3">Positive Reframe</th>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <th className="text-left text-sm font-medium py-3 pr-4" style={{ color: '#7A8BA7' }}>Error Type</th>
+                <th className="text-left text-sm font-medium py-3 pr-4" style={{ color: '#7A8BA7' }}>Negative Thought</th>
+                <th className="text-left text-sm font-medium py-3" style={{ color: '#7A8BA7' }}>Positive Reframe</th>
               </tr>
             </thead>
             <tbody>
               {COMMON_REFRAMES.map((item, i) => (
-                <tr key={i} className="border-b border-white/[0.06]">
+                <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                   <td className="py-4 pr-4">
-                    <span className="px-3 py-1 bg-white/10 rounded-full text-zinc-400 text-xs font-medium">
+                    <span className="px-3 py-1 rounded-full text-xs font-medium" style={{ background: 'rgba(255,255,255,0.06)', color: '#7A8BA7' }}>
                       {item.error}
                     </span>
                   </td>
                   <td className="py-4 pr-4">
-                    <p className="text-[#ff453a]/80 text-sm">{item.negative}</p>
+                    <p className="text-sm" style={{ color: 'rgba(239,68,68,0.8)' }}>{item.negative}</p>
                   </td>
                   <td className="py-4">
-                    <p className="text-[#30d158]/80 text-sm">{item.positive}</p>
+                    <p className="text-sm" style={{ color: 'rgba(0,212,170,0.8)' }}>{item.positive}</p>
                   </td>
                 </tr>
               ))}
@@ -239,13 +245,14 @@ export default function ReframingPage() {
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["Loss Aversion", "Greed", "Denial/Averaging Down"].map((error) => (
             <span
               key={error}
-              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
+              className="px-5 py-2 rounded-full text-[13px] font-medium"
+              style={{ background: 'rgba(255,255,255,0.06)', color: '#7A8BA7' }}
             >
               {error}
             </span>
@@ -258,7 +265,8 @@ export default function ReframingPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }}
         >
           {saving ? (
             <>

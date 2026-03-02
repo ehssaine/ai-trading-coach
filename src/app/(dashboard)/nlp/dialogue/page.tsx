@@ -202,7 +202,7 @@ export default function DialoguePage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
+        <div className="fixed top-6 right-6 z-50 px-6 py-3 rounded-xl" style={{ background: 'rgba(0,212,170,0.1)', color: '#00D4AA' }}>
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -216,7 +216,10 @@ export default function DialoguePage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+          className="transition-colors flex items-center gap-1 hover:opacity-80"
+          style={{ color: '#7A8BA7' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#E8ECF1'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#7A8BA7'; }}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -226,30 +229,30 @@ export default function DialoguePage() {
       </div>
 
       {/* Daily Affirmation */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6 text-center">
-        <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Daily Affirmation</p>
-        <p className="text-zinc-300 text-xl font-medium italic">&quot;{dailyAffirmation}&quot;</p>
+      <div className="rounded-xl p-6 text-center" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <p className="text-[11px] font-medium uppercase tracking-wider mb-2" style={{ color: '#7A8BA7' }}>Daily Affirmation</p>
+        <p className="text-xl font-medium italic" style={{ color: '#E8ECF1' }}>&quot;{dailyAffirmation}&quot;</p>
       </div>
 
       {/* Title */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-8">
+      <div className="rounded-xl p-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-white/5 rounded-xl">
-            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="p-2 rounded-xl" style={{ background: '#1A1F2E' }}>
+            <svg className="w-8 h-8" style={{ color: '#7A8BA7' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white tracking-tight">Internal Dialogue</h1>
-            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-bold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Internal Dialogue</h1>
+            <p className="text-sm font-medium" style={{ color: '#7A8BA7' }}>NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* Master Your Inner Voice */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-3">Master Your Inner Voice</h2>
-        <p className="text-zinc-400 leading-relaxed">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Master Your Inner Voice</h2>
+        <p className="leading-relaxed" style={{ color: '#7A8BA7' }}>
           Your internal dialogue -- the constant stream of thoughts running through your mind --
           has a profound impact on your trading performance. Negative self-talk creates anxiety,
           impulsiveness, and poor decision-making. By becoming aware of your internal dialogue
@@ -259,15 +262,15 @@ export default function DialoguePage() {
       </div>
 
       {/* Journal Analysis Tool */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-6">
-        <h2 className="text-lg font-medium text-white">Thought Journal Analysis</h2>
-        <p className="text-zinc-400 text-sm">
+      <div className="rounded-xl p-6 space-y-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold font-display tracking-tight" style={{ color: '#E8ECF1' }}>Thought Journal Analysis</h2>
+        <p className="text-sm" style={{ color: '#7A8BA7' }}>
           Write your current trading thoughts, and we will analyze them for negative patterns.
         </p>
 
         {/* Input */}
         <div className="space-y-2">
-          <label className="text-white font-medium block">Write your current trading thoughts</label>
+          <label className="font-medium block" style={{ color: '#E8ECF1' }}>Write your current trading thoughts</label>
           <textarea
             value={journalText}
             onChange={(e) => {
@@ -276,14 +279,16 @@ export default function DialoguePage() {
             }}
             rows={6}
             placeholder="e.g., I always seem to lose on Mondays. I should have taken that EUR/USD trade yesterday. I can't believe I missed another setup. The market is terrible today and I feel stupid for not seeing the reversal..."
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
+            className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none"
+            style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
           />
         </div>
 
         <button
           onClick={() => setAnalyzed(true)}
           disabled={!journalText.trim()}
-          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -296,13 +301,13 @@ export default function DialoguePage() {
           <div className="space-y-6">
             {/* Counts */}
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-[#ff453a]/10 rounded-2xl p-4 text-center">
-                <p className="text-3xl font-semibold text-[#ff453a]">{analysis.negativeCount}</p>
-                <p className="text-zinc-400 text-sm mt-1">Negative Phrases</p>
+              <div className="rounded-xl p-4 text-center" style={{ background: 'rgba(239,68,68,0.1)', border: '1px solid rgba(239,68,68,0.2)' }}>
+                <p className="text-3xl font-semibold text-[#EF4444]">{analysis.negativeCount}</p>
+                <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Negative Phrases</p>
               </div>
-              <div className="bg-[#30d158]/10 rounded-2xl p-4 text-center">
-                <p className="text-3xl font-semibold text-[#30d158]">{analysis.positiveCount}</p>
-                <p className="text-zinc-400 text-sm mt-1">Positive Phrases</p>
+              <div className="rounded-xl p-4 text-center" style={{ background: 'rgba(0,212,170,0.1)', border: '1px solid rgba(0,212,170,0.2)' }}>
+                <p className="text-3xl font-semibold text-[#00D4AA]">{analysis.positiveCount}</p>
+                <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Positive Phrases</p>
               </div>
             </div>
 
@@ -310,18 +315,18 @@ export default function DialoguePage() {
             {(analysis.negativeCount + analysis.positiveCount) > 0 && (
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span className="text-[#ff453a]">Negative</span>
-                  <span className="text-[#30d158]">Positive</span>
+                  <span style={{ color: '#EF4444' }}>Negative</span>
+                  <span style={{ color: '#00D4AA' }}>Positive</span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-3 flex overflow-hidden">
+                <div className="w-full rounded-full h-3 flex overflow-hidden" style={{ background: '#1A1F2E' }}>
                   <div
-                    className="bg-[#ff453a] h-3 transition-all duration-500"
+                    className="bg-[#EF4444] h-3 transition-all duration-500"
                     style={{
                       width: `${(analysis.negativeCount / (analysis.negativeCount + analysis.positiveCount)) * 100}%`,
                     }}
                   />
                   <div
-                    className="bg-[#30d158] h-3 transition-all duration-500"
+                    className="bg-[#00D4AA] h-3 transition-all duration-500"
                     style={{
                       width: `${(analysis.positiveCount / (analysis.negativeCount + analysis.positiveCount)) * 100}%`,
                     }}
@@ -332,16 +337,16 @@ export default function DialoguePage() {
 
             {/* Highlighted Text */}
             <div className="space-y-2">
-              <h3 className="text-white font-medium">Your text with highlighted patterns:</h3>
-              <div className="bg-white/[0.04] rounded-xl p-4">
+              <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Your text with highlighted patterns:</h3>
+              <div className="rounded-xl p-4" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
                 <p className="leading-relaxed">
                   {analysis.segments.map((seg, i) =>
                     seg.isNegative ? (
-                      <span key={i} className="bg-[#ff453a]/30 text-[#ff453a] px-0.5 rounded">
+                      <span key={i} className="px-0.5 rounded" style={{ background: 'rgba(239,68,68,0.3)', color: '#EF4444' }}>
                         {seg.text}
                       </span>
                     ) : (
-                      <span key={i} className="text-zinc-300">{seg.text}</span>
+                      <span key={i} style={{ color: '#E8ECF1' }}>{seg.text}</span>
                     )
                   )}
                 </p>
@@ -351,15 +356,15 @@ export default function DialoguePage() {
             {/* Suggested Rephrases */}
             {analysis.suggestions.length > 0 && (
               <div className="space-y-3">
-                <h3 className="text-white font-medium">Suggested Replacements:</h3>
+                <h3 className="font-medium" style={{ color: '#E8ECF1' }}>Suggested Replacements:</h3>
                 <div className="space-y-2">
                   {analysis.suggestions.map((sug, i) => (
-                    <div key={i} className="flex items-center gap-3 bg-white/[0.04] rounded-xl p-3">
-                      <span className="text-[#ff453a] line-through">&quot;{sug.original}&quot;</span>
-                      <svg className="w-4 h-4 text-zinc-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <div key={i} className="flex items-center gap-3 rounded-xl p-3" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
+                      <span className="text-[#EF4444] line-through">&quot;{sug.original}&quot;</span>
+                      <svg className="w-4 h-4 shrink-0" style={{ color: '#4A5568' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
-                      <span className="text-[#30d158]">&quot;{sug.replacement}&quot;</span>
+                      <span className="text-[#00D4AA]">&quot;{sug.replacement}&quot;</span>
                     </div>
                   ))}
                 </div>
@@ -367,12 +372,12 @@ export default function DialoguePage() {
             )}
 
             {analysis.negativeCount === 0 && (
-              <div className="bg-[#30d158]/10 text-[#30d158] rounded-2xl p-4 text-center">
-                <svg className="w-8 h-8 text-[#30d158] mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <div className="rounded-xl p-4 text-center" style={{ background: 'rgba(0,212,170,0.1)' }}>
+                <svg className="w-8 h-8 text-[#00D4AA] mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <p className="font-medium">Great job! No negative self-talk patterns detected.</p>
-                <p className="text-zinc-400 text-sm mt-1">Keep maintaining this positive internal dialogue.</p>
+                <p className="font-medium" style={{ color: '#00D4AA' }}>Great job! No negative self-talk patterns detected.</p>
+                <p className="text-sm mt-1" style={{ color: '#7A8BA7' }}>Keep maintaining this positive internal dialogue.</p>
               </div>
             )}
           </div>
@@ -380,9 +385,9 @@ export default function DialoguePage() {
       </div>
 
       {/* Dialogue Replacement Exercise */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-6">
-        <h2 className="text-lg font-medium text-white">Dialogue Replacement Exercise</h2>
-        <p className="text-zinc-400 text-sm">
+      <div className="rounded-xl p-6 space-y-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold font-display tracking-tight" style={{ color: '#E8ECF1' }}>Dialogue Replacement Exercise</h2>
+        <p className="text-sm" style={{ color: '#7A8BA7' }}>
           Practice replacing negative self-talk with empowering alternatives. Review the examples and add your own.
         </p>
 
@@ -390,28 +395,28 @@ export default function DialoguePage() {
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
-              <tr className="border-b border-white/[0.06]">
-                <th className="text-left text-zinc-500 text-sm font-medium py-3 pr-4">Negative Self-Talk</th>
-                <th className="text-left text-zinc-500 text-sm font-medium py-3 pl-4">Positive Replacement</th>
+              <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+                <th className="text-left text-sm font-medium py-3 pr-4" style={{ color: '#7A8BA7' }}>Negative Self-Talk</th>
+                <th className="text-left text-sm font-medium py-3 pl-4" style={{ color: '#7A8BA7' }}>Positive Replacement</th>
               </tr>
             </thead>
             <tbody>
               {replacements.map((item, i) => (
-                <tr key={i} className="border-b border-white/[0.06]">
+                <tr key={i} style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
                   <td className="py-4 pr-4">
                     <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-[#ff453a] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <svg className="w-4 h-4 text-[#EF4444] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                       </svg>
-                      <p className="text-[#ff453a]/80 text-sm">&quot;{item.negative}&quot;</p>
+                      <p className="text-sm" style={{ color: 'rgba(239,68,68,0.8)' }}>&quot;{item.negative}&quot;</p>
                     </div>
                   </td>
                   <td className="py-4 pl-4">
                     <div className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-[#30d158] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <svg className="w-4 h-4 text-[#00D4AA] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                       </svg>
-                      <p className="text-[#30d158]/80 text-sm">&quot;{item.positive}&quot;</p>
+                      <p className="text-sm" style={{ color: 'rgba(0,212,170,0.8)' }}>&quot;{item.positive}&quot;</p>
                     </div>
                   </td>
                 </tr>
@@ -421,34 +426,37 @@ export default function DialoguePage() {
         </div>
 
         {/* Add Custom Entry */}
-        <div className="bg-white/[0.04] rounded-xl p-4 space-y-3">
-          <h3 className="text-white font-medium text-sm">Add Your Own</h3>
+        <div className="rounded-xl p-4 space-y-3" style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <h3 className="font-medium text-sm" style={{ color: '#E8ECF1' }}>Add Your Own</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
             <div>
-              <label className="text-zinc-500 text-xs block mb-1">Negative Self-Talk</label>
+              <label className="text-xs block mb-1" style={{ color: '#7A8BA7' }}>Negative Self-Talk</label>
               <input
                 type="text"
                 value={newNegative}
                 onChange={(e) => setNewNegative(e.target.value)}
                 placeholder='e.g., "I will never be profitable"'
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 text-sm"
+                className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] text-sm"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
               />
             </div>
             <div>
-              <label className="text-zinc-500 text-xs block mb-1">Positive Replacement</label>
+              <label className="text-xs block mb-1" style={{ color: '#7A8BA7' }}>Positive Replacement</label>
               <input
                 type="text"
                 value={newPositive}
                 onChange={(e) => setNewPositive(e.target.value)}
                 placeholder='e.g., "I am building profitability one trade at a time"'
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 text-sm"
+                className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] text-sm"
+                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
               />
             </div>
           </div>
           <button
             onClick={handleAddReplacement}
             disabled={!newNegative.trim() || !newPositive.trim()}
-            className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/15 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+            style={{ background: 'rgba(255,255,255,0.06)', color: '#E8ECF1' }}
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
@@ -459,10 +467,10 @@ export default function DialoguePage() {
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display tracking-tight" style={{ color: '#E8ECF1' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
-          <span className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium">
+          <span className="px-5 py-2 rounded-full text-[13px] font-medium" style={{ background: 'rgba(255,255,255,0.06)', color: '#7A8BA7' }}>
             All psychological trading errors
           </span>
         </div>
@@ -473,7 +481,8 @@ export default function DialoguePage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }}
         >
           {saving ? (
             <>

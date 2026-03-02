@@ -31,30 +31,48 @@ export default function WeeklyAnalysisListPage() {
   }, []);
 
   if (loading) {
-    return <div className="text-zinc-400 text-center py-12">Loading...</div>;
+    return (
+      <div className="font-body text-center py-12" style={{ color: '#4A5568' }}>
+        Loading...
+      </div>
+    );
   }
 
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white tracking-tight">Weekly Analysis</h1>
-          <p className="text-zinc-400 text-sm mt-1">
+          <h1
+            className="font-display text-2xl font-semibold"
+            style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+          >
+            Weekly Analysis
+          </h1>
+          <p className="font-body text-sm mt-1" style={{ color: '#7A8BA7' }}>
             Define your HTF bias every week before trading
           </p>
         </div>
         <Link
           href="/weekly-analysis/new"
-          className="bg-white hover:bg-white/90 text-black px-5 py-2 rounded-full text-[13px] font-medium transition-colors"
+          className="font-body rounded-lg px-5 py-2 text-[13px] font-medium transition-all duration-200"
+          style={{
+            background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)',
+            color: '#FFFFFF',
+          }}
         >
           + New Analysis
         </Link>
       </div>
 
       {analyses.length === 0 && (
-        <div className="text-center py-16 bg-[#1c1c1e] rounded-2xl">
-          <p className="text-zinc-400 text-lg">No weekly analyses yet</p>
-          <p className="text-zinc-500 text-sm mt-1">
+        <div
+          className="text-center py-16 rounded-xl"
+          style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <p className="font-body text-lg" style={{ color: '#7A8BA7' }}>
+            No weekly analyses yet
+          </p>
+          <p className="font-body text-sm mt-1" style={{ color: '#4A5568' }}>
             Start your week right by analyzing the higher timeframe
           </p>
         </div>
@@ -65,12 +83,16 @@ export default function WeeklyAnalysisListPage() {
           <Link
             key={a.id}
             href={`/weekly-analysis/${a.id}`}
-            className="bg-[#1c1c1e] rounded-2xl p-6 hover:bg-white/[0.06] transition-colors block"
+            className="rounded-xl p-6 hover:border-[#00D4AA]/30 transition-all duration-200 block"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
           >
             <div className="flex items-start justify-between">
               <div className="space-y-2">
                 <div className="flex items-center gap-3">
-                  <span className="text-white font-medium">
+                  <span
+                    className="font-display font-medium"
+                    style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+                  >
                     Week of {formatDate(a.weekStart)}
                   </span>
                   <span
@@ -88,11 +110,16 @@ export default function WeeklyAnalysisListPage() {
                     {a.marketStructure}
                   </span>
                 </div>
-                <p className="text-zinc-400 text-sm">{a.biasReasoning}</p>
-                <div className="flex items-center gap-4 text-xs text-zinc-500">
+                <p className="font-body text-sm" style={{ color: '#7A8BA7' }}>
+                  {a.biasReasoning}
+                </p>
+                <div
+                  className="flex items-center gap-4 text-xs font-mono"
+                  style={{ color: '#4A5568' }}
+                >
                   <span>Support: {a.weeklySupport}</span>
                   <span>Resistance: {a.weeklyResistance}</span>
-                  <span>{a._count.dailyPlans} daily plans</span>
+                  <span className="font-body">{a._count.dailyPlans} daily plans</span>
                 </div>
               </div>
             </div>

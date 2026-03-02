@@ -165,7 +165,7 @@ export default function VisualizationPage() {
     <div className="space-y-8">
       {/* Toast */}
       {showToast && (
-        <div className="fixed top-6 right-6 z-50 bg-[#30d158]/10 text-[#30d158] px-6 py-3 rounded-2xl">
+        <div className="fixed top-6 right-6 z-50 px-6 py-3 rounded-xl" style={{ background: 'rgba(0,212,170,0.1)', color: '#00D4AA' }}>
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
@@ -179,7 +179,10 @@ export default function VisualizationPage() {
       <div className="flex items-center gap-4">
         <Link
           href="/nlp"
-          className="text-zinc-400 hover:text-white transition-colors flex items-center gap-1"
+          className="transition-colors flex items-center gap-1 hover:opacity-80"
+          style={{ color: '#7A8BA7' }}
+          onMouseEnter={(e) => { e.currentTarget.style.color = '#E8ECF1'; }}
+          onMouseLeave={(e) => { e.currentTarget.style.color = '#7A8BA7'; }}
         >
           <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
@@ -189,25 +192,25 @@ export default function VisualizationPage() {
       </div>
 
       {/* Title */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-8">
+      <div className="rounded-xl p-8" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-white/5 rounded-xl">
-            <svg className="w-8 h-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+          <div className="p-2 rounded-xl" style={{ background: '#1A1F2E' }}>
+            <svg className="w-8 h-8" style={{ color: '#7A8BA7' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
               <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
             </svg>
           </div>
           <div>
-            <h1 className="text-2xl font-semibold text-white tracking-tight">Visualization</h1>
-            <p className="text-zinc-500 text-sm font-medium">NLP Technique</p>
+            <h1 className="text-2xl font-bold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Visualization</h1>
+            <p className="text-sm font-medium" style={{ color: '#7A8BA7' }}>NLP Technique</p>
           </div>
         </div>
       </div>
 
       {/* What is Visualization */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-3">What is Visualization?</h2>
-        <p className="text-zinc-400 leading-relaxed">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>What is Visualization?</h2>
+        <p className="leading-relaxed font-body" style={{ color: '#7A8BA7' }}>
           Visualization (or mental rehearsal) is a technique where you create vivid mental images
           of desired outcomes and behaviors. Elite athletes have used visualization for decades to
           improve performance, and it is equally powerful for traders. By mentally rehearsing
@@ -218,17 +221,18 @@ export default function VisualizationPage() {
       </div>
 
       {/* Session Type Selection */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Choose Your Session</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Choose Your Session</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {(Object.keys(SESSION_DATA) as SessionType[]).map((key) => (
             <label
               key={key}
-              className={`flex items-start gap-3 p-4 rounded-xl cursor-pointer transition-all ${
+              className="flex items-start gap-3 p-4 rounded-xl cursor-pointer transition-all"
+              style={
                 sessionType === key
-                  ? "bg-white/10 border border-white/[0.06]"
-                  : "bg-white/[0.04] border border-transparent hover:bg-white/[0.06]"
-              }`}
+                  ? { background: 'rgba(0,212,170,0.08)', border: '1px solid rgba(0,212,170,0.3)' }
+                  : { background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)' }
+              }
             >
               <input
                 type="radio"
@@ -240,13 +244,14 @@ export default function VisualizationPage() {
                   setCurrentStep(0);
                   setIsPlaying(false);
                 }}
-                className="mt-1 accent-white"
+                className="mt-1"
+                style={{ accentColor: '#00D4AA' }}
               />
               <div>
-                <p className={`font-medium ${sessionType === key ? "text-white" : "text-zinc-300"}`}>
+                <p className="font-medium font-body" style={{ color: sessionType === key ? '#E8ECF1' : '#7A8BA7' }}>
                   {SESSION_DATA[key].title}
                 </p>
-                <p className="text-zinc-500 text-sm">{SESSION_DATA[key].description}</p>
+                <p className="text-sm font-body" style={{ color: '#4A5568' }}>{SESSION_DATA[key].description}</p>
               </div>
             </label>
           ))}
@@ -254,21 +259,22 @@ export default function VisualizationPage() {
       </div>
 
       {/* Guided Visualization */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-8 transition-all duration-1000">
-        <h2 className="text-lg font-medium text-white mb-6">Guided Visualization: {session.title}</h2>
+      <div className="rounded-xl p-8 transition-all duration-1000" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-6 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Guided Visualization: {session.title}</h2>
 
         {/* Progress indicators */}
         <div className="flex gap-1 mb-6">
           {session.steps.map((_, i) => (
             <div
               key={i}
-              className={`h-1 flex-1 rounded-full transition-all duration-500 ${
-                i < currentStep
-                  ? "bg-white"
+              className="h-1 flex-1 rounded-full transition-all duration-500"
+              style={{
+                background: i < currentStep
+                  ? '#00D4AA'
                   : i === currentStep && isPlaying
-                  ? "bg-white/50"
-                  : "bg-white/10"
-              }`}
+                  ? 'rgba(0,212,170,0.5)'
+                  : '#1A1F2E',
+              }}
             />
           ))}
         </div>
@@ -276,19 +282,19 @@ export default function VisualizationPage() {
         {/* Current step text */}
         <div className="min-h-[120px] flex items-center justify-center">
           {!isPlaying && currentStep === 0 ? (
-            <p className="text-zinc-400 text-center text-lg">
+            <p className="text-center text-lg font-body" style={{ color: '#7A8BA7' }}>
               Press start to begin your guided visualization session.
             </p>
           ) : currentStep >= session.steps.length ? (
             <div className="text-center">
-              <svg className="w-12 h-12 text-[#30d158] mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <svg className="w-12 h-12 text-[#00D4AA] mx-auto mb-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
-              <p className="text-[#30d158] text-xl font-medium">Session Complete</p>
-              <p className="text-zinc-400 text-sm mt-1">Take a moment to journal your experience below.</p>
+              <p className="text-[#00D4AA] text-xl font-medium font-display" style={{ letterSpacing: '-0.02em' }}>Session Complete</p>
+              <p className="text-sm mt-1 font-body" style={{ color: '#7A8BA7' }}>Take a moment to journal your experience below.</p>
             </div>
           ) : (
-            <p className="text-white text-xl text-center leading-relaxed font-light animate-pulse">
+            <p className="text-xl text-center leading-relaxed font-light animate-pulse font-body" style={{ color: '#E8ECF1' }}>
               {session.steps[currentStep]?.text}
             </p>
           )}
@@ -299,7 +305,8 @@ export default function VisualizationPage() {
           {!isPlaying ? (
             <button
               onClick={startSession}
-              className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 transition-colors flex items-center gap-2"
+              className="rounded-full text-[13px] font-medium px-5 py-2 transition-colors flex items-center gap-2"
+              style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }}
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M8 5v14l11-7z" />
@@ -309,7 +316,8 @@ export default function VisualizationPage() {
           ) : (
             <button
               onClick={stopSession}
-              className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/15 transition-colors flex items-center gap-2"
+              className="rounded-full text-[13px] font-medium px-5 py-2 transition-colors flex items-center gap-2"
+              style={{ background: 'rgba(255,255,255,0.06)', color: '#E8ECF1' }}
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" />
@@ -321,9 +329,9 @@ export default function VisualizationPage() {
       </div>
 
       {/* Breathing Guide */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Breathing Guide</h2>
-        <p className="text-zinc-400 text-sm mb-6">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Breathing Guide</h2>
+        <p className="text-sm mb-6 font-body" style={{ color: '#7A8BA7' }}>
           Use this 4-4-4-4 box breathing technique to center yourself before or during visualization.
         </p>
 
@@ -331,10 +339,10 @@ export default function VisualizationPage() {
           {/* Breathing circle */}
           <div className="relative flex items-center justify-center w-40 h-40">
             <div
-              className="w-32 h-32 rounded-full bg-white/20 border-2 border-white/20 flex items-center justify-center transition-transform duration-[4000ms] ease-in-out"
-              style={{ transform: `scale(${breathingScale})` }}
+              className="w-32 h-32 rounded-full flex items-center justify-center transition-transform duration-[4000ms] ease-in-out"
+              style={{ background: 'rgba(0,212,170,0.2)', border: '2px solid rgba(0,212,170,0.3)', transform: `scale(${breathingScale})` }}
             >
-              <p className="text-zinc-400 font-medium text-sm text-center px-2">
+              <p className="font-medium text-sm text-center px-2 font-body" style={{ color: '#7A8BA7' }}>
                 {breathingActive ? BREATHING_PHASES[breathingPhase] : "Press Start"}
               </p>
             </div>
@@ -346,11 +354,12 @@ export default function VisualizationPage() {
               {BREATHING_PHASES.map((phase, i) => (
                 <span
                   key={i}
-                  className={`px-3 py-1 rounded-full transition-colors ${
+                  className="px-3 py-1 rounded-full transition-colors font-body"
+                  style={
                     i === breathingPhase
-                      ? "bg-white/10 text-white"
-                      : "text-zinc-600"
-                  }`}
+                      ? { background: 'rgba(0,212,170,0.15)', color: '#00D4AA' }
+                      : { color: '#4A5568' }
+                  }
                 >
                   {phase} 4s
                 </span>
@@ -364,11 +373,12 @@ export default function VisualizationPage() {
               setBreathingPhase(0);
               setBreathingScale(1);
             }}
-            className={`rounded-full text-[13px] font-medium px-5 py-2 transition-colors ${
+            className="rounded-full text-[13px] font-medium px-5 py-2 transition-colors"
+            style={
               breathingActive
-                ? "bg-white/10 text-white hover:bg-white/15"
-                : "bg-white text-black hover:bg-white/90"
-            }`}
+                ? { background: 'rgba(255,255,255,0.06)', color: '#E8ECF1' }
+                : { background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }
+            }
           >
             {breathingActive ? "Stop Breathing Guide" : "Start Breathing Guide"}
           </button>
@@ -376,9 +386,9 @@ export default function VisualizationPage() {
       </div>
 
       {/* Journal Entry */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-3">Journal Entry</h2>
-        <p className="text-zinc-400 text-sm mb-3">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-3 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Journal Entry</h2>
+        <p className="text-sm mb-3 font-body" style={{ color: '#7A8BA7' }}>
           Record your thoughts, feelings, and observations after the visualization.
         </p>
         <textarea
@@ -386,18 +396,20 @@ export default function VisualizationPage() {
           onChange={(e) => setJournalNotes(e.target.value)}
           rows={5}
           placeholder="How did the visualization feel? What images were most vivid? How do you feel now compared to before?"
-          className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 placeholder-zinc-600 resize-none"
+          className="w-full rounded-xl px-4 py-3 focus:outline-none focus:ring-1 placeholder-[#4A5568] resize-none font-body"
+          style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
         />
       </div>
 
       {/* Targeted Errors */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-lg font-medium text-white mb-4">Targeted Trading Errors</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-lg font-semibold mb-4 font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Targeted Trading Errors</h2>
         <div className="flex flex-wrap gap-3">
           {["FOMO", "Impatience", "Emotional Decision-Making"].map((error) => (
             <span
               key={error}
-              className="px-5 py-2 bg-white/10 rounded-full text-zinc-400 text-[13px] font-medium"
+              className="px-5 py-2 rounded-full text-[13px] font-medium"
+              style={{ background: 'rgba(255,255,255,0.06)', color: '#7A8BA7' }}
             >
               {error}
             </span>
@@ -410,7 +422,8 @@ export default function VisualizationPage() {
         <button
           onClick={handleSave}
           disabled={saving}
-          className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center gap-2"
+          style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#0B0E14' }}
         >
           {saving ? (
             <>

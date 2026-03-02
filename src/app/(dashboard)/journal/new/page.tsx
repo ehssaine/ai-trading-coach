@@ -2,6 +2,7 @@
 
 import { Suspense, useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 import {
   BIAS_OPTIONS,
   SETUP_TYPES,
@@ -24,7 +25,7 @@ interface DailyPlan {
 
 export default function NewTradePageWrapper() {
   return (
-    <Suspense fallback={<div className="text-zinc-400 text-center py-12">Loading...</div>}>
+    <Suspense fallback={<div className="font-body text-center py-12" style={{ color: '#4A5568' }}>Loading...</div>}>
       <NewTradePage />
     </Suspense>
   );
@@ -154,15 +155,26 @@ function NewTradePage() {
     }
   }
 
+  const labelClass = "font-body block text-xs font-medium uppercase tracking-wider mb-1.5";
+  const labelStyle = { color: '#7A8BA7' };
+  const inputClass = "w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/30 transition-all duration-200";
+  const inputStyle = { background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' };
+  const placeholderClass = "placeholder:text-[#4A5568]";
+
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-semibold text-white tracking-tight mb-2">Log New Trade</h1>
-      <p className="text-zinc-400 text-[13px] mb-8">
+      <Link href="/journal" className="text-[#3B82F6] text-sm font-body hover:opacity-80 transition-all duration-200">
+        &larr; Back to Journal
+      </Link>
+      <h1 className="text-2xl font-semibold font-display mt-4 mb-2" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>
+        Log New Trade
+      </h1>
+      <p className="text-[13px] font-body mb-8" style={{ color: '#7A8BA7' }}>
         Record every trade. Be honest with yourself.
       </p>
 
       {error && (
-        <div className="bg-[#ff453a]/10 text-[#ff453a] rounded-xl p-3 text-[13px] mb-6">
+        <div className="rounded-xl p-3 text-[13px] font-body mb-6" style={{ background: 'rgba(239,68,68,0.1)', color: '#EF4444', border: '1px solid rgba(239,68,68,0.2)' }}>
           {error}
         </div>
       )}
@@ -170,11 +182,12 @@ function NewTradePage() {
       <form onSubmit={handleSubmit} className="space-y-6">
         {/* Link to Daily Plan */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">Daily Plan</label>
+          <label className={labelClass} style={labelStyle}>Daily Plan</label>
           <select
             value={form.dailyPlanId}
             onChange={(e) => updateForm("dailyPlanId", e.target.value)}
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+            className={inputClass}
+            style={inputStyle}
           >
             <option value="">-- None --</option>
             {dailyPlans.map((p) => (
@@ -188,22 +201,24 @@ function NewTradePage() {
         {/* Pair & Direction */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Pair / Symbol</label>
+            <label className={labelClass} style={labelStyle}>Pair / Symbol</label>
             <input
               type="text"
               value={form.pair}
               onChange={(e) => updateForm("pair", e.target.value.toUpperCase())}
               required
               placeholder="e.g. EUR/USD, BTC/USD"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClass} ${placeholderClass}`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Direction</label>
+            <label className={labelClass} style={labelStyle}>Direction</label>
             <select
               value={form.direction}
               onChange={(e) => updateForm("direction", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClass}
+              style={inputStyle}
             >
               {BIAS_OPTIONS.filter((o) => o !== "NEUTRAL").map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -220,36 +235,39 @@ function NewTradePage() {
         {/* Entry / SL / TP */}
         <div className="grid grid-cols-3 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Entry Price</label>
+            <label className={labelClass} style={labelStyle}>Entry Price</label>
             <input
               type="number"
               step="any"
               value={form.entryPrice}
               onChange={(e) => updateForm("entryPrice", e.target.value)}
               required
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClass} font-mono`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Stop Loss</label>
+            <label className={labelClass} style={labelStyle}>Stop Loss</label>
             <input
               type="number"
               step="any"
               value={form.stopLoss}
               onChange={(e) => updateForm("stopLoss", e.target.value)}
               required
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClass} font-mono`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Take Profit</label>
+            <label className={labelClass} style={labelStyle}>Take Profit</label>
             <input
               type="number"
               step="any"
               value={form.takeProfit}
               onChange={(e) => updateForm("takeProfit", e.target.value)}
               required
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClass} font-mono`}
+              style={inputStyle}
             />
           </div>
         </div>
@@ -257,7 +275,7 @@ function NewTradePage() {
         {/* Position Size & RR */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Position Size</label>
+            <label className={labelClass} style={labelStyle}>Position Size</label>
             <input
               type="number"
               step="any"
@@ -265,11 +283,12 @@ function NewTradePage() {
               onChange={(e) => updateForm("positionSize", e.target.value)}
               required
               placeholder="e.g. 0.1 lots"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClass} font-mono ${placeholderClass}`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Risk:Reward Ratio</label>
+            <label className={labelClass} style={labelStyle}>Risk:Reward Ratio</label>
             <input
               type="number"
               step="any"
@@ -277,7 +296,8 @@ function NewTradePage() {
               onChange={(e) => updateForm("riskRewardRatio", e.target.value)}
               required
               placeholder="Auto-calculated"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClass} font-mono ${placeholderClass}`}
+              style={inputStyle}
             />
           </div>
         </div>
@@ -285,11 +305,12 @@ function NewTradePage() {
         {/* Setup & Entry Time */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Setup Type</label>
+            <label className={labelClass} style={labelStyle}>Setup Type</label>
             <select
               value={form.setupType}
               onChange={(e) => updateForm("setupType", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClass}
+              style={inputStyle}
             >
               {SETUP_TYPES.map((s) => (
                 <option key={s} value={s}>{s.replace(/_/g, " ")}</option>
@@ -297,13 +318,14 @@ function NewTradePage() {
             </select>
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Entry Time</label>
+            <label className={labelClass} style={labelStyle}>Entry Time</label>
             <input
               type="datetime-local"
               value={form.entryTime}
               onChange={(e) => updateForm("entryTime", e.target.value)}
               required
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClass}
+              style={inputStyle}
             />
           </div>
         </div>
@@ -311,11 +333,12 @@ function NewTradePage() {
         {/* Status */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Status</label>
+            <label className={labelClass} style={labelStyle}>Status</label>
             <select
               value={form.status}
               onChange={(e) => updateForm("status", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClass}
+              style={inputStyle}
             >
               {TRADE_STATUS.map((s) => (
                 <option key={s} value={s}>{s.replace("CLOSED_", "").replace("_", " ")}</option>
@@ -323,11 +346,12 @@ function NewTradePage() {
             </select>
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Emotional State</label>
+            <label className={labelClass} style={labelStyle}>Emotional State</label>
             <select
               value={form.emotionalState}
               onChange={(e) => updateForm("emotionalState", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClass}
+              style={inputStyle}
             >
               {EMOTIONAL_STATES.map((s) => (
                 <option key={s} value={s}>{s}</option>
@@ -340,42 +364,46 @@ function NewTradePage() {
         {form.status !== "OPEN" && form.status !== "CANCELLED" && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Price</label>
+              <label className={labelClass} style={labelStyle}>Exit Price</label>
               <input
                 type="number"
                 step="any"
                 value={form.exitPrice}
                 onChange={(e) => updateForm("exitPrice", e.target.value)}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                className={`${inputClass} font-mono`}
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Time</label>
+              <label className={labelClass} style={labelStyle}>Exit Time</label>
               <input
                 type="datetime-local"
                 value={form.exitTime}
                 onChange={(e) => updateForm("exitTime", e.target.value)}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                className={inputClass}
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">P&L ($)</label>
+              <label className={labelClass} style={labelStyle}>P&L ($)</label>
               <input
                 type="number"
                 step="any"
                 value={form.pnl}
                 onChange={(e) => updateForm("pnl", e.target.value)}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                className={`${inputClass} font-mono`}
+                style={inputStyle}
               />
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">P&L (%)</label>
+              <label className={labelClass} style={labelStyle}>P&L (%)</label>
               <input
                 type="number"
                 step="any"
                 value={form.pnlPercentage}
                 onChange={(e) => updateForm("pnlPercentage", e.target.value)}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                className={`${inputClass} font-mono`}
+                style={inputStyle}
               />
             </div>
           </div>
@@ -383,27 +411,29 @@ function NewTradePage() {
 
         {/* Entry Reason */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">Entry Reason</label>
+          <label className={labelClass} style={labelStyle}>Entry Reason</label>
           <textarea
             value={form.entryReason}
             onChange={(e) => updateForm("entryReason", e.target.value)}
             rows={3}
             required
             placeholder="Why did you enter this trade? What was the setup, confirmation, and trigger?"
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+            className={`${inputClass} ${placeholderClass} resize-none`}
+            style={inputStyle}
           />
         </div>
 
         {/* Exit Reason */}
         {form.status !== "OPEN" && (
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Exit Reason</label>
+            <label className={labelClass} style={labelStyle}>Exit Reason</label>
             <textarea
               value={form.exitReason}
               onChange={(e) => updateForm("exitReason", e.target.value)}
               rows={2}
               placeholder="Why did you exit? Hit TP/SL, or manual close?"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClass} ${placeholderClass} resize-none`}
+              style={inputStyle}
             />
           </div>
         )}
@@ -411,30 +441,32 @@ function NewTradePage() {
         {/* Self-review */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Mistakes</label>
+            <label className={labelClass} style={labelStyle}>Mistakes</label>
             <textarea
               value={form.mistakes}
               onChange={(e) => updateForm("mistakes", e.target.value)}
               rows={2}
               placeholder="Any mistakes? Entered too early, moved SL, revenge trade?"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClass} ${placeholderClass} resize-none`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">Lessons Learned</label>
+            <label className={labelClass} style={labelStyle}>Lessons Learned</label>
             <textarea
               value={form.lessonsLearned}
               onChange={(e) => updateForm("lessonsLearned", e.target.value)}
               rows={2}
               placeholder="What can you learn from this trade?"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClass} ${placeholderClass} resize-none`}
+              style={inputStyle}
             />
           </div>
         </div>
 
         {/* Rating */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label className={labelClass} style={labelStyle}>
             Trade Quality Rating (1-5)
           </label>
           <div className="flex gap-2">
@@ -443,17 +475,18 @@ function NewTradePage() {
                 key={r}
                 type="button"
                 onClick={() => updateForm("rating", String(r))}
-                className={`w-10 h-10 rounded-xl font-medium transition-colors ${
+                className="w-10 h-10 rounded-xl font-medium font-mono transition-all duration-200"
+                style={
                   form.rating === String(r)
-                    ? "bg-white text-black"
-                    : "bg-white/5 text-zinc-400 hover:bg-white/10"
-                }`}
+                    ? { background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#FFFFFF' }
+                    : { background: '#1A1F2E', color: '#7A8BA7', border: '1px solid rgba(255,255,255,0.06)' }
+                }
               >
                 {r}
               </button>
             ))}
           </div>
-          <p className="text-[11px] text-zinc-500 mt-1">
+          <p className="text-[11px] font-body mt-1" style={{ color: '#4A5568' }}>
             1 = Terrible (FOMO/revenge) ... 5 = Perfect execution of plan
           </p>
         </div>
@@ -462,14 +495,16 @@ function NewTradePage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/15 transition-colors"
+            className="rounded-lg text-[13px] font-medium font-body px-5 py-2.5 transition-all duration-200 hover:opacity-80"
+            style={{ border: '1px solid rgba(0,212,170,0.3)', color: '#00D4AA' }}
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/90 disabled:opacity-50 transition-colors"
+            className="text-white rounded-lg text-[13px] font-semibold font-body px-5 py-2.5 disabled:opacity-50 transition-all duration-200 hover:opacity-90"
+            style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
           >
             {loading ? "Saving..." : "Log Trade"}
           </button>

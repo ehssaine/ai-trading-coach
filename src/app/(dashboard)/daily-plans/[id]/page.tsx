@@ -86,90 +86,212 @@ export default function DailyPlanDetailPage() {
     router.push("/daily-plans");
   }
 
-  if (loading) return <div className="text-zinc-400 text-center py-12">Loading...</div>;
-  if (!plan) return <div className="text-[#ff453a] text-center py-12">Not found</div>;
+  const inputStyle = {
+    background: '#1A1F2E',
+    border: '1px solid rgba(255,255,255,0.06)',
+    color: '#E8ECF1',
+  };
+
+  const inputClassName = "w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 placeholder:text-[#4A5568]";
+
+  if (loading)
+    return (
+      <div className="font-body text-center py-12" style={{ color: '#7A8BA7' }}>
+        Loading...
+      </div>
+    );
+
+  if (!plan)
+    return (
+      <div className="font-body text-center py-12" style={{ color: '#EF4444' }}>
+        Not found
+      </div>
+    );
 
   return (
     <div className="max-w-3xl mx-auto space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white tracking-tight">
+          <h1
+            className="font-display text-2xl font-semibold"
+            style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+          >
             Daily Plan - {formatDate(plan.date)}
           </h1>
           <div className="flex items-center gap-3 mt-2">
-            <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${getBiasBg(plan.dailyBias)}`}>
+            <span
+              className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-bold border ${getBiasBg(plan.dailyBias)}`}
+            >
               Daily: {plan.dailyBias}
             </span>
             {plan.weeklyAnalysis && (
-              <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm border ${getBiasBg(plan.weeklyAnalysis.htfBias)}`}>
+              <span
+                className={`inline-flex items-center px-3 py-1 rounded-full text-sm border ${getBiasBg(plan.weeklyAnalysis.htfBias)}`}
+              >
                 HTF: {plan.weeklyAnalysis.htfBias}
               </span>
             )}
             {!plan.alignedWithHTF && (
-              <span className="text-[#ff453a] text-[11px] font-medium bg-[#ff453a]/10 px-2 py-1 rounded-xl">
+              <span
+                className="text-[11px] font-medium px-2 py-1 rounded-xl"
+                style={{ color: '#EF4444', background: 'rgba(239,68,68,0.1)' }}
+              >
                 Counter-HTF
               </span>
             )}
           </div>
         </div>
-        <button onClick={handleDelete} className="text-[#ff453a] hover:text-[#ff453a]/80 text-[13px]">
+        <button
+          onClick={handleDelete}
+          className="font-body text-[13px] font-medium transition-all duration-200"
+          style={{ color: '#EF4444' }}
+        >
           Delete
         </button>
       </div>
 
       {/* Plan Details */}
       <div className="grid gap-4">
-        <div className="bg-[#1c1c1e] rounded-2xl p-6">
-          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-2">Trade Plan</h3>
-          <p className="text-zinc-300 whitespace-pre-wrap">{plan.tradePlan}</p>
+        <div
+          className="rounded-xl p-6"
+          style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+        >
+          <h3
+            className="font-body text-xs font-medium uppercase tracking-wider mb-2"
+            style={{ color: '#7A8BA7' }}
+          >
+            Trade Plan
+          </h3>
+          <p className="font-body whitespace-pre-wrap" style={{ color: '#E8ECF1' }}>
+            {plan.tradePlan}
+          </p>
         </div>
 
         <div className="grid grid-cols-3 gap-4">
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Support</p>
-            <p className="text-white font-medium mt-1">{plan.dailySupport}</p>
+          <div
+            className="rounded-xl p-4"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <p
+              className="font-body text-xs font-medium uppercase tracking-wider"
+              style={{ color: '#7A8BA7' }}
+            >
+              Support
+            </p>
+            <p className="font-mono font-medium mt-1" style={{ color: '#E8ECF1' }}>
+              {plan.dailySupport}
+            </p>
           </div>
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Resistance</p>
-            <p className="text-white font-medium mt-1">{plan.dailyResistance}</p>
+          <div
+            className="rounded-xl p-4"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <p
+              className="font-body text-xs font-medium uppercase tracking-wider"
+              style={{ color: '#7A8BA7' }}
+            >
+              Resistance
+            </p>
+            <p className="font-mono font-medium mt-1" style={{ color: '#E8ECF1' }}>
+              {plan.dailyResistance}
+            </p>
           </div>
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">POI</p>
-            <p className="text-white font-medium mt-1">{plan.dailyPOI}</p>
+          <div
+            className="rounded-xl p-4"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <p
+              className="font-body text-xs font-medium uppercase tracking-wider"
+              style={{ color: '#7A8BA7' }}
+            >
+              POI
+            </p>
+            <p className="font-mono font-medium mt-1" style={{ color: '#E8ECF1' }}>
+              {plan.dailyPOI}
+            </p>
           </div>
         </div>
 
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Max Trades</p>
-            <p className="text-white font-medium mt-1">{plan.maxTrades}</p>
+          <div
+            className="rounded-xl p-4"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <p
+              className="font-body text-xs font-medium uppercase tracking-wider"
+              style={{ color: '#7A8BA7' }}
+            >
+              Max Trades
+            </p>
+            <p className="font-mono font-medium mt-1" style={{ color: '#E8ECF1' }}>
+              {plan.maxTrades}
+            </p>
           </div>
-          <div className="bg-[#1c1c1e] rounded-2xl p-4">
-            <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Risk Per Trade</p>
-            <p className="text-white font-medium mt-1">{plan.riskPerTrade}%</p>
+          <div
+            className="rounded-xl p-4"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <p
+              className="font-body text-xs font-medium uppercase tracking-wider"
+              style={{ color: '#7A8BA7' }}
+            >
+              Risk Per Trade
+            </p>
+            <p className="font-mono font-medium mt-1" style={{ color: '#E8ECF1' }}>
+              {plan.riskPerTrade}%
+            </p>
           </div>
         </div>
 
         {/* Session Notes */}
         {(plan.asianSessionNotes || plan.londonSessionNotes || plan.nySessionNotes) && (
-          <div className="bg-[#1c1c1e] rounded-2xl p-6 space-y-3">
-            <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Session Notes</h3>
+          <div
+            className="rounded-xl p-6 space-y-3"
+            style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            <h3
+              className="font-body text-xs font-medium uppercase tracking-wider"
+              style={{ color: '#7A8BA7' }}
+            >
+              Session Notes
+            </h3>
             {plan.asianSessionNotes && (
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Asian</p>
-                <p className="text-zinc-300 text-sm">{plan.asianSessionNotes}</p>
+                <p
+                  className="font-body text-xs font-medium uppercase tracking-wider"
+                  style={{ color: '#4A5568' }}
+                >
+                  Asian
+                </p>
+                <p className="font-body text-sm" style={{ color: '#E8ECF1' }}>
+                  {plan.asianSessionNotes}
+                </p>
               </div>
             )}
             {plan.londonSessionNotes && (
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">London</p>
-                <p className="text-zinc-300 text-sm">{plan.londonSessionNotes}</p>
+                <p
+                  className="font-body text-xs font-medium uppercase tracking-wider"
+                  style={{ color: '#4A5568' }}
+                >
+                  London
+                </p>
+                <p className="font-body text-sm" style={{ color: '#E8ECF1' }}>
+                  {plan.londonSessionNotes}
+                </p>
               </div>
             )}
             {plan.nySessionNotes && (
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">New York</p>
-                <p className="text-zinc-300 text-sm">{plan.nySessionNotes}</p>
+                <p
+                  className="font-body text-xs font-medium uppercase tracking-wider"
+                  style={{ color: '#4A5568' }}
+                >
+                  New York
+                </p>
+                <p className="font-body text-sm" style={{ color: '#E8ECF1' }}>
+                  {plan.nySessionNotes}
+                </p>
               </div>
             )}
           </div>
@@ -179,54 +301,83 @@ export default function DailyPlanDetailPage() {
       {/* Trades */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-white">Trades ({plan.trades.length}/{plan.maxTrades})</h2>
+          <h2
+            className="font-display text-lg font-semibold"
+            style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+          >
+            Trades ({plan.trades.length}/{plan.maxTrades})
+          </h2>
           {plan.trades.length < plan.maxTrades && (
             <Link
               href={`/journal/new?dailyPlanId=${plan.id}`}
-              className="text-[#0a84ff] hover:text-[#0a84ff]/80 text-[13px]"
+              className="font-body text-[13px] font-medium transition-all duration-200"
+              style={{ color: '#3B82F6' }}
             >
               + Log Trade
             </Link>
           )}
           {plan.trades.length >= plan.maxTrades && (
-            <span className="text-[#ff9f0a] text-[11px]">Max trades reached for today</span>
+            <span className="font-body text-[11px]" style={{ color: '#F59E0B' }}>
+              Max trades reached for today
+            </span>
           )}
         </div>
 
         {plan.trades.length === 0 ? (
-          <p className="text-zinc-500 text-[13px]">No trades logged yet.</p>
+          <p className="font-body text-[13px]" style={{ color: '#4A5568' }}>
+            No trades logged yet.
+          </p>
         ) : (
           <div className="space-y-2">
             {plan.trades.map((trade) => (
               <Link
                 key={trade.id}
                 href={`/journal/${trade.id}`}
-                className="flex items-center justify-between bg-[#1c1c1e] rounded-2xl p-4 hover:bg-white/[0.08] transition-colors"
+                className="flex items-center justify-between rounded-xl p-4 hover:border-[#00D4AA]/30 transition-all duration-200 block"
+                style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-white font-medium">{trade.pair}</span>
-                  <span className={`text-[11px] font-bold ${trade.direction === "LONG" ? "text-[#30d158]" : "text-[#ff453a]"}`}>
+                  <span className="font-body font-medium" style={{ color: '#E8ECF1' }}>
+                    {trade.pair}
+                  </span>
+                  <span
+                    className="text-[11px] font-bold font-body"
+                    style={{ color: trade.direction === "LONG" ? '#00D4AA' : '#EF4444' }}
+                  >
                     {trade.direction}
                   </span>
-                  <span className={`text-[11px] px-2 py-0.5 rounded-full ${
-                    trade.status === "CLOSED_WIN" ? "bg-[#30d158]/10 text-[#30d158]" :
-                    trade.status === "CLOSED_LOSS" ? "bg-[#ff453a]/10 text-[#ff453a]" :
-                    trade.status === "OPEN" ? "bg-[#0a84ff]/10 text-[#0a84ff]" :
-                    "bg-white/5 text-zinc-400"
-                  }`}>
+                  <span
+                    className="text-[11px] px-2 py-0.5 rounded-full font-body"
+                    style={
+                      trade.status === "CLOSED_WIN"
+                        ? { background: 'rgba(0,212,170,0.1)', color: '#00D4AA' }
+                        : trade.status === "CLOSED_LOSS"
+                        ? { background: 'rgba(239,68,68,0.1)', color: '#EF4444' }
+                        : trade.status === "OPEN"
+                        ? { background: 'rgba(59,130,246,0.1)', color: '#3B82F6' }
+                        : { background: 'rgba(255,255,255,0.05)', color: '#7A8BA7' }
+                    }
+                  >
                     {trade.status.replace("CLOSED_", "")}
                   </span>
                   {!trade.alignedWithHTF && (
-                    <span className="text-[#ff453a] text-[11px]">Counter-HTF</span>
+                    <span className="font-body text-[11px]" style={{ color: '#EF4444' }}>
+                      Counter-HTF
+                    </span>
                   )}
                 </div>
                 <div className="text-right">
                   {trade.pnl !== null && (
-                    <span className={`font-medium ${trade.pnl >= 0 ? "text-[#30d158]" : "text-[#ff453a]"}`}>
+                    <span
+                      className="font-mono font-medium"
+                      style={{ color: trade.pnl >= 0 ? '#00D4AA' : '#EF4444' }}
+                    >
                       {trade.pnl >= 0 ? "+" : ""}{trade.pnl}
                     </span>
                   )}
-                  <p className="text-zinc-500 text-[11px]">{formatDateTime(trade.entryTime)}</p>
+                  <p className="font-body text-[11px]" style={{ color: '#4A5568' }}>
+                    {formatDateTime(trade.entryTime)}
+                  </p>
                 </div>
               </Link>
             ))}
@@ -235,31 +386,47 @@ export default function DailyPlanDetailPage() {
       </div>
 
       {/* End of Day Review */}
-      <div className="bg-[#1c1c1e] border border-white/[0.06] rounded-2xl p-6">
-        <h2 className="text-lg font-semibold text-white mb-4">End of Day Review</h2>
+      <div
+        className="rounded-xl p-6"
+        style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}
+      >
+        <h2
+          className="font-display text-lg font-semibold mb-4"
+          style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+        >
+          End of Day Review
+        </h2>
         <form onSubmit={handleSaveReview} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+              <label
+                className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+                style={{ color: '#7A8BA7' }}
+              >
                 Followed Plan?
               </label>
               <select
                 value={review.followedPlan ? "true" : "false"}
                 onChange={(e) => setReview({ ...review, followedPlan: e.target.value === "true" })}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                className={inputClassName}
+                style={inputStyle}
               >
                 <option value="true">Yes</option>
                 <option value="false">No</option>
               </select>
             </div>
             <div>
-              <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+              <label
+                className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+                style={{ color: '#7A8BA7' }}
+              >
                 Emotional State
               </label>
               <select
                 value={review.emotionalState}
                 onChange={(e) => setReview({ ...review, emotionalState: e.target.value })}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+                className={inputClassName}
+                style={inputStyle}
               >
                 {EMOTIONAL_STATES.map((s) => (
                   <option key={s} value={s}>{s}</option>
@@ -269,7 +436,10 @@ export default function DailyPlanDetailPage() {
           </div>
 
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Review Notes
             </label>
             <textarea
@@ -277,12 +447,16 @@ export default function DailyPlanDetailPage() {
               onChange={(e) => setReview({ ...review, reviewNotes: e.target.value })}
               rows={3}
               placeholder="How did the day go? What went well, what went wrong?"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClassName} resize-none`}
+              style={inputStyle}
             />
           </div>
 
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Lesson Learned
             </label>
             <textarea
@@ -290,7 +464,8 @@ export default function DailyPlanDetailPage() {
               onChange={(e) => setReview({ ...review, lessonLearned: e.target.value })}
               rows={2}
               placeholder="What is the #1 takeaway from today?"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClassName} resize-none`}
+              style={inputStyle}
             />
           </div>
 
@@ -298,7 +473,8 @@ export default function DailyPlanDetailPage() {
             <button
               type="submit"
               disabled={saving}
-              className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/90 disabled:opacity-50 transition-colors"
+              className="font-body rounded-xl text-[13px] font-medium px-5 py-2.5 text-white disabled:opacity-50 transition-all duration-200"
+              style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
             >
               {saving ? "Saving..." : "Save Review"}
             </button>

@@ -99,15 +99,31 @@ export default function NewDailyPlanPage() {
     }
   }
 
+  const inputStyle = {
+    background: '#1A1F2E',
+    border: '1px solid rgba(255,255,255,0.06)',
+    color: '#E8ECF1',
+  };
+
+  const inputClassName = "w-full rounded-xl px-4 py-3 font-body focus:outline-none focus:ring-1 focus:ring-[#00D4AA]/40 placeholder:text-[#4A5568]";
+
   return (
     <div className="max-w-3xl mx-auto">
-      <h1 className="text-2xl font-semibold text-white tracking-tight mb-2">New Daily Plan</h1>
-      <p className="text-zinc-400 text-[13px] mb-8">
+      <h1
+        className="font-display text-2xl font-semibold mb-2"
+        style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}
+      >
+        New Daily Plan
+      </h1>
+      <p className="font-body text-[13px] mb-8" style={{ color: '#7A8BA7' }}>
         Plan your trading day. Always check alignment with your weekly bias.
       </p>
 
       {error && (
-        <div className="bg-[#ff453a]/10 text-[#ff453a] rounded-xl p-3 text-[13px] mb-6">
+        <div
+          className="rounded-xl p-3 text-[13px] font-body mb-6"
+          style={{ background: 'rgba(239,68,68,0.1)', color: '#EF4444' }}
+        >
           {error}
         </div>
       )}
@@ -116,24 +132,32 @@ export default function NewDailyPlanPage() {
         {/* Date & Weekly Link */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Date
             </label>
             <input
               type="date"
               value={form.date}
               onChange={(e) => updateForm("date", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClassName}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Weekly Analysis
             </label>
             <select
               value={form.weeklyAnalysisId}
               onChange={(e) => updateForm("weeklyAnalysisId", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClassName}
+              style={inputStyle}
             >
               <option value="">-- None --</option>
               {weeklyAnalyses.map((wa) => (
@@ -148,13 +172,17 @@ export default function NewDailyPlanPage() {
         {/* Daily Bias & Structure */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Daily Bias
             </label>
             <select
               value={form.dailyBias}
               onChange={(e) => updateForm("dailyBias", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClassName}
+              style={inputStyle}
             >
               {BIAS_OPTIONS.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -162,13 +190,17 @@ export default function NewDailyPlanPage() {
             </select>
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Daily Market Structure
             </label>
             <select
               value={form.dailyMarketStructure}
               onChange={(e) => updateForm("dailyMarketStructure", e.target.value)}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={inputClassName}
+              style={inputStyle}
             >
               {MARKET_STRUCTURE_OPTIONS.map((opt) => (
                 <option key={opt} value={opt}>{opt}</option>
@@ -184,11 +216,17 @@ export default function NewDailyPlanPage() {
 
         {/* Session Notes */}
         <div className="space-y-4">
-          <h3 className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">
+          <h3
+            className="font-display text-xs font-medium uppercase tracking-wider"
+            style={{ color: '#4A5568', letterSpacing: '-0.02em' }}
+          >
             Session Planning
           </h3>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Asian Session Notes
             </label>
             <textarea
@@ -196,11 +234,15 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("asianSessionNotes", e.target.value)}
               rows={2}
               placeholder="What to watch during Asian session (range formation, liquidity levels)"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClassName} resize-none`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               London Session Notes
             </label>
             <textarea
@@ -208,11 +250,15 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("londonSessionNotes", e.target.value)}
               rows={2}
               placeholder="London open expectations, key levels to watch"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClassName} resize-none`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               New York Session Notes
             </label>
             <textarea
@@ -220,7 +266,8 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("nySessionNotes", e.target.value)}
               rows={2}
               placeholder="NY session plan, news events, overlap considerations"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+              className={`${inputClassName} resize-none`}
+              style={inputStyle}
             />
           </div>
         </div>
@@ -228,7 +275,10 @@ export default function NewDailyPlanPage() {
         {/* Key Levels */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Daily Support
             </label>
             <input
@@ -237,11 +287,15 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("dailySupport", e.target.value)}
               required
               placeholder="e.g. 1.0870"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClassName} font-mono`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Daily Resistance
             </label>
             <input
@@ -250,11 +304,15 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("dailyResistance", e.target.value)}
               required
               placeholder="e.g. 1.0950"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClassName} font-mono`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Daily POI
             </label>
             <input
@@ -263,7 +321,8 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("dailyPOI", e.target.value)}
               required
               placeholder="e.g. FVG at 1.0900"
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClassName} font-mono`}
+              style={inputStyle}
             />
           </div>
         </div>
@@ -271,7 +330,10 @@ export default function NewDailyPlanPage() {
         {/* Risk Management */}
         <div className="grid grid-cols-2 gap-4">
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Max Trades Today
             </label>
             <input
@@ -280,11 +342,15 @@ export default function NewDailyPlanPage() {
               onChange={(e) => updateForm("maxTrades", parseInt(e.target.value))}
               min={1}
               max={10}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClassName} font-mono`}
+              style={inputStyle}
             />
           </div>
           <div>
-            <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+            <label
+              className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+              style={{ color: '#7A8BA7' }}
+            >
               Risk Per Trade (%)
             </label>
             <input
@@ -294,14 +360,18 @@ export default function NewDailyPlanPage() {
               min={0.1}
               max={5}
               step={0.1}
-              className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20"
+              className={`${inputClassName} font-mono`}
+              style={inputStyle}
             />
           </div>
         </div>
 
         {/* Trade Plan */}
         <div>
-          <label className="block text-[13px] font-medium text-zinc-400 mb-2">
+          <label
+            className="font-body block text-xs font-medium uppercase tracking-wider mb-1.5"
+            style={{ color: '#7A8BA7' }}
+          >
             Trade Plan
           </label>
           <textarea
@@ -310,7 +380,8 @@ export default function NewDailyPlanPage() {
             rows={4}
             required
             placeholder="Describe your plan for today in detail: What setups are you looking for? At which levels? What confirmations do you need before entering?"
-            className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 resize-none"
+            className={`${inputClassName} resize-none`}
+            style={inputStyle}
           />
         </div>
 
@@ -318,14 +389,16 @@ export default function NewDailyPlanPage() {
           <button
             type="button"
             onClick={() => router.back()}
-            className="bg-white/10 text-white rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/15 transition-colors"
+            className="font-body rounded-xl text-[13px] font-medium px-5 py-2.5 transition-all duration-200 hover:border-[#00D4AA]/30"
+            style={{ border: '1px solid rgba(0,212,170,0.3)', color: '#00D4AA' }}
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={loading}
-            className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2.5 hover:bg-white/90 disabled:opacity-50 transition-colors"
+            className="font-body rounded-xl text-[13px] font-medium px-5 py-2.5 text-white disabled:opacity-50 transition-all duration-200"
+            style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
           >
             {loading ? "Saving..." : "Save Daily Plan"}
           </button>

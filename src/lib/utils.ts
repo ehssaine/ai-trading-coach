@@ -48,12 +48,12 @@ export function getBiasColor(bias: string): string {
   switch (bias) {
     case "LONG":
     case "BULLISH":
-      return "text-[#30d158]";
+      return "text-[#00D4AA]";
     case "SHORT":
     case "BEARISH":
-      return "text-[#ff453a]";
+      return "text-[#EF4444]";
     default:
-      return "text-[#ffd60a]";
+      return "text-[#F59E0B]";
   }
 }
 
@@ -61,11 +61,11 @@ export function getBiasBg(bias: string): string {
   switch (bias) {
     case "LONG":
     case "BULLISH":
-      return "bg-[#30d158]/10 text-[#30d158] border-[#30d158]/20";
+      return "bg-[#00D4AA]/10 text-[#00D4AA] border-[#00D4AA]/20";
     case "SHORT":
     case "BEARISH":
-      return "bg-[#ff453a]/10 text-[#ff453a] border-[#ff453a]/20";
+      return "bg-[#EF4444]/10 text-[#EF4444] border-[#EF4444]/20";
     default:
-      return "bg-[#ffd60a]/10 text-[#ffd60a] border-[#ffd60a]/20";
+      return "bg-[#F59E0B]/10 text-[#F59E0B] border-[#F59E0B]/20";
   }
 }

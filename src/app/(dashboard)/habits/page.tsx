@@ -33,14 +33,6 @@ interface Badge {
 }
 
 // ── Constants ───────────────────────────────────────────────────────────────
-const CATEGORY_COLORS: Record<string, string> = {
-  PRE_TRADE: "bg-white/10 text-zinc-300 border border-white/[0.06]",
-  POST_TRADE: "bg-white/10 text-zinc-300 border border-white/[0.06]",
-  NLP: "bg-white/10 text-zinc-300 border border-white/[0.06]",
-  MINDSET: "bg-white/10 text-zinc-300 border border-white/[0.06]",
-  RISK_MANAGEMENT: "bg-white/10 text-zinc-300 border border-white/[0.06]",
-};
-
 const CATEGORY_LABELS: Record<string, string> = {
   PRE_TRADE: "Pre-Trade",
   POST_TRADE: "Post-Trade",
@@ -268,7 +260,7 @@ export default function HabitsPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-zinc-500">Loading habits...</div>
+        <div style={{ color: '#4A5568' }}>Loading habits...</div>
       </div>
     );
   }
@@ -277,19 +269,19 @@ export default function HabitsPage() {
     <div className="space-y-8">
       {/* Success message */}
       {successMsg && (
-        <div className="bg-[#30d158]/10 text-[#30d158] rounded-xl p-3 text-sm font-medium">
+        <div className="rounded-xl p-3 text-sm font-medium font-body" style={{ background: 'rgba(0,212,170,0.1)', color: '#00D4AA' }}>
           {successMsg}
         </div>
       )}
 
       {/* ── Gamification Profile ────────────────────────────────────────── */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex flex-col md:flex-row md:items-center gap-6">
           {/* Level badge */}
           <div className="flex-shrink-0 flex items-center justify-center">
-            <div className="relative w-20 h-20 rounded-full bg-white/10 border border-white/[0.1] flex items-center justify-center">
-              <span className="text-white text-2xl font-bold">{profile.level}</span>
-              <span className="absolute -bottom-1 text-[10px] font-medium text-zinc-400 bg-[#1c1c1e] px-2 rounded-full border border-white/[0.1]">
+            <div className="relative w-20 h-20 rounded-full flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}>
+              <span className="font-mono text-2xl font-bold" style={{ color: '#E8ECF1' }}>{profile.level}</span>
+              <span className="absolute -bottom-1 text-[10px] font-medium font-body px-2 rounded-full" style={{ color: '#7A8BA7', background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
                 LEVEL
               </span>
             </div>
@@ -299,34 +291,34 @@ export default function HabitsPage() {
           <div className="flex-1 space-y-3">
             <div className="flex flex-wrap items-center gap-6">
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Total Points</p>
-                <p className="text-2xl font-semibold text-white tracking-tight">{profile.totalPoints.toLocaleString()}</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Total Points</p>
+                <p className="text-2xl font-semibold font-mono" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>{profile.totalPoints.toLocaleString()}</p>
               </div>
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Current Streak</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Current Streak</p>
                 <div className="flex items-center gap-1.5">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#ff9f0a]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" style={{ color: '#F59E0B' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z" />
                   </svg>
-                  <span className="text-2xl font-semibold text-white tracking-tight">{profile.currentStreak} days</span>
+                  <span className="text-2xl font-semibold font-mono" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>{profile.currentStreak} days</span>
                 </div>
               </div>
               <div>
-                <p className="text-[11px] font-medium text-zinc-500 uppercase tracking-wider">Longest Streak</p>
-                <p className="text-2xl font-semibold text-white tracking-tight">{profile.longestStreak} days</p>
+                <p className="text-[11px] font-medium uppercase tracking-wider font-body" style={{ color: '#4A5568' }}>Longest Streak</p>
+                <p className="text-2xl font-semibold font-mono" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>{profile.longestStreak} days</p>
               </div>
             </div>
 
             {/* Progress bar to next level */}
             <div>
               <div className="flex items-center justify-between text-xs mb-1">
-                <span className="text-zinc-500">Progress to Level {profile.level + 1}</span>
-                <span className="text-zinc-400 font-medium">{pointsInLevel} / 500</span>
+                <span className="font-body" style={{ color: '#4A5568' }}>Progress to Level {profile.level + 1}</span>
+                <span className="font-medium font-mono" style={{ color: '#7A8BA7' }}>{pointsInLevel} / 500</span>
               </div>
-              <div className="w-full bg-white/10 rounded-full h-2.5">
+              <div className="w-full rounded-full h-2.5 bg-[#1A1F2E]">
                 <div
-                  className="bg-white h-2.5 rounded-full transition-all duration-500"
-                  style={{ width: `${progressToNext}%` }}
+                  className="h-2.5 rounded-full transition-all duration-500"
+                  style={{ width: `${progressToNext}%`, background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)' }}
                 />
               </div>
             </div>
@@ -335,27 +327,27 @@ export default function HabitsPage() {
       </div>
 
       {/* ── Today's Habits ──────────────────────────────────────────────── */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-semibold text-white tracking-tight">Today&apos;s Habits</h2>
-            <p className="text-zinc-400 text-sm mt-1">
+            <h2 className="text-2xl font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Today&apos;s Habits</h2>
+            <p className="text-sm mt-1 font-body" style={{ color: '#7A8BA7' }}>
               {completedIds.size} of {dailyHabits.length} completed
             </p>
           </div>
           <div className="flex items-center gap-3">
             <div className="text-right">
-              <span className="text-2xl font-semibold text-white tracking-tight">{completionPct}%</span>
+              <span className="text-2xl font-semibold font-mono" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>{completionPct}%</span>
             </div>
-            <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+            <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ background: '#1A1F2E' }}>
               <svg viewBox="0 0 36 36" className="w-12 h-12 -rotate-90">
-                <circle cx="18" cy="18" r="15.9155" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="3" />
+                <circle cx="18" cy="18" r="15.9155" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="3" />
                 <circle
                   cx="18"
                   cy="18"
                   r="15.9155"
                   fill="none"
-                  stroke="white"
+                  stroke="#00D4AA"
                   strokeWidth="3"
                   strokeDasharray={`${completionPct} ${100 - completionPct}`}
                   strokeLinecap="round"
@@ -366,7 +358,7 @@ export default function HabitsPage() {
         </div>
 
         {dailyHabits.length === 0 ? (
-          <div className="text-center py-8 text-zinc-500">
+          <div className="text-center py-8 font-body" style={{ color: '#4A5568' }}>
             <p>No habits yet. Add your first habit below or pick from our suggestions!</p>
           </div>
         ) : (
@@ -378,33 +370,39 @@ export default function HabitsPage() {
                   key={habit.id}
                   onClick={() => toggleHabit(habit.id)}
                   disabled={done}
-                  className={`w-full flex items-start gap-4 p-4 rounded-xl transition-all text-left ${
+                  className={`w-full flex items-start gap-4 p-4 rounded-xl transition-all duration-200 text-left ${
                     done
-                      ? "bg-white/[0.04] opacity-50"
-                      : "bg-white/[0.04] hover:bg-white/[0.06] cursor-pointer"
+                      ? "opacity-50"
+                      : "cursor-pointer hover:border-[#00D4AA]/30"
                   }`}
+                  style={{ background: done ? 'rgba(26,31,46,0.5)' : '#1A1F2E' }}
+                  onMouseEnter={(e) => { if (!done) e.currentTarget.style.background = '#242B3D'; }}
+                  onMouseLeave={(e) => { if (!done) e.currentTarget.style.background = '#1A1F2E'; }}
                 >
                   <input
                     type="checkbox"
                     checked={done}
                     readOnly
-                    className="accent-white w-5 h-5 mt-0.5 flex-shrink-0 cursor-pointer"
+                    className="accent-[#00D4AA] w-5 h-5 mt-0.5 flex-shrink-0 cursor-pointer"
                   />
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className={`font-medium ${done ? "line-through text-zinc-500" : "text-white"}`}>
+                      <span className={`font-medium font-body ${done ? "line-through" : ""}`} style={{ color: done ? '#4A5568' : '#E8ECF1' }}>
                         {habit.name}
                       </span>
-                      <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${CATEGORY_COLORS[habit.category] || "bg-white/10 text-zinc-300"}`}>
+                      <span
+                        className="inline-flex px-2 py-0.5 rounded-full text-xs font-medium font-body"
+                        style={{ background: '#1A1F2E', color: '#7A8BA7', border: '1px solid rgba(255,255,255,0.06)' }}
+                      >
                         {CATEGORY_LABELS[habit.category] || habit.category}
                       </span>
                     </div>
                     {habit.description && (
-                      <p className="text-zinc-500 text-sm mt-1">{habit.description}</p>
+                      <p className="text-sm mt-1 font-body" style={{ color: '#4A5568' }}>{habit.description}</p>
                     )}
                   </div>
                   {done && (
-                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#30d158] flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#00D4AA' }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                     </svg>
                   )}
@@ -416,15 +414,16 @@ export default function HabitsPage() {
       </div>
 
       {/* ── Add New Habit Form ──────────────────────────────────────────── */}
-      <div className="bg-[#1c1c1e] rounded-2xl">
+      <div className="rounded-xl" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
         <button
           onClick={() => setShowAddForm(!showAddForm)}
-          className="w-full flex items-center justify-between p-6 text-left"
+          className="w-full flex items-center justify-between p-6 text-left transition-all duration-200"
         >
-          <h2 className="text-2xl font-semibold text-white tracking-tight">Add New Habit</h2>
+          <h2 className="text-2xl font-semibold font-display" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Add New Habit</h2>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className={`w-5 h-5 text-zinc-400 transition-transform ${showAddForm ? "rotate-180" : ""}`}
+            className={`w-5 h-5 transition-transform ${showAddForm ? "rotate-180" : ""}`}
+            style={{ color: '#7A8BA7' }}
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -435,34 +434,43 @@ export default function HabitsPage() {
         </button>
 
         {showAddForm && (
-          <div className="px-6 pb-6 space-y-4 border-t border-white/[0.06] pt-4">
+          <div className="px-6 pb-6 space-y-4 pt-4" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
             <div>
-              <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Habit Name</label>
+              <label className="block text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>Habit Name</label>
               <input
                 type="text"
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
                 placeholder="e.g. Pre-trade meditation"
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors"
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all duration-200 font-body"
+                style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
+                onFocus={(e) => e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,212,170,0.3)'}
+                onBlur={(e) => e.currentTarget.style.boxShadow = 'none'}
               />
             </div>
             <div>
-              <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Description</label>
+              <label className="block text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>Description</label>
               <textarea
                 value={newDesc}
                 onChange={(e) => setNewDesc(e.target.value)}
                 placeholder="Describe what this habit involves..."
                 rows={3}
-                className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white placeholder-zinc-600 focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors resize-none"
+                className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all duration-200 resize-none font-body"
+                style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
+                onFocus={(e) => e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,212,170,0.3)'}
+                onBlur={(e) => e.currentTarget.style.boxShadow = 'none'}
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Category</label>
+                <label className="block text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>Category</label>
                 <select
                   value={newCategory}
                   onChange={(e) => setNewCategory(e.target.value)}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors"
+                  className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all duration-200 font-body"
+                  style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
+                  onFocus={(e) => e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,212,170,0.3)'}
+                  onBlur={(e) => e.currentTarget.style.boxShadow = 'none'}
                 >
                   <option value="PRE_TRADE">Pre-Trade</option>
                   <option value="POST_TRADE">Post-Trade</option>
@@ -472,11 +480,14 @@ export default function HabitsPage() {
                 </select>
               </div>
               <div>
-                <label className="block text-[11px] font-medium text-zinc-500 uppercase tracking-wider mb-1">Frequency</label>
+                <label className="block text-[11px] font-medium uppercase tracking-wider mb-1 font-body" style={{ color: '#4A5568' }}>Frequency</label>
                 <select
                   value={newFrequency}
                   onChange={(e) => setNewFrequency(e.target.value)}
-                  className="w-full bg-white/5 border-0 rounded-xl px-4 py-3 text-white focus:outline-none focus:ring-1 focus:ring-white/20 transition-colors"
+                  className="w-full rounded-xl px-4 py-3 focus:outline-none transition-all duration-200 font-body"
+                  style={{ background: '#1A1F2E', border: '1px solid rgba(255,255,255,0.06)', color: '#E8ECF1' }}
+                  onFocus={(e) => e.currentTarget.style.boxShadow = '0 0 0 1px rgba(0,212,170,0.3)'}
+                  onBlur={(e) => e.currentTarget.style.boxShadow = 'none'}
                 >
                   <option value="DAILY">Daily</option>
                   <option value="WEEKLY">Weekly</option>
@@ -486,7 +497,8 @@ export default function HabitsPage() {
             <button
               onClick={() => addHabit(newName, newDesc, newCategory, newFrequency)}
               disabled={!newName.trim() || submitting}
-              className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="rounded-full text-[13px] font-medium px-5 py-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-body"
+              style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#FFFFFF' }}
             >
               {submitting ? "Adding..." : "Add Habit"}
             </button>
@@ -495,9 +507,9 @@ export default function HabitsPage() {
       </div>
 
       {/* ── Streak Calendar ─────────────────────────────────────────────── */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-2xl font-semibold text-white tracking-tight mb-4">Streak Calendar</h2>
-        <p className="text-zinc-400 text-sm mb-4">Last 30 days of habit activity</p>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-2xl font-semibold font-display mb-4" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Streak Calendar</h2>
+        <p className="text-sm mb-4 font-body" style={{ color: '#7A8BA7' }}>Last 30 days of habit activity</p>
         <div className="flex flex-wrap gap-1.5">
           {days30.map((day) => {
             const status = dayStatus(day);
@@ -506,59 +518,65 @@ export default function HabitsPage() {
               <div
                 key={day}
                 title={`${label} - ${status === "full" ? "All completed" : status === "partial" ? "Partially completed" : "No activity"}`}
-                className={`w-7 h-7 rounded-md ${
-                  status === "full"
-                    ? "bg-white"
+                className="w-7 h-7 rounded-md"
+                style={{
+                  background: status === "full"
+                    ? "#00D4AA"
                     : status === "partial"
-                    ? "bg-white/20"
-                    : "bg-white/[0.03]"
-                }`}
+                    ? "rgba(0,212,170,0.4)"
+                    : "#1A1F2E"
+                }}
               />
             );
           })}
         </div>
-        <div className="flex items-center gap-4 mt-3 text-xs text-zinc-500">
+        <div className="flex items-center gap-4 mt-3 text-xs font-body" style={{ color: '#4A5568' }}>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-md bg-white/[0.03]" />
+            <div className="w-3 h-3 rounded-md" style={{ background: '#1A1F2E' }} />
             <span>No activity</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-md bg-white/20" />
+            <div className="w-3 h-3 rounded-md" style={{ background: 'rgba(0,212,170,0.4)' }} />
             <span>Partial</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <div className="w-3 h-3 rounded-md bg-white" />
+            <div className="w-3 h-3 rounded-md" style={{ background: '#00D4AA' }} />
             <span>All completed</span>
           </div>
         </div>
       </div>
 
       {/* ── Badge Collection ────────────────────────────────────────────── */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-2xl font-semibold text-white tracking-tight mb-6">Badge Collection</h2>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-2xl font-semibold font-display mb-6" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Badge Collection</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {Object.entries(BADGE_DEFINITIONS).map(([type, def]) => {
             const earned = badges.find((b) => b.type === type && b.earned);
             return (
               <div
                 key={type}
-                className={`rounded-2xl p-4 text-center transition-all ${
+                className={`rounded-xl p-4 text-center transition-all duration-200 ${
                   earned
-                    ? "bg-white/10"
-                    : "bg-white/[0.03] opacity-40"
+                    ? "hover:border-[#00D4AA]/30"
+                    : "opacity-40"
                 }`}
+                style={{
+                  background: '#1A1F2E',
+                  border: earned ? '1px solid rgba(0,212,170,0.3)' : '1px solid rgba(255,255,255,0.06)',
+                }}
               >
-                <div className={`inline-flex items-center justify-center w-14 h-14 rounded-full mb-3 ${
-                  earned ? "bg-white/10 text-white" : "bg-white/[0.04] text-zinc-500"
-                }`}>
+                <div className="inline-flex items-center justify-center w-14 h-14 rounded-full mb-3" style={{
+                  background: earned ? 'rgba(0,212,170,0.1)' : 'rgba(255,255,255,0.04)',
+                  color: earned ? '#00D4AA' : '#4A5568',
+                }}>
                   <BadgeIcon type={type} />
                 </div>
-                <h3 className={`font-medium text-sm ${earned ? "text-white" : "text-zinc-500"}`}>
+                <h3 className="font-medium text-sm font-body" style={{ color: earned ? '#E8ECF1' : '#4A5568' }}>
                   {def.name}
                 </h3>
-                <p className="text-xs text-zinc-500 mt-1">{def.description}</p>
+                <p className="text-xs mt-1 font-body" style={{ color: '#4A5568' }}>{def.description}</p>
                 {earned && earned.earnedAt && (
-                  <p className="text-xs text-zinc-400 mt-2">
+                  <p className="text-xs mt-2 font-body" style={{ color: '#7A8BA7' }}>
                     Earned {new Date(earned.earnedAt).toLocaleDateString()}
                   </p>
                 )}
@@ -569,9 +587,9 @@ export default function HabitsPage() {
       </div>
 
       {/* ── Suggested Trading Habits ────────────────────────────────────── */}
-      <div className="bg-[#1c1c1e] rounded-2xl p-6">
-        <h2 className="text-2xl font-semibold text-white tracking-tight mb-2">Suggested Trading Habits</h2>
-        <p className="text-zinc-400 text-sm mb-6">One-click add pre-built habits recommended for traders</p>
+      <div className="rounded-xl p-6" style={{ background: '#111621', border: '1px solid rgba(255,255,255,0.06)' }}>
+        <h2 className="text-2xl font-semibold font-display mb-2" style={{ color: '#E8ECF1', letterSpacing: '-0.02em' }}>Suggested Trading Habits</h2>
+        <p className="text-sm mb-6 font-body" style={{ color: '#7A8BA7' }}>One-click add pre-built habits recommended for traders</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {SUGGESTED_HABITS.map((sh) => {
             const alreadyAdded = habits.some(
@@ -580,27 +598,32 @@ export default function HabitsPage() {
             return (
               <div
                 key={sh.name}
-                className={`flex items-center justify-between p-4 rounded-xl ${
+                className={`flex items-center justify-between p-4 rounded-xl transition-all duration-200 ${
                   alreadyAdded
-                    ? "bg-white/[0.04] opacity-50"
-                    : "bg-white/[0.04]"
+                    ? "opacity-50"
+                    : "hover:border-[#00D4AA]/30"
                 }`}
+                style={{ background: '#1A1F2E' }}
               >
                 <div className="flex-1 min-w-0 mr-3">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="text-sm font-medium text-white">{sh.name}</span>
-                    <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${CATEGORY_COLORS[sh.category]}`}>
+                    <span className="text-sm font-medium font-body" style={{ color: '#E8ECF1' }}>{sh.name}</span>
+                    <span
+                      className="inline-flex px-2 py-0.5 rounded-full text-xs font-medium font-body"
+                      style={{ background: '#1A1F2E', color: '#7A8BA7', border: '1px solid rgba(255,255,255,0.06)' }}
+                    >
                       {CATEGORY_LABELS[sh.category]}
                     </span>
                   </div>
-                  <p className="text-zinc-500 text-xs mt-1 truncate">{sh.description}</p>
+                  <p className="text-xs mt-1 truncate font-body" style={{ color: '#4A5568' }}>{sh.description}</p>
                 </div>
                 {alreadyAdded ? (
-                  <span className="text-xs text-zinc-500 flex-shrink-0">Added</span>
+                  <span className="text-xs flex-shrink-0 font-body" style={{ color: '#4A5568' }}>Added</span>
                 ) : (
                   <button
                     onClick={() => addHabit(sh.name, sh.description, sh.category, sh.frequency)}
-                    className="bg-white text-black rounded-full text-[13px] font-medium px-5 py-2 hover:bg-white/90 transition-colors flex-shrink-0"
+                    className="rounded-full text-[13px] font-medium px-5 py-2 transition-all duration-200 flex-shrink-0 font-body"
+                    style={{ background: 'linear-gradient(135deg, #00D4AA 0%, #3B82F6 100%)', color: '#FFFFFF' }}
                   >
                     + Add
                   </button>
