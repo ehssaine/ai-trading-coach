@@ -48,6 +48,38 @@ export default function CoachPage() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Load conversation history on mount
+  useEffect(() => {
+    async function loadHistory() {
+      try {
+        const res = await fetch("/api/coach");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.messages && data.messages.length > 0) {
+            const history: Message[] = data.messages.map((m: { id: string; role: string; content: string; createdAt: string }) => ({
+              id: m.id,
+              role: m.role === "USER" ? "user" as const : "coach" as const,
+              content: m.content,
+              timestamp: new Date(m.createdAt),
+            }));
+            setMessages([
+              {
+                id: "welcome",
+                role: "coach",
+                content: WELCOME_MESSAGE,
+                timestamp: new Date(history[0].timestamp.getTime() - 1000),
+              },
+              ...history,
+            ]);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load coach history:", err);
+      }
+    }
+    loadHistory();
+  }, []);
+
   // Auto-scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -85,13 +117,14 @@ export default function CoachPage() {
         body: JSON.stringify({ content: text }),
       });
 
-      if (res.ok) {
-        const data = await res.json();
+      const data = await res.json();
+
+      if (res.ok && data.coachMessage) {
         const coachMsg: Message = {
-          id: (Date.now() + 1).toString(),
+          id: data.coachMessage.id || (Date.now() + 1).toString(),
           role: "coach",
-          content: data.response || data.message || "I understand. Let me think about that and give you my best advice.",
-          timestamp: new Date(),
+          content: data.coachMessage.content,
+          timestamp: new Date(data.coachMessage.createdAt || Date.now()),
         };
         setMessages((prev) => [...prev, coachMsg]);
       } else {
