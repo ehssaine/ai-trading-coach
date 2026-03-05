@@ -3,11 +3,21 @@ import { prisma } from "@/lib/prisma";
 import { requireAuth } from "@/lib/auth";
 import Anthropic from "@anthropic-ai/sdk";
 
-// ── Claude Client ───────────────────────────────────────────────────
+// ── Claude Client (lazy init) ───────────────────────────────────────
 
-const anthropic = new Anthropic({
-  apiKey: process.env.ANTHROPIC_API_KEY,
-});
+let anthropicClient: Anthropic | null = null;
+
+function getAnthropicClient(): Anthropic {
+  if (!process.env.ANTHROPIC_API_KEY) {
+    throw new Error("ANTHROPIC_API_KEY environment variable is not set");
+  }
+  if (!anthropicClient) {
+    anthropicClient = new Anthropic({
+      apiKey: process.env.ANTHROPIC_API_KEY,
+    });
+  }
+  return anthropicClient;
+}
 
 const SYSTEM_PROMPT = `You are an elite AI Trading Coach with 20 years of experience specializing in gold (XAUUSD) and silver (XAGUSD) markets. You use ICT (Inner Circle Trader) and SMC (Smart Money Concepts) methodology.
 
@@ -46,7 +56,8 @@ async function generateCoachResponse(
   // Add the current user message
   messages.push({ role: "user", content: userMessage });
 
-  const response = await anthropic.messages.create({
+  const client = getAnthropicClient();
+  const response = await client.messages.create({
     model: "claude-haiku-4-5-20251001",
     max_tokens: 1024,
     system: SYSTEM_PROMPT,
@@ -142,25 +153,28 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    // Add 2 points for engaging with the coach
-    const profile = await prisma.gamificationProfile.upsert({
-      where: { userId },
-      create: {
-        userId,
-        totalPoints: 2,
-      },
-      update: {
-        totalPoints: { increment: 2 },
-      },
-    });
-
-    // Update level based on total points
-    const newLevel = Math.floor(profile.totalPoints / 100) + 1;
-    if (newLevel !== profile.level) {
-      await prisma.gamificationProfile.update({
+    // Add 2 points for engaging with the coach (non-blocking)
+    try {
+      const profile = await prisma.gamificationProfile.upsert({
         where: { userId },
-        data: { level: newLevel },
+        create: {
+          userId,
+          totalPoints: 2,
+        },
+        update: {
+          totalPoints: { increment: 2 },
+        },
       });
+
+      const newLevel = Math.floor(profile.totalPoints / 100) + 1;
+      if (newLevel !== profile.level) {
+        await prisma.gamificationProfile.update({
+          where: { userId },
+          data: { level: newLevel },
+        });
+      }
+    } catch (gamificationError) {
+      console.error("Gamification update failed (non-blocking):", gamificationError);
     }
 
     return NextResponse.json(
@@ -174,6 +188,13 @@ export async function POST(request: NextRequest) {
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    if (error instanceof Error && error.message.includes("ANTHROPIC_API_KEY")) {
+      console.error("Coach error: ANTHROPIC_API_KEY is not configured");
+      return NextResponse.json(
+        { error: "AI coach is not configured. Please set ANTHROPIC_API_KEY." },
+        { status: 503 }
+      );
     }
     console.error("Coach message error:", error);
     return NextResponse.json(
