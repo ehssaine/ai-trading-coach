@@ -99,6 +99,7 @@ function impactIcon(impact: string) {
 export default function AIWeeklyOutlookPage() {
   const [weekStart, setWeekStart] = useState(getWeekStart());
   const [outlook, setOutlook] = useState<Outlook | null>(null);
+  const [spotPrices, setSpotPrices] = useState<{ gold: number | null; silver: number | null; fetchedAt: string | null }>({ gold: null, silver: null, fetchedAt: null });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -106,6 +107,7 @@ export default function AIWeeklyOutlookPage() {
     setLoading(true);
     setError("");
     setOutlook(null);
+    setSpotPrices({ gold: null, silver: null, fetchedAt: null });
 
     try {
       const res = await fetch("/api/ai-weekly-outlook", {
@@ -122,6 +124,9 @@ export default function AIWeeklyOutlookPage() {
       }
 
       setOutlook(data.outlook);
+      if (data.spotPrices) {
+        setSpotPrices(data.spotPrices);
+      }
     } catch {
       setError("Failed to connect. Please try again.");
     } finally {
@@ -243,6 +248,41 @@ export default function AIWeeklyOutlookPage() {
               </div>
             </div>
           </div>
+
+          {/* Live Spot Prices Banner */}
+          {(spotPrices.gold || spotPrices.silver) && (
+            <div className="rounded-xl p-4 flex items-center justify-between flex-wrap gap-3" style={{ background: "#1A1F2E", border: "1px solid rgba(139,92,246,0.2)" }}>
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="font-body text-xs uppercase tracking-wider" style={{ color: "#7A8BA7" }}>
+                  Live Spot Prices Used
+                </span>
+              </div>
+              <div className="flex items-center gap-6">
+                {spotPrices.gold && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs" style={{ color: "#7A8BA7" }}>Gold:</span>
+                    <span className="font-mono text-sm font-bold" style={{ color: "#EAB308" }}>
+                      ${spotPrices.gold.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+                {spotPrices.silver && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-xs" style={{ color: "#7A8BA7" }}>Silver:</span>
+                    <span className="font-mono text-sm font-bold" style={{ color: "#C0C0C0" }}>
+                      ${spotPrices.silver.toFixed(2)}
+                    </span>
+                  </div>
+                )}
+                {spotPrices.fetchedAt && (
+                  <span className="font-body text-[10px]" style={{ color: "#4A5568" }}>
+                    {new Date(spotPrices.fetchedAt).toLocaleTimeString()}
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Gold & Silver Side by Side */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

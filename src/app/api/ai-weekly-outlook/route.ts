@@ -19,9 +19,57 @@ function getAnthropicClient(): Anthropic {
   return anthropicClient;
 }
 
+// ── Fetch live spot prices ───────────────────────────────────────────
+
+interface SpotPrices {
+  gold: number | null;
+  silver: number | null;
+}
+
+async function fetchSpotPrices(): Promise<SpotPrices> {
+  const result: SpotPrices = { gold: null, silver: null };
+
+  // Try metals.dev (free, no auth)
+  try {
+    const res = await fetch("https://api.metals.dev/v1/latest?api_key=demo&currency=USD&unit=toz", {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (data.metals?.gold) result.gold = data.metals.gold;
+      if (data.metals?.silver) result.silver = data.metals.silver;
+      if (result.gold && result.silver) return result;
+    }
+  } catch { /* fallback below */ }
+
+  // Fallback: metals.live (free, no auth)
+  try {
+    const res = await fetch("https://api.metals.live/v1/spot", {
+      signal: AbortSignal.timeout(5000),
+    });
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) {
+        for (const item of data) {
+          if (item.gold && !result.gold) result.gold = item.gold;
+          if (item.silver && !result.silver) result.silver = item.silver;
+        }
+      }
+    }
+  } catch { /* continue with whatever we have */ }
+
+  return result;
+}
+
+// ── System prompt ───────────────────────────────────────────────────
+
 const SYSTEM_PROMPT = `You are an expert gold (XAUUSD) and silver (XAGUSD) market analyst. Respond ONLY with a valid JSON object — no markdown, no code fences, no extra text.
 
-CRITICAL: Keep all string values SHORT (1-2 sentences max). Keep arrays to 2-3 items max. This ensures the response fits within limits.
+CRITICAL RULES:
+- Keep all string values SHORT (1-2 sentences max). Keep arrays to 2-3 items max.
+- The user will provide REAL-TIME spot prices. You MUST base ALL technical levels around these actual prices. Do NOT invent prices from memory.
+- Support levels must be BELOW the current price. Resistance levels must be ABOVE the current price.
+- Round levels to the nearest $5-$10 for gold, $0.25-$0.50 for silver.
 
 JSON structure:
 {"weekLabel":"Mar 10-14, 2025","goldOutlook":{"bias":"BULLISH","currentContext":"Short context.","fundamentalDrivers":[{"factor":"Name","impact":"BULLISH","detail":"Short detail."}],"keyEventsThisWeek":[{"event":"Name","date":"Day","expectedImpact":"Short impact."}],"technicalLevels":{"weeklySupport":["2850","2820"],"weeklyResistance":["2920","2950"],"keyZones":"Short description of OBs/FVGs."},"scenarioBullish":"Short bull case.","scenarioBearish":"Short bear case."},"silverOutlook":{"bias":"BULLISH","currentContext":"Short context.","keyDrivers":"Short drivers.","technicalLevels":{"weeklySupport":["31.50","31.00"],"weeklyResistance":["33.00","33.50"]}},"macroEnvironment":{"dollarOutlook":"Short.","yieldsOutlook":"Short.","riskSentiment":"Short.","inflationContext":"Short."},"tradingPlan":{"preferredDirection":"LONG","entryConditions":"Short conditions.","riskWarnings":["Warning 1","Warning 2"],"weeklyAdvice":"Short advice."}}
@@ -32,8 +80,6 @@ Rules:
 - fundamentalDrivers: max 4 items
 - keyEventsThisWeek: max 4 items
 - riskWarnings: max 3 items
-- Use realistic price levels based on recent gold/silver context
-- Include major scheduled events (FOMC, NFP, CPI, etc.) if relevant
 - Be specific and actionable`;
 
 // ── POST: Generate AI Weekly Outlook ─────────────────────────────────
@@ -98,6 +144,17 @@ export async function POST(request: NextRequest) {
       userContext += ` Previous week bias: ${last.htfBias}, structure: ${last.marketStructure}. Reasoning: "${last.biasReasoning}"`;
     }
 
+    // Fetch real-time spot prices
+    const spotPrices = await fetchSpotPrices();
+
+    let priceContext = "";
+    if (spotPrices.gold || spotPrices.silver) {
+      priceContext = `\n\nREAL-TIME SPOT PRICES (use these as the basis for ALL technical levels):`;
+      if (spotPrices.gold) priceContext += `\n- Gold (XAUUSD): $${spotPrices.gold.toFixed(2)}/oz`;
+      if (spotPrices.silver) priceContext += `\n- Silver (XAGUSD): $${spotPrices.silver.toFixed(2)}/oz`;
+      priceContext += `\nSupport levels MUST be below these prices. Resistance levels MUST be above these prices.`;
+    }
+
     const client = getAnthropicClient();
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
@@ -106,7 +163,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "user",
-          content: `Generate a comprehensive weekly market outlook for the week of ${weekLabel}. Today's date is ${new Date().toISOString().split("T")[0]}.${userContext}`,
+          content: `Generate a weekly market outlook for the week of ${weekLabel}. Today's date is ${new Date().toISOString().split("T")[0]}.${priceContext}${userContext}`,
         },
       ],
     });
@@ -155,7 +212,15 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    return NextResponse.json({ outlook, weekStart }, { status: 200 });
+    return NextResponse.json({
+      outlook,
+      weekStart,
+      spotPrices: {
+        gold: spotPrices.gold,
+        silver: spotPrices.silver,
+        fetchedAt: new Date().toISOString(),
+      },
+    }, { status: 200 });
   } catch (error) {
     if (error instanceof Error && error.message === "Unauthorized") {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
