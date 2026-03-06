@@ -19,58 +19,22 @@ function getAnthropicClient(): Anthropic {
   return anthropicClient;
 }
 
-const SYSTEM_PROMPT = `You are an expert gold (XAUUSD) and silver (XAGUSD) market analyst who combines fundamental analysis, macroeconomic factors, and ICT/SMC technical concepts.
+const SYSTEM_PROMPT = `You are an expert gold (XAUUSD) and silver (XAGUSD) market analyst. Respond ONLY with a valid JSON object — no markdown, no code fences, no extra text.
 
-When generating a weekly market outlook, you MUST respond with a valid JSON object (no markdown, no code fences) with this exact structure:
+CRITICAL: Keep all string values SHORT (1-2 sentences max). Keep arrays to 2-3 items max. This ensures the response fits within limits.
 
-{
-  "weekLabel": "March 10 - March 14, 2025",
-  "goldOutlook": {
-    "bias": "BULLISH" | "BEARISH" | "NEUTRAL",
-    "currentContext": "2-3 sentences on where gold stands right now based on recent macro context",
-    "fundamentalDrivers": [
-      {"factor": "Factor Name", "impact": "BULLISH" | "BEARISH" | "NEUTRAL", "detail": "1-2 sentence explanation"}
-    ],
-    "keyEventsThisWeek": [
-      {"event": "Event Name", "date": "Day of week", "expectedImpact": "Description of potential impact on gold"}
-    ],
-    "technicalLevels": {
-      "weeklySupport": ["level1", "level2"],
-      "weeklyResistance": ["level1", "level2"],
-      "keyZones": "Description of important order blocks, FVGs, or liquidity pools on the weekly/daily chart"
-    },
-    "scenarioBullish": "What needs to happen for gold to rally this week",
-    "scenarioBearish": "What needs to happen for gold to drop this week"
-  },
-  "silverOutlook": {
-    "bias": "BULLISH" | "BEARISH" | "NEUTRAL",
-    "currentContext": "2-3 sentences on silver's current position",
-    "keyDrivers": "Key factors specific to silver (industrial demand, gold-silver ratio, etc.)",
-    "technicalLevels": {
-      "weeklySupport": ["level1", "level2"],
-      "weeklyResistance": ["level1", "level2"]
-    }
-  },
-  "macroEnvironment": {
-    "dollarOutlook": "DXY/USD analysis and impact on metals",
-    "yieldsOutlook": "Treasury yields context and impact",
-    "riskSentiment": "Risk-on vs risk-off assessment",
-    "inflationContext": "Current inflation narrative and impact on gold"
-  },
-  "tradingPlan": {
-    "preferredDirection": "LONG" | "SHORT" | "WAIT",
-    "entryConditions": "What ICT/SMC conditions to look for before entering",
-    "riskWarnings": ["Warning 1", "Warning 2"],
-    "weeklyAdvice": "One key piece of discipline/psychology advice for this week"
-  }
-}
+JSON structure:
+{"weekLabel":"Mar 10-14, 2025","goldOutlook":{"bias":"BULLISH","currentContext":"Short context.","fundamentalDrivers":[{"factor":"Name","impact":"BULLISH","detail":"Short detail."}],"keyEventsThisWeek":[{"event":"Name","date":"Day","expectedImpact":"Short impact."}],"technicalLevels":{"weeklySupport":["2850","2820"],"weeklyResistance":["2920","2950"],"keyZones":"Short description of OBs/FVGs."},"scenarioBullish":"Short bull case.","scenarioBearish":"Short bear case."},"silverOutlook":{"bias":"BULLISH","currentContext":"Short context.","keyDrivers":"Short drivers.","technicalLevels":{"weeklySupport":["31.50","31.00"],"weeklyResistance":["33.00","33.50"]}},"macroEnvironment":{"dollarOutlook":"Short.","yieldsOutlook":"Short.","riskSentiment":"Short.","inflationContext":"Short."},"tradingPlan":{"preferredDirection":"LONG","entryConditions":"Short conditions.","riskWarnings":["Warning 1","Warning 2"],"weeklyAdvice":"Short advice."}}
 
-Important guidelines:
-- Base your analysis on well-known macro relationships: USD strength vs gold, real yields vs gold, inflation expectations, central bank policy, geopolitical risk premiums, seasonal patterns
-- For technical levels, use realistic price ranges based on recent gold/silver market context
-- Always include major scheduled economic events (FOMC, NFP, CPI, PPI, etc.) if they fall in the requested week
-- Be specific and actionable — traders need concrete levels and scenarios
-- The user will tell you the week they want analyzed`;
+Rules:
+- bias: "BULLISH", "BEARISH", or "NEUTRAL"
+- preferredDirection: "LONG", "SHORT", or "WAIT"
+- fundamentalDrivers: max 4 items
+- keyEventsThisWeek: max 4 items
+- riskWarnings: max 3 items
+- Use realistic price levels based on recent gold/silver context
+- Include major scheduled events (FOMC, NFP, CPI, etc.) if relevant
+- Be specific and actionable`;
 
 // ── POST: Generate AI Weekly Outlook ─────────────────────────────────
 
@@ -137,7 +101,7 @@ export async function POST(request: NextRequest) {
     const client = getAnthropicClient();
     const response = await client.messages.create({
       model: "claude-haiku-4-5-20251001",
-      max_tokens: 2048,
+      max_tokens: 4096,
       system: SYSTEM_PROMPT,
       messages: [
         {
@@ -155,18 +119,37 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Check if the response was truncated (stop_reason !== "end_turn")
+    if (response.stop_reason !== "end_turn") {
+      console.error("AI response was truncated. stop_reason:", response.stop_reason);
+      return NextResponse.json(
+        { error: "AI response was cut off. Please try again." },
+        { status: 500 }
+      );
+    }
+
     let outlook;
     try {
-      outlook = JSON.parse(textBlock.text);
-    } catch {
-      // Try to extract JSON from the response if it has extra text
+      // Strip any markdown fences if present
+      const cleaned = textBlock.text.replace(/```json?\s*/g, "").replace(/```\s*/g, "").trim();
+      outlook = JSON.parse(cleaned);
+    } catch (parseError) {
+      // Try to extract JSON object from the response
       const jsonMatch = textBlock.text.match(/\{[\s\S]*\}/);
       if (jsonMatch) {
-        outlook = JSON.parse(jsonMatch[0]);
+        try {
+          outlook = JSON.parse(jsonMatch[0]);
+        } catch {
+          console.error("Failed to parse extracted JSON:", parseError);
+          return NextResponse.json(
+            { error: "Failed to parse AI analysis. Please try again." },
+            { status: 500 }
+          );
+        }
       } else {
-        console.error("Failed to parse AI response:", textBlock.text);
+        console.error("No JSON found in AI response:", textBlock.text.substring(0, 200));
         return NextResponse.json(
-          { error: "Failed to parse AI analysis" },
+          { error: "Failed to parse AI analysis. Please try again." },
           { status: 500 }
         );
       }
